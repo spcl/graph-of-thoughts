@@ -1,0 +1,32 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+dist/
+build/
+
+# Installer logs
+pip-log.txt
+
+# IDEs
+.idea/
+*.vscode/
+*.pycproj
+*.user
+*.pyproj.user
+
+# Data
+results/
+*.out
+*.err
+
+# Environments
+env/
+
+# Config File
+**/config.json

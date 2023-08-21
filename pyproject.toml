@@ -1,0 +1,32 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graph_of_thoughts"
+version = "0.0.1"
+authors = [
+  { name="Maciej Besta", email="maciej.besta@inf.ethz.ch" },
+  { name="Nils Blach", email="nils.blach@inf.ethz.ch" },
+  { name="Ales Kubicek", email="akubicek@student.ethz.ch" },
+  { name="Robert Gerstenberger", email="gerstenberger.robert@gmail.com" },
+]
+description = "Python package for Graph of Thoughts that enables solving elaborate problems with Large Language Models"
+readme = "README.md"
+requires-python = ">=3.8"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Operating System :: OS Independent",
+]
+dependencies = [
+  "backoff>=2.2.1",
+  "openai>=0.27.7",
+  "matplotlib>=3.7.1",
+  "numpy>=1.24.3",
+  "pandas>=2.0.3",
+  "sympy>=1.12",
+  "torch>=2.0.1",
+  "transformers>=4.31.0",
+]
+
+[project.scripts]
