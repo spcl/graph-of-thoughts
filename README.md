@@ -127,7 +127,9 @@ However, if you just want to inspect and replot the results, you can use the [pa
 
 ## Citations
 
-Any published work which uses this software should include the following citation:
+If you find this repository valuable, please give it a star!  
+Got any questions or feedback? Feel free to reach out to [nils.blach@inf.ethz.ch](mailto:nils.blach@inf.ethz.ch) or open an issue.  
+Using this in your work? Please reference us using the provided citation:
 
 ```bibtex
 @misc{besta2023got,

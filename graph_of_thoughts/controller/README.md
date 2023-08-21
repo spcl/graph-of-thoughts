@@ -9,14 +9,14 @@ Currently, the framework supports the following LLMs:
 - Llama-2 (Local - HuggingFace Transformers) 
 
 The following section describes how to instantiate individual LLMs and the Controller to run a defined GoO. 
-Furthermore, process of adding new LLM into the framework is outlined at the end.  
+Furthermore, the process of adding new LLMs into the framework is outlined at the end.
 
 ## LLM Instantiation
 - Create a copy of `config_template.json` named `config.json`.
 - Fill configuration details based on the used model (below).
 
 ### GPT-4 / GPT-3.5
-- Adjust predefined `chatgpt`,  `chatgpt4` or create new configuration with unique key.
+- Adjust predefined `chatgpt`,  `chatgpt4` or create new configuration with an unique key.
 
 | Key                 | Value                                                                                                                                                                                                                                                                                                                                                               |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -38,8 +38,8 @@ lm = controller.ChatGPT(
 ```
 
 ### Llama-2
-- Requires local hardware to run inference and HuggingFace account.
-- Adjust predefined `llama7b-hf`, `llama13b-hf`, `llama70b-hf` or create new configuration with unique key.
+- Requires local hardware to run inference and a HuggingFace account.
+- Adjust predefined `llama7b-hf`, `llama13b-hf`, `llama70b-hf` or create a new configuration with an unique key.
 
 | Key                 | Value                                                                                                                                                                           |
 |---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -58,8 +58,8 @@ lm = controller.Llama2HF(
     model_name=<configuration key>
 )
 ```
-- Request access to Llama-2 via [Meta form](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) using same email address as for the HuggingFace account.
-- After the access is granted, go to [HuggingFace Llama-2 model card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), log in and accept licence (_"You have been granted access to this model"_ message should appear).
+- Request access to Llama-2 via the [Meta form](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) using the same email address as for the HuggingFace account.
+- After the access is granted, go to [HuggingFace Llama-2 model card](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), log in and accept the license (_"You have been granted access to this model"_ message should appear).
 - Generate HuggingFace access token.
 - Log in from CLI with: `huggingface-cli login --token <your token>`.
 
