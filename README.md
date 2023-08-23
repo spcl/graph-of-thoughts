@@ -59,7 +59,7 @@ ctrl = controller.Controller(
   gop, 
   SortingPrompter(), 
   SortingParser(),
-  # The following dictionary is used to configure the inital thought state
+  # The following dictionary is used to configure the initial thought state
   {
     "original": to_be_sorted,
     "current": "",
@@ -94,7 +94,7 @@ ctrl = controller.Controller(
   gop, 
   SortingPrompter(), 
   SortingParser(),
-  # The following dictionary is used to configure the inital thought state
+  # The following dictionary is used to configure the initial thought state
   {
     "original": to_be_sorted,
     "current": "",
