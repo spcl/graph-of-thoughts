@@ -14,14 +14,16 @@ In order to use this framework, you need to have a working installation of Pytho
 
 ### Installing GoT
 
-If you are a user and you just want to use `graph_of_thoughts`, you can install it directly from the source with pip.  
-If you are a developer and you want to modify the code, you can install it in editable mode by adding the `-e` flag to the pip command.
-Activate your Python environment (if any), and run:
-
+Before running either of the following two installation methods, make sure to activate your Python environment (if any) beforehand.  
+If you are a user and you just want to use `graph_of_thoughts`, you can install it directly from from PyPI:
+```bash
+pip install graph-of-thoughts
+```
+If you are a developer and you want to modify the code, you can install it in editable mode from source:
 ```bash
 git clone https://github.com/spcl/graph-of-thoughts.git
 cd graph-of-thoughts
-pip install .
+pip install -e .
 ```
 
 ### Configuring the LLM

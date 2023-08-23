@@ -13,6 +13,7 @@ authors = [
 ]
 description = "Python package for Graph of Thoughts that enables solving elaborate problems with Large Language Models"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.8"
 classifiers = [
   "Programming Language :: Python :: 3",
@@ -28,5 +29,8 @@ dependencies = [
   "torch>=2.0.1",
   "transformers>=4.31.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/spcl/graph-of-thoughts"
 
 [project.scripts]
