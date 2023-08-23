@@ -15,9 +15,9 @@ In order to use this framework, you need to have a working installation of Pytho
 ### Installing GoT
 
 Before running either of the following two installation methods, make sure to activate your Python environment (if any) beforehand.  
-If you are a user and you just want to use `graph_of_thoughts`, you can install it directly from from PyPI:
+If you are a user and you just want to use `graph_of_thoughts`, you can install it directly from PyPI:
 ```bash
-pip install graph-of-thoughts
+pip install graph_of_thoughts
 ```
 If you are a developer and you want to modify the code, you can install it in editable mode from source:
 ```bash
