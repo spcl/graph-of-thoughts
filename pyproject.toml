@@ -30,7 +30,7 @@ dependencies = [
   "transformers>=4.31.0",
   "accelerate>=0.21.0",
   "bitsandbytes>=0.41.0",
-  "scipy",
+  "scipy>=1.10.1",
 ]
 
 [project.urls]
