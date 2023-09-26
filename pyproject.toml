@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "graph_of_thoughts"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Maciej Besta", email="maciej.besta@inf.ethz.ch" },
   { name="Nils Blach", email="nils.blach@inf.ethz.ch" },
