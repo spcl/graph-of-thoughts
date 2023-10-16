@@ -219,6 +219,7 @@ NDA <S{num}>:
                 prompt += self.improve_summary_prompt_end.format(summary=current)
                 return prompt
         elif method.startswith("got"):
+            parts = sorted(list(parts)) if len(parts) > 0 else list(range(len(documents)))
             if current is None or current == "":
                 prompt += self.merge_doc_prompt_start.format(num=len(parts))
                 for i, part in enumerate(sorted(list(parts))):
@@ -546,9 +547,7 @@ def got() -> operations.GraphOfOperations:
     """
     operations_graph = operations.GraphOfOperations()
 
-    branch_factor = 10
-
-    operations_graph.append_operation(operations.Generate(1, branch_factor))
+    operations_graph.append_operation(operations.Generate(1, 5))
     operations_graph.append_operation(operations.Score(3, False))
     keep_best = operations.KeepBestN(3, True)
     operations_graph.append_operation(keep_best)
@@ -557,7 +556,7 @@ def got() -> operations.GraphOfOperations:
     keep_best2 = operations.KeepBestN(1, True)
     keep_best2.add_predecessor(keep_best)
     operations_graph.append_operation(keep_best2)
-    operations_graph.append_operation(operations.Generate(1, branch_factor))
+    operations_graph.append_operation(operations.Generate(1, 10))
     operations_graph.append_operation(operations.Score(3, False))
     keep_best3 = operations.KeepBestN(1, True)
     keep_best3.add_predecessor(keep_best2)
