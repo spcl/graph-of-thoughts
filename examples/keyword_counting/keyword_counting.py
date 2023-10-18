@@ -18,7 +18,7 @@ import csv
 from collections import Counter
 from functools import partial
 from typing import Dict, List, Callable, Union
-from graph_of_thoughts import controller, operations, prompter, parser
+from graph_of_thoughts import controller, language_models, operations, prompter, parser
 
 
 def string_to_list(string: str) -> List[str]:
@@ -1403,8 +1403,8 @@ def run(
                     f"Budget has been depleted, stopping. Method {method.__name__} has not been run."
                 )
                 break
-            lm = controller.ChatGPT(
-                "../../graph_of_thoughts/controller/config.json",
+            lm = language_models.ChatGPT(
+                "../../graph_of_thoughts/language_models/config.json",
                 model_name=lm_name,
                 cache=True,
             )
