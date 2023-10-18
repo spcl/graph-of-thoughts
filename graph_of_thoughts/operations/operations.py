@@ -14,7 +14,7 @@ from abc import ABC, abstractmethod
 import itertools
 
 from graph_of_thoughts.operations.thought import Thought
-from graph_of_thoughts.controller.abstract_language_model import AbstractLanguageModel
+from graph_of_thoughts.language_models import AbstractLanguageModel
 from graph_of_thoughts.prompter import Prompter
 from graph_of_thoughts.parser import Parser
 
