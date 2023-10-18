@@ -219,7 +219,9 @@ NDA <S{num}>:
                 prompt += self.improve_summary_prompt_end.format(summary=current)
                 return prompt
         elif method.startswith("got"):
-            parts = sorted(list(parts)) if len(parts) > 0 else list(range(len(documents)))
+            parts = (
+                sorted(list(parts)) if len(parts) > 0 else list(range(len(documents)))
+            )
             if current is None or current == "":
                 prompt += self.merge_doc_prompt_start.format(num=len(parts))
                 for i, part in enumerate(sorted(list(parts))):
