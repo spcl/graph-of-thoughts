@@ -38,7 +38,7 @@ Make sure you have followed the [Setup Guide](#setup-guide) before running the c
 
 ```python
 from examples.sorting.sorting_032 import SortingPrompter, SortingParser, utils
-from graph_of_thoughts import controller, operations
+from graph_of_thoughts import controller, language_models, operations
 
 # Problem input
 
@@ -51,7 +51,7 @@ gop.append_operation(operations.Score(scoring_function=utils.num_errors))
 gop.append_operation(operations.GroundTruth(utils.test_sorting))
 
 # Configure the Language Model (Assumes config.json is in the current directory with OpenAI API key)
-lm = controller.ChatGPT("config.json", model_name="chatgpt")
+lm = language_models.ChatGPT("config.json", model_name="chatgpt")
 
 # Create the Controller
 ctrl = controller.Controller(
@@ -76,7 +76,7 @@ To run the more sophisticated GoT approach, you can use the following code snipp
 
 ```python
 from examples.sorting.sorting_032 import SortingPrompter, SortingParser, got, utils
-from graph_of_thoughts import controller, operations
+from graph_of_thoughts import controller, language_models, operations
 
 # Problem input
 
@@ -86,7 +86,7 @@ to_be_sorted = "[0, 2, 6, 3, 8, 7, 1, 1, 6, 7, 7, 7, 7, 9, 3, 0, 1, 7, 9, 1, 3, 
 gop = got()
 
 # Configure the Language Model (Assumes config.json is in the current directory with OpenAI API key)
-lm = controller.ChatGPT("config.json", model_name="chatgpt")
+lm = language_models.ChatGPT("config.json", model_name="chatgpt")
 
 # Create the Controller
 ctrl = controller.Controller(
