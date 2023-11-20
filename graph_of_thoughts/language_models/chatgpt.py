@@ -7,11 +7,12 @@
 # main author: Nils Blach
 
 import backoff
-import openai
 import os
 import random
 import time
 from typing import List, Dict, Union
+from openai import OpenAI, OpenAIError
+from openai.types.chat.chat_completion import ChatCompletion
 
 from .abstract_language_model import AbstractLanguageModel
 
@@ -53,15 +54,15 @@ class ChatGPT(AbstractLanguageModel):
         self.organization: str = self.config["organization"]
         if self.organization == "":
             self.logger.warning("OPENAI_ORGANIZATION is not set")
-        else:
-            openai.organization = self.organization
-        # The api key is the api key that is used for chatgpt. Env variable OPENAI_API_KEY takes precedence over config.
         self.api_key: str = os.getenv("OPENAI_API_KEY", self.config["api_key"])
         if self.api_key == "":
             raise ValueError("OPENAI_API_KEY is not set")
-        openai.api_key = self.api_key
+        # Initialize the OpenAI Client
+        self.client = OpenAI(api_key=self.api_key, organization=self.organization)
 
-    def query(self, query: str, num_responses: int = 1) -> Dict:
+    def query(
+        self, query: str, num_responses: int = 1
+    ) -> Union[List[ChatCompletion], ChatCompletion]:
         """
         Query the OpenAI model for responses.
 
@@ -100,10 +101,8 @@ class ChatGPT(AbstractLanguageModel):
             self.respone_cache[query] = response
         return response
 
-    @backoff.on_exception(
-        backoff.expo, openai.error.OpenAIError, max_time=10, max_tries=6
-    )
-    def chat(self, messages: List[Dict], num_responses: int = 1) -> Dict:
+    @backoff.on_exception(backoff.expo, OpenAIError, max_time=10, max_tries=6)
+    def chat(self, messages: List[Dict], num_responses: int = 1) -> ChatCompletion:
         """
         Send chat messages to the OpenAI model and retrieves the model's response.
         Implements backoff on OpenAI error.
@@ -113,9 +112,9 @@ class ChatGPT(AbstractLanguageModel):
         :param num_responses: Number of desired responses, default is 1.
         :type num_responses: int
         :return: The OpenAI model's response.
-        :rtype: Dict
+        :rtype: ChatCompletion
         """
-        response = openai.ChatCompletion.create(
+        response = self.client.chat.completions.create(
             model=self.model_id,
             messages=messages,
             temperature=self.temperature,
@@ -124,8 +123,8 @@ class ChatGPT(AbstractLanguageModel):
             stop=self.stop,
         )
 
-        self.prompt_tokens += response["usage"]["prompt_tokens"]
-        self.completion_tokens += response["usage"]["completion_tokens"]
+        self.prompt_tokens += response.usage.prompt_tokens
+        self.completion_tokens += response.usage.completion_tokens
         prompt_tokens_k = float(self.prompt_tokens) / 1000.0
         completion_tokens_k = float(self.completion_tokens) / 1000.0
         self.cost = (
@@ -138,19 +137,21 @@ class ChatGPT(AbstractLanguageModel):
         )
         return response
 
-    def get_response_texts(self, query_response: Union[List[Dict], Dict]) -> List[str]:
+    def get_response_texts(
+        self, query_response: Union[List[ChatCompletion], ChatCompletion]
+    ) -> List[str]:
         """
         Extract the response texts from the query response.
 
         :param query_response: The response dictionary (or list of dictionaries) from the OpenAI model.
-        :type query_response: Union[List[Dict], Dict]
+        :type query_response: Union[List[ChatCompletion], ChatCompletion]
         :return: List of response strings.
         :rtype: List[str]
         """
-        if isinstance(query_response, Dict):
+        if not isinstance(query_response, List):
             query_response = [query_response]
         return [
-            choice["message"]["content"]
+            choice.message.content
             for response in query_response
-            for choice in response["choices"]
+            for choice in response.choices
         ]

@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "graph_of_thoughts"
-version = "0.0.2"
+version = "0.0.3"
 authors = [
   { name="Maciej Besta", email="maciej.besta@inf.ethz.ch" },
   { name="Nils Blach", email="nils.blach@inf.ethz.ch" },
@@ -20,17 +20,17 @@ classifiers = [
   "Operating System :: OS Independent",
 ]
 dependencies = [
-  "backoff>=2.2.1",
-  "openai>=0.27.7",
-  "matplotlib>=3.7.1",
-  "numpy>=1.24.3",
-  "pandas>=2.0.3",
-  "sympy>=1.12",
-  "torch>=2.0.1",
-  "transformers>=4.31.0",
-  "accelerate>=0.21.0",
-  "bitsandbytes>=0.41.0",
-  "scipy>=1.10.1",
+  "backoff>=2.2.1,<3.0.0",
+  "openai>=1.0.0,<2.0.0",
+  "matplotlib>=3.7.1,<4.0.0",
+  "numpy>=1.24.3,<2.0.0",
+  "pandas>=2.0.3,<3.0.0",
+  "sympy>=1.12,<2.0",
+  "torch>=2.0.1,<3.0.0",
+  "transformers>=4.31.0,<5.0.0",
+  "accelerate>=0.21.0,<1.0.0",
+  "bitsandbytes>=0.41.0,<1.0.0",
+  "scipy>=1.10.1,<2.0.0",
 ]
 
 [project.urls]

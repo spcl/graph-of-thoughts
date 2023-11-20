@@ -80,12 +80,12 @@ class AbstractLanguageModel(ABC):
         pass
 
     @abstractmethod
-    def get_response_texts(self, query_responses: Union[List[Dict], Dict]) -> List[str]:
+    def get_response_texts(self, query_responses: Union[List[Any], Any]) -> List[str]:
         """
         Abstract method to extract response texts from the language model's response(s).
 
         :param query_responses: The responses returned from the language model.
-        :type query_responses: Union[List[Dict], Dict]
+        :type query_responses: Union[List[Any], Any]
         :return: List of textual responses.
         :rtype: List[str]
         """
