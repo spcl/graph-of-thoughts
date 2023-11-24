@@ -159,7 +159,7 @@ Output:
 
 Input: {input}"""
 
-    got_merge_prompt = """<Instruction> Merge the following 2 lists of length {length1} each, into one list of length {length2} by appending the second list to the first list.
+    got_merge_prompt = """<Instruction> Merge the following 2 lists into one list by appending the second list to the first list.
 Only output the final list without any additional text or thoughts! </Instruction>
 
 List 1: {input1}
@@ -178,22 +178,10 @@ List 2: {input2}
         :raise AssertionError: If not exactly two thought states are provided.
         """
         assert len(state_dicts) == 2, "Expected two states for aggregation prompt."
-        len_input1 = len(utils.string_to_list(state_dicts[0]["current"]))
-        len_input2 = len(utils.string_to_list(state_dicts[1]["current"]))
-        if len_input1 == len_input2:
-            length = len_input1
-        elif len_input1 + len_input2 - 32 <= 16:
-            length = 16
-        elif len_input1 + len_input2 - 64 <= 32:
-            length = 32
-        else:
-            length = 64
 
         return self.got_merge_prompt.format(
             input1=state_dicts[0]["current"],
             input2=state_dicts[1]["current"],
-            length1=length,
-            length2=length * 2,
         )
 
     def generate_prompt(
