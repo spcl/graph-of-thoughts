@@ -4,19 +4,19 @@
 Replace `{input}` with the input list of numbers to be split.
 ```
 <Instruction> Split the following list of 32 numbers into 2 lists of 16 numbers each, the first list should contain the first 16 numbers and the second list the second 16 numbers.
-Only output the final 4 lists in the following format without any additional text or thoughts!:
-{
+Only output the final 2 lists in the following format without any additional text or thoughts!:
+{{
     "List 1": [3, 4, 3, 5, 7, 8, 1, ...],
     "List 2": [2, 9, 2, 4, 7, 1, 5, ...]
-} </Instruction>
+}} </Instruction>
 
 <Example>
 Input: [9, 6, 7, 7, 2, 0, 2, 2, 3, 5, 0, 9, 2, 2, 4, 4, 5, 2, 5, 1, 2, 8, 3, 8, 3, 9, 6, 0, 4, 2, 2, 3]
-Output: 
-{
+Output:
+{{
     "List 1": [9, 6, 7, 7, 2, 0, 2, 2, 3, 5, 0, 9, 2, 2, 4, 4],
     "List 2": [5, 2, 5, 1, 2, 8, 3, 8, 3, 9, 6, 0, 4, 2, 2, 3]
-}
+}}
 </Example>
 
 Input: {input}
@@ -74,10 +74,10 @@ Input: {input}
 Incorrectly Sorted: {incorrectly_sorted}
 ```
 
-### Aggregate: aggregate_prompt
+### AGGREGATE: aggregate_prompt
 Replace `{input_list1}` and `{input_list2}` with the input lists of numbers to be merged. `{length}` is the length of each input list and `{length_combined}` is the length of the combined list.
 ```
-<Instruction> Merge the following 2 sorted lists of length {length} each, into one sorted list of length {length_combined} using a merge sort style approach. 
+<Instruction> Merge the following 2 sorted lists of length {length} each, into one sorted list of length {length_combined} using a merge sort style approach.
 Only output the final merged list without any additional text or thoughts!:</Instruction>
 
 <Approach>
@@ -99,7 +99,7 @@ Merged list:
 ### The GoO Summarised
 1. Split the input list into two sub-lists of equal size (split prompt)
 2. For each sub-list: Sort the sub-list (sort prompt) five times; score each sort attempt; keep the best
-3. Merge the sorted sub-lists into one fully sorted list (merge prompt) 10 times; score each merge attempt; keep the best 
+3. Merge the sorted sub-lists into one fully sorted list (merge prompt) 10 times; score each merge attempt; keep the best
 4. Fix any potential mistakes in the sorted list (improve prompt) 10 times; score each improvement attempt; keep the best
 
 ### Input
@@ -110,7 +110,7 @@ Merged list:
 ### Step 1 - Prompt
 ```
 <Instruction> Split the following list of 32 numbers into 2 lists of 16 numbers each, the first list should contain the first 16 numbers and the second list the second 16 numbers.
-Only output the final 4 lists in the following format without any additional text or thoughts!:
+Only output the final 2 lists in the following format without any additional text or thoughts!:
 {
     "List 1": [3, 4, 3, 5, 7, 8, 1, ...],
     "List 2": [2, 9, 2, 4, 7, 1, 5, ...]
@@ -118,7 +118,7 @@ Only output the final 4 lists in the following format without any additional tex
 
 <Example>
 Input: [9, 6, 7, 7, 2, 0, 2, 2, 3, 5, 0, 9, 2, 2, 4, 4, 5, 2, 5, 1, 2, 8, 3, 8, 3, 9, 6, 0, 4, 2, 2, 3]
-Output: 
+Output:
 {
     "List 1": [9, 6, 7, 7, 2, 0, 2, 2, 3, 5, 0, 9, 2, 2, 4, 4],
     "List 2": [5, 2, 5, 1, 2, 8, 3, 8, 3, 9, 6, 0, 4, 2, 2, 3]
@@ -196,7 +196,7 @@ Input: [0, 5, 6, 7, 1, 4, 5, 9, 4, 6, 2, 5, 8, 6, 2, 6]
 Only output the final merged list without any additional text or thoughts!:</Instruction>
 
 <Approach>
-To merge the two lists in a merge-sort style approach, foloow these steps:
+To merge the two lists in a merge-sort style approach, follow these steps:
 1. Compare the first element of both lists.
 2. Append the smaller element to the merged list and move to the next element in the list from which the smaller element came.
 3. Repeat steps 1 and 2 until one of the lists is empty.

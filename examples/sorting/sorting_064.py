@@ -140,7 +140,7 @@ Input: {input}"""
 Only output the final merged list without any additional text or thoughts!:</Instruction>
 
 <Approach>
-To merge the two lists in a merge-sort style approach, foloow these steps:
+To merge the two lists in a merge-sort style approach, follow these steps:
 1. Compare the first element of both lists.
 2. Append the smaller element to the merged list and move to the next element in the list from which the smaller element came.
 3. Repeat steps 1 and 2 until one of the lists is empty.

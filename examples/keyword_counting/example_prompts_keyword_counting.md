@@ -10,7 +10,7 @@ Only output the final 4 paragraphs in the following format without any additiona
     "Paragraph 2": "Some paragraph text ...",
     "Paragraph 3": "Some paragraph text ...",
     "Paragraph 4": "Some paragraph text ..."
-} 
+}
 </Instruction>
 
 <Example>
@@ -18,7 +18,7 @@ Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Output: 
 {
-    "Paragraph 1": "Journeying westward, she admired the art in Italy and sipped coffee in France. ",
+    "Paragraph 1": "Journeying westward, she admired the art in Italy and sipped coffee in France.",
     "Paragraph 2": "The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.",
     "Paragraph 3": "She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.",
     "Paragraph 4": "Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit."
@@ -50,7 +50,7 @@ To count the frequency for each country follow these steps:
 Input:
 Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Paragraphs:
-Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. 
+Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement.
 Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Sublist frequencies:
 {
@@ -72,7 +72,7 @@ Output:
 Input:
 The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Paragraphs:
-The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. 
+The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert.
 A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Sublists:
 {
@@ -101,9 +101,9 @@ Output:
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Paragraphs:
-Journeying westward, she admired the art in Italy and sipped coffee in France. 
-The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. 
-She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. 
+Journeying westward, she admired the art in Italy and sipped coffee in France.
+The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.
+She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.
 Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Sublists:
 {
@@ -156,7 +156,7 @@ Replace `{dictionary_1}` and `{dictionary_2}` with dictionaries of countries to 
 ```
 <Instruction> Combine the following 2 dictionaries, each containing the frequency of countries in a text, into a single dictionary.
 Simply add the frequencies together for each country and if a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
-Only output the final merged dictionary without any additional text or thoughts! 
+Only output the final merged dictionary without any additional text or thoughts!
 </Instruction>
 
 <Approach>
@@ -174,60 +174,56 @@ Combined Output:
 ```
 
 ### IMPROVE: improve_merge_prompt
-Replace `{dictionary_1}` and `{dictionary_2}` with dictionaries of countries 
-to be merged and `{dictionary_incorrect}` with incorrectly merged dictionary 
+Replace `{dictionary_1}` and `{dictionary_2}` with dictionaries of countries
+to be merged and `{dictionary_incorrect}` with incorrectly merged dictionary
 to be improved.
 ```
-<Instruction> The following 2 dictionaries were combined into the third dictionary below. 
-However, some mistakes occured and the third dictionary is incorrect. 
-Please fix the third dictionary so that it contains the correct frequencies for each country. 
-The correct frequencies are the sum of the frequencies from the first 2 dictionaries. 
-If a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
+<Instruction> The following 2 dictionaries were combined into the third dictionary below. However, some mistakes occured and the third dictionary is incorrect. Please fix the third dictionary so that it contains the correct frequencies for each country. The correct frequencies are the sum of the frequencies from the first 2 dictionaries. If a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
 </Instruction>
 
 <Example>
-Dictionary 1: 
-{ 
-    "Peru": 2, 
-    "Chile": 1, 
-    "Uruguay": 1, 
-    "Paraguay": 1 
+Dictionary 1:
+{
+    "Peru": 2,
+    "Chile": 1,
+    "Uruguay": 1,
+    "Paraguay": 1
 }
-Dictionary 2: 
-{ 
-    "Peru": 1, 
-    "Argentina": 1, 
-    "Canada": 1, 
-    "Chile": 3, 
-    "Germany": 2 
+Dictionary 2:
+{
+    "Peru": 1,
+    "Argentina": 1,
+    "Canada": 1,
+    "Chile": 3,
+    "Germany": 2
 }
 Incorrectly Combined Dictionary:
-{   
-    "Peru": 3, 
-    "Chile": 2, 
-    "Uruguay": 1, 
-    "Paraguay": 1, 
-    "Argentina": 1, 
-    "Chile": 3, 
-    "Germany": 2 
+{
+    "Peru": 3,
+    "Chile": 2,
+    "Uruguay": 1,
+    "Paraguay": 1,
+    "Argentina": 1,
+    "Chile": 3,
+    "Germany": 2
 }
 Output:
-{ 
-    "Peru": 3, 
-    "Chile": 4, 
-    "Uruguay": 1, 
-    "Paraguay": 1, 
-    "Argentina": 1, 
-    "Canada": 1, 
-    "Germany": 2 
+{
+    "Peru": 3,
+    "Chile": 4,
+    "Uruguay": 1,
+    "Paraguay": 1,
+    "Argentina": 1,
+    "Canada": 1,
+    "Germany": 2
 }
 </Example>
 
-Dictionary 1: 
+Dictionary 1:
 {dictionary_1}
-Dictionary 2: 
+Dictionary 2:
 {dictionary_2}
-Incorrectly Combined Dictionary: 
+Incorrectly Combined Dictionary:
 {dictionary_incorrect}
 Output:
 ```
@@ -236,24 +232,24 @@ Output:
 ### The GoO Summarised
 1. Split the input text into four paragraphs of roughly equal size (split prompt)
 2. For each paragraph: Count the occurrences of individual countries (count prompt) 10 times; score each counting attempt; keep the best
-3. Merge the country counts into one dictionary (merge prompt) 3 times; 
+3. Merge the country counts into one dictionary (merge prompt) 3 times;
    validate and improve invalid merge attempts (improve merge prompt) up to 3 attempts each; score; keep the best
 
 
 ### Input
 ```
-My friend, Alex from Peru, once recounted his journey to Argentina where he learned about the strong cultural ties between Argentina and Brazil due to their shared history. 
-He spoke fondly of his time in Argentina and Brazil, marveling at the similar music, dance, and culinary traditions that seamlessly bridged the borders of these countries. 
-It reminded me of a documentary I'd watched about the ancient Silk Road that spanned across Iran and China. 
-It touched upon the shared historical narratives of Iran and China, highlighting how goods, ideas, and culture flowed between these two countries for centuries. 
-Intriguingly, the documentary also brought up some parallels between this eastern route and the vibrant exchange between Italy and France during the Renaissance. 
-The cultural and intellectual bonds between Italy and France were indeed profound, just as the resilient trade relations that existed between the United States and Canada. 
-The United States and Canada, apart from their geographical proximity, shared an economic bond that strongly influenced their policies and international standing. 
-Similarly, the ties between Australia and New Zealand shed light on their gestalt identity in the Pacific region. 
-Despite their unique characteristics, Australia and New Zealand were often viewed as a single entity due to their remarkably similar backgrounds in terms of culture, language, and colonial history. 
-Inspired by these chronicles of interconnectedness, I decided to delve deeper into history and found a fascinating account of how Ukraine and Poland had influenced each other through years of coexistence. 
-Despite their tumultuous past, Ukraine and Poland shared a cultural tapestry that was deeply woven into their histories. 
-It was quite similar to the complex relationship between North Korea and South Korea, which, despite their political differences, shared common heritage and traditions. 
+My friend, Alex from Peru, once recounted his journey to Argentina where he learned about the strong cultural ties between Argentina and Brazil due to their shared history.
+He spoke fondly of his time in Argentina and Brazil, marveling at the similar music, dance, and culinary traditions that seamlessly bridged the borders of these countries.
+It reminded me of a documentary I'd watched about the ancient Silk Road that spanned across Iran and China.
+It touched upon the shared historical narratives of Iran and China, highlighting how goods, ideas, and culture flowed between these two countries for centuries.
+Intriguingly, the documentary also brought up some parallels between this eastern route and the vibrant exchange between Italy and France during the Renaissance.
+The cultural and intellectual bonds between Italy and France were indeed profound, just as the resilient trade relations that existed between the United States and Canada.
+The United States and Canada, apart from their geographical proximity, shared an economic bond that strongly influenced their policies and international standing.
+Similarly, the ties between Australia and New Zealand shed light on their gestalt identity in the Pacific region.
+Despite their unique characteristics, Australia and New Zealand were often viewed as a single entity due to their remarkably similar backgrounds in terms of culture, language, and colonial history.
+Inspired by these chronicles of interconnectedness, I decided to delve deeper into history and found a fascinating account of how Ukraine and Poland had influenced each other through years of coexistence.
+Despite their tumultuous past, Ukraine and Poland shared a cultural tapestry that was deeply woven into their histories.
+It was quite similar to the complex relationship between North Korea and South Korea, which, despite their political differences, shared common heritage and traditions.
 Thus, from Argentina to South Korea, the world was an intricate web of countries intertwined with each other through shared histories, cultures, and sometimes, shared destinies.
 ```
 
@@ -266,15 +262,15 @@ Only output the final 4 paragraphs in the following format without any additiona
     "Paragraph 2": "Some paragraph text ...",
     "Paragraph 3": "Some paragraph text ...",
     "Paragraph 4": "Some paragraph text ..."
-} 
+}
 </Instruction>
 
 <Example>
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
-Output: 
+Output:
 {
-    "Paragraph 1": "Journeying westward, she admired the art in Italy and sipped coffee in France. ",
+    "Paragraph 1": "Journeying westward, she admired the art in Italy and sipped coffee in France.",
     "Paragraph 2": "The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.",
     "Paragraph 3": "She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.",
     "Paragraph 4": "Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit."
@@ -282,18 +278,18 @@ Output:
 </Example>
 
 Input:
-My friend, Alex from Peru, once recounted his journey to Argentina where he learned about the strong cultural ties between Argentina and Brazil due to their shared history. 
-He spoke fondly of his time in Argentina and Brazil, marveling at the similar music, dance, and culinary traditions that seamlessly bridged the borders of these countries. 
-It reminded me of a documentary I'd watched about the ancient Silk Road that spanned across Iran and China. 
-It touched upon the shared historical narratives of Iran and China, highlighting how goods, ideas, and culture flowed between these two countries for centuries. 
-Intriguingly, the documentary also brought up some parallels between this eastern route and the vibrant exchange between Italy and France during the Renaissance. 
-The cultural and intellectual bonds between Italy and France were indeed profound, just as the resilient trade relations that existed between the United States and Canada. 
-The United States and Canada, apart from their geographical proximity, shared an economic bond that strongly influenced their policies and international standing. 
-Similarly, the ties between Australia and New Zealand shed light on their gestalt identity in the Pacific region. 
-Despite their unique characteristics, Australia and New Zealand were often viewed as a single entity due to their remarkably similar backgrounds in terms of culture, language, and colonial history. 
-Inspired by these chronicles of interconnectedness, I decided to delve deeper into history and found a fascinating account of how Ukraine and Poland had influenced each other through years of coexistence. 
-Despite their tumultuous past, Ukraine and Poland shared a cultural tapestry that was deeply woven into their histories. 
-It was quite similar to the complex relationship between North Korea and South Korea, which, despite their political differences, shared common heritage and traditions. 
+My friend, Alex from Peru, once recounted his journey to Argentina where he learned about the strong cultural ties between Argentina and Brazil due to their shared history.
+He spoke fondly of his time in Argentina and Brazil, marveling at the similar music, dance, and culinary traditions that seamlessly bridged the borders of these countries.
+It reminded me of a documentary I'd watched about the ancient Silk Road that spanned across Iran and China.
+It touched upon the shared historical narratives of Iran and China, highlighting how goods, ideas, and culture flowed between these two countries for centuries.
+Intriguingly, the documentary also brought up some parallels between this eastern route and the vibrant exchange between Italy and France during the Renaissance.
+The cultural and intellectual bonds between Italy and France were indeed profound, just as the resilient trade relations that existed between the United States and Canada.
+The United States and Canada, apart from their geographical proximity, shared an economic bond that strongly influenced their policies and international standing.
+Similarly, the ties between Australia and New Zealand shed light on their gestalt identity in the Pacific region.
+Despite their unique characteristics, Australia and New Zealand were often viewed as a single entity due to their remarkably similar backgrounds in terms of culture, language, and colonial history.
+Inspired by these chronicles of interconnectedness, I decided to delve deeper into history and found a fascinating account of how Ukraine and Poland had influenced each other through years of coexistence.
+Despite their tumultuous past, Ukraine and Poland shared a cultural tapestry that was deeply woven into their histories.
+It was quite similar to the complex relationship between North Korea and South Korea, which, despite their political differences, shared common heritage and traditions.
 Thus, from Argentina to South Korea, the world was an intricate web of countries intertwined with each other through shared histories, cultures, and sometimes, shared destinies.
 ```
 
@@ -328,7 +324,7 @@ To count the frequency for each country follow these steps:
 Input:
 Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Paragraphs:
-Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. 
+Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement.
 Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Sublist frequencies:
 {
@@ -350,7 +346,7 @@ Output:
 Input:
 The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Paragraphs:
-The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. 
+The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert.
 A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Sublists:
 {
@@ -379,9 +375,9 @@ Output:
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Paragraphs:
-Journeying westward, she admired the art in Italy and sipped coffee in France. 
-The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. 
-She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. 
+Journeying westward, she admired the art in Italy and sipped coffee in France.
+The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.
+She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.
 Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Sublists:
 {
@@ -464,7 +460,7 @@ To count the frequency for each country follow these steps:
 Input:
 Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Paragraphs:
-Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. 
+Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement.
 Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Sublist frequencies:
 {
@@ -486,7 +482,7 @@ Output:
 Input:
 The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Paragraphs:
-The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. 
+The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert.
 A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Sublists:
 {
@@ -515,9 +511,9 @@ Output:
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Paragraphs:
-Journeying westward, she admired the art in Italy and sipped coffee in France. 
-The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. 
-She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. 
+Journeying westward, she admired the art in Italy and sipped coffee in France.
+The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.
+She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.
 Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Sublists:
 {
@@ -600,7 +596,7 @@ To count the frequency for each country follow these steps:
 Input:
 Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Paragraphs:
-Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. 
+Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement.
 Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Sublist frequencies:
 {
@@ -622,7 +618,7 @@ Output:
 Input:
 The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Paragraphs:
-The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. 
+The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert.
 A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Sublists:
 {
@@ -651,9 +647,9 @@ Output:
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Paragraphs:
-Journeying westward, she admired the art in Italy and sipped coffee in France. 
-The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. 
-She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. 
+Journeying westward, she admired the art in Italy and sipped coffee in France.
+The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.
+She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.
 Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Sublists:
 {
@@ -736,7 +732,7 @@ To count the frequency for each country follow these steps:
 Input:
 Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Paragraphs:
-Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement. 
+Alexandra boarded the first flight of her grand journey, starting from Canada. With a globe-trotting itinerary in hand, she was filled with excitement.
 Her first stop was Mexico, where she marveled at the Mayan ruins. From there, she explored the rainforests of Brazil and danced the tango in Argentina.
 Sublist frequencies:
 {
@@ -758,7 +754,7 @@ Output:
 Input:
 The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Paragraphs:
-The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert. 
+The adventure led him to the peaks of Peru where he trekked to see the mysteries of Machu Picchu. He then headed to Chile to gaze at the vastness of the Atacama Desert.
 A quick detour to Uruguay and Paraguay allowed him to experience the vibrancy of the local cultures before returning back to Canada through Peru, Brazil and Mexico.
 Sublists:
 {
@@ -787,9 +783,9 @@ Output:
 Input:
 Journeying westward, she admired the art in Italy and sipped coffee in France. The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Paragraphs:
-Journeying westward, she admired the art in Italy and sipped coffee in France. 
-The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away. 
-She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia. 
+Journeying westward, she admired the art in Italy and sipped coffee in France.
+The music of Spain and the history of Greece deepened her love for Europe. The Nordic beauty of Norway, Sweden, Finland, and Denmark took her breath away.
+She danced in Ireland, explored castles in Scotland, and marveled at the architecture in Germany and Russia.
 Italy, Norway, Sweden and Germany will always stay her favourite destinations to visit.
 Sublists:
 {
@@ -855,7 +851,7 @@ Despite their tumultuous past, Ukraine and Poland shared a cultural tapestry tha
 ```
 <Instruction> Combine the following 2 dictionaries, each containing the frequency of countries in a text, into a single dictionary.
 Simply add the frequencies together for each country and if a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
-Only output the final merged dictionary without any additional text or thoughts! 
+Only output the final merged dictionary without any additional text or thoughts!
 </Instruction>
 
 <Approach>
@@ -887,14 +883,15 @@ Combined Output:
 ```
 1. { "Peru": 1, "Argentina": 2, "Brazil": 2, "Iran": 2, "China": 2, "Italy": 1, "France": 2, "United States": 1, "Canada": 1 }
 2. { "Peru": 1, "Argentina": 2, "Brazil": 2, "Iran": 2, "China": 2, "Italy": 1, "France": 2, "United States": 1, "Canada": 1 }
-3. { "Peru": 1, "Argentina": 2, "Brazil": 2, "Iran": 2, "China": 2, "Italy": 1, "France": 2, "United States": 1, "Canada": 1 } 
+3. { "Peru": 1, "Argentina": 2, "Brazil": 2, "Iran": 2, "China": 2, "Italy": 1, "France": 2, "United States": 1, "Canada": 1 }
 ```
 
 ### Step 3b - Prompt
 ```
 <Instruction> Combine the following 2 dictionaries, each containing the frequency of countries in a text, into a single dictionary.
 Simply add the frequencies together for each country and if a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
-Only output the final merged dictionary without any additional text or thoughts! </Instruction>
+Only output the final merged dictionary without any additional text or thoughts!
+</Instruction>
 
 <Approach>
 To combine the 2 dictionaries into single one, follow these steps:
@@ -934,7 +931,8 @@ Combined Output:
 ```
 <Instruction> Combine the following 2 dictionaries, each containing the frequency of countries in a text, into a single dictionary.
 Simply add the frequencies together for each country and if a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
-Only output the final merged dictionary without any additional text or thoughts! </Instruction>
+Only output the final merged dictionary without any additional text or thoughts!
+</Instruction>
 
 <Approach>
 To combine the 2 dictionaries into single one, follow these steps:
@@ -980,21 +978,21 @@ Combined Output:
 ### Final Result
 2 errors propagated from counting.
 ```
-{ 
-   "Peru": 1, 
-   "Argentina": 3, 
-   "Brazil": 2, 
-   "Iran": 2, 
-   "China": 2, 
-   "Italy": 1, 
-   "France": 2, 
-   "United States": 2, 
-   "Canada": 2, 
-   "Australia": 2, 
-   "New Zealand": 2, 
-   "Ukraine": 2, 
-   "Poland": 2, 
-   "North Korea": 1, 
+{
+   "Peru": 1,
+   "Argentina": 3,
+   "Brazil": 2,
+   "Iran": 2,
+   "China": 2,
+   "Italy": 1,
+   "France": 2,
+   "United States": 2,
+   "Canada": 2,
+   "Australia": 2,
+   "New Zealand": 2,
+   "Ukraine": 2,
+   "Poland": 2,
+   "North Korea": 1,
    "South Korea": 2
 }
 ```

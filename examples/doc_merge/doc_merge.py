@@ -65,7 +65,7 @@ Here is the summary NDA <S>:
 """
 
     score_prompt_base = """The following NDA <S> merges NDAs <Doc1> - <Doc{num}>.
-Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information if retained from the original NDAs. 
+Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information is retained from the original NDAs.
 A score of 10 for redundancy implies that absolutely no information is redundant, while a score of 0 implies that at least half of the information is redundant (so everything is at least mentioned twice).
 A score of 10 for retained information implies that all information from the original NDAs is retained, while a score of 0 implies that no information is retained.
 You may provide reasoning for your scoring, but the final score for redundancy should be between the tags <Redundancy> and </Redundancy>, and the final score for retained information should be between the tags <Retained> and </Retained>, without any additional text within any of those tags.
