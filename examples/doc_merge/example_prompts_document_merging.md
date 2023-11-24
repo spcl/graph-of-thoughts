@@ -18,8 +18,8 @@ Here are NDAs <Doc1> - <Doc4>
 {doc3}
 </Doc3>
 
-<Doc4> 
-{doc4} 
+<Doc4>
+{doc4}
 </Doc4>
 ```
 
@@ -27,7 +27,7 @@ Here are NDAs <Doc1> - <Doc4>
 Replace `{doc1}`, `{doc2}`, `{doc3}`, and `{doc4}` with the NDAs that are supposed to be merged and `{s}` with the merged summary NDA that is to be scored.
 ```
 The following NDA <S> merges NDAs <Doc1> - <Doc4>.
-Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information if retained from the original NDAs. 
+Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information is retained from the original NDAs.
 A score of 10 for redundancy implies that absolutely no information is redundant, while a score of 0 implies that at least half of the information is redundant (so everything is at least mentioned twice).
 A score of 10 for retained information implies that all information from the original NDAs is retained, while a score of 0 implies that no information is retained.
 You may provide reasoning for your scoring, but the final score for redundancy should be between the tags <Redundancy> and </Redundancy>, and the final score for retained information should be between the tags <Retained> and </Retained>, without any additional text within any of those tags.
@@ -46,8 +46,8 @@ Here are NDAs <Doc1> - <Doc4>:
 {doc3}
 </Doc3>
 
-<Doc4> 
-{doc4} 
+<Doc4>
+{doc4}
 </Doc4>
 
 Here is the summary NDA <S>:
@@ -77,8 +77,8 @@ Here are the original NDAs <Doc1> - <Doc4>:
 {doc3}
 </Doc3>
 
-<Doc4> 
-{doc4} 
+<Doc4>
+{doc4}
 </Doc4>
 
 Here are the summary NDAs <S1> - <S{num_ndas_summaries}>:
@@ -107,8 +107,8 @@ Here are NDAs <Doc1> - <Doc4>:
 {doc3}
 </Doc3>
 
-<Doc4> 
-{doc4} 
+<Doc4>
+{doc4}
 </Doc4>
 
 Here is the summary NDA <S>:
@@ -131,10 +131,10 @@ NON-DISCLOSURE AGREEMENT (NDA)
 
 1. Agreement between [Your Company Name] and [Recipient Name] on [Date].
 2. Information sharing for the purpose of [specific project or purpose].
-3. ”ConfidentialInformation”includesallpotentiallycommerciallyvaluableinformation,specificallysoftwaredevelopment tactics, processes, and in-house research results.
+3. "ConfidentialInformation" includes all potentially commercially valuable information, specifically software development tactics, processes, and in-house research results.
 4. Receiving party is obligated to protect the Confidential Information, use it solely for the disclosed purpose, and not disclose it without consent.
 5. Breach penalties include injunctive relief, other remedies, and a $200,000 fee per breach.
-6. The Agreement applies to the Parties and their successors and assigns. It contains all related agreements and lack of enforcement doesn’t imply waiver.
+6. The Agreement applies to the Parties and their successors and assigns. It contains all related agreements and lack of enforcement doesn't imply waiver.
 7. The Agreement is under the laws of [State].
 8. Signed by [Your Company Name] and [Recipient Name] at the above date.
 ```
@@ -171,34 +171,34 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 ```
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
+Specification of Protected Information:
+Particularly:
 
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 ```
@@ -207,34 +207,33 @@ b. Proprietary computational algorithms.
 ```
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 ```
@@ -288,34 +287,34 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 <Doc3>
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
+Specification of Protected Information:
+Particularly:
 
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc3>
@@ -323,34 +322,33 @@ b. Proprietary computational algorithms.
 <Doc4>
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc4>
@@ -776,7 +774,7 @@ Confirmed and endorsed on [Date].
 ### Step 1 Scoring for Best Response - Prompt
 ```
 The following NDA <S> merges NDAs <Doc1> - <Doc4>.
-Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information if retained from the original NDAs. 
+Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information is retained from the original NDAs.
 A score of 10 for redundancy implies that absolutely no information is redundant, while a score of 0 implies that at least half of the information is redundant (so everything is at least mentioned twice).
 A score of 10 for retained information implies that all information from the original NDAs is retained, while a score of 0 implies that no information is retained.
 You may provide reasoning for your scoring, but the final score for redundancy should be between the tags <Redundancy> and </Redundancy>, and the final score for retained information should be between the tags <Retained> and </Retained>, without any additional text within any of those tags.
@@ -827,34 +825,33 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 <Doc3>
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
-
+Specification of Protected Information:
+Particularly:
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc3>
@@ -862,34 +859,33 @@ b. Proprietary computational algorithms.
 <Doc4>
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc4>
@@ -1011,7 +1007,7 @@ Note: Remember to remove the reasoning from between the tags when providing the 
 ```
 The following NDAs <S1> - <S3> each merge the initial NDAs <Doc1> - <Doc4>.
 Combine the merged NDAs <S1> - <S3> into a new one, maximizing their advantages and overall information retention, while minimizing redundancy.
-Output only the new NDA between the tags <Merged> and </Merged>, without any additional text.   
+Output only the new NDA between the tags <Merged> and </Merged>, without any additional text.
 
 Here are the original NDAs <Doc1> - <Doc4>:
 
@@ -1059,34 +1055,33 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 <Doc3>
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
-
+Specification of Protected Information:
+Particularly:
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc3>
@@ -1094,34 +1089,33 @@ b. Proprietary computational algorithms.
 <Doc4>
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc4>
@@ -1795,34 +1789,33 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 <Doc3>
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
-
+Specification of Protected Information:
+Particularly:
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc3>
@@ -1830,34 +1823,33 @@ b. Proprietary computational algorithms.
 <Doc4>
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc4>
@@ -2441,7 +2433,7 @@ Confirmed and endorsed on [Date].
 
 ```
 The following NDA <S> merges NDAs <Doc1> - <Doc4>.
-Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information if retained from the original NDAs. 
+Please score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information is retained from the original NDAs.
 A score of 10 for redundancy implies that absolutely no information is redundant, while a score of 0 implies that at least half of the information is redundant (so everything is at least mentioned twice).
 A score of 10 for retained information implies that all information from the original NDAs is retained, while a score of 0 implies that no information is retained.
 You may provide reasoning for your scoring, but the final score for redundancy should be between the tags <Redundancy> and </Redundancy>, and the final score for retained information should be between the tags <Retained> and </Retained>, without any additional text within any of those tags.
@@ -2492,34 +2484,33 @@ Signed as of the Effective Date by [Your Company Name] - Disclosing Party [Recip
 <Doc3>
 CONFIDENTIALITY & NON-DISCLOSURE AGREEMENT
 
-    Entities Involved:
-    Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
+Entities Involved:
+Effective [Date], between [AquaBlue Innovations], established in [State], and [PineTree Solutions], a registered entity.
 
-    Objective:
-    To safeguard classified data during talks of a potential technological alliance.
+Objective:
+To safeguard classified data during talks of a potential technological alliance.
 
-    Specification of Protected Information:
-    Particularly:
-
+Specification of Protected Information:
+Particularly:
 a. System designs and architectural schematics.
 b. Proprietary computational algorithms.
 
-    Receiver's Obligations:
-    a. Maintain strict non-disclosure using best practices.
-    b. Employ solely for the aforementioned aim.
-    c. No unveiling without explicit authorization.
+Receiver's Obligations:
+a. Maintain strict non-disclosure using best practices.
+b. Employ solely for the aforementioned aim.
+c. No unveiling without explicit authorization.
 
-    Violation Ramifications:
-    A charge of $280,000 for every infringement, plus possible legal proceedings.
+Violation Ramifications:
+A charge of $280,000 for every infringement, plus possible legal proceedings.
 
-    General Terms:
-    Binding for both parties and any successors. This encapsulates the entire accord.
+General Terms:
+Binding for both parties and any successors. This encapsulates the entire accord.
 
-    Legal Reference:
-    Governed as per [State]'s legal framework.
+Legal Reference:
+Governed as per [State]'s legal framework.
 
-    Attestation:
-    Duly signed on [Date].
+Attestation:
+Duly signed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc3>
@@ -2527,34 +2518,33 @@ b. Proprietary computational algorithms.
 <Doc4>
 SECRECY & DISCLOSURE AGREEMENT
 
-    Contracting Parties:
-    Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
+Contracting Parties:
+Dated [Date], drawn between [AquaBlue Innovations], a [State]-based corporation, and [PineTree Solutions], a licensed organization.
 
-    Aim:
-    To protect exclusive insights amidst dialogues for a technological partnership.
+Aim:
+To protect exclusive insights amidst dialogues for a technological partnership.
 
-    Categorization of Sensitive Data:
-    Includes:
-
+Categorization of Sensitive Data:
+Includes:
 a. Internal software blueprints.
 b. Intellectual property awaiting patents.
 
-    Commitments of Recipient:
-    a. Uphold confidentiality, ensuring data integrity.
-    b. Utilize strictly for collaborative ventures.
-    c. No exposure without prior consensus.
+Commitments of Recipient:
+a. Uphold confidentiality, ensuring data integrity.
+b. Utilize strictly for collaborative ventures.
+c. No exposure without prior consensus.
 
-    Repercussions for Non-Compliance:
-    $295,000 fine for each transgression, and the option for legal recourse.
+Repercussions for Non-Compliance:
+$295,000 fine for each transgression, and the option for legal recourse.
 
-    Overall Provisions:
-    Legally enforceable for signatories and successors. Complete and sole agreement.
+Overall Provisions:
+Legally enforceable for signatories and successors. Complete and sole agreement.
 
-    Juridical Standpoint:
-    Under the auspices of [State] laws.
+Juridical Standpoint:
+Under the auspices of [State] laws.
 
-    Ratification:
-    Confirmed and endorsed on [Date].
+Ratification:
+Confirmed and endorsed on [Date].
 
 [AquaBlue Innovations] [PineTree Solutions]
 </Doc4>

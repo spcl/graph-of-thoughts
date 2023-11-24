@@ -45,7 +45,7 @@ Input Set 1: {set1}
 Input Set 2: {set2}
 ```
 
-### Aggregate: merge_prompt
+### AGGREGATE: merge_prompt
 Replace `{input1}` and `{input2}` with the lists/sets to be merged.
 ```
 <Instruction> Merge the following 2 lists of length 16 each, into one list of length 32 by appending the second list to the first list.

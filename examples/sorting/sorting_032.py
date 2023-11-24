@@ -13,6 +13,7 @@ import json
 import csv
 from typing import Dict, List, Callable, Union
 from graph_of_thoughts import controller, language_models, operations, prompter, parser
+
 from . import utils
 
 
@@ -114,7 +115,7 @@ Incorrectly Sorted: {incorrectly_sorted}
 """
 
     got_split_prompt = """<Instruction> Split the following list of 32 numbers into 2 lists of 16 numbers each, the first list should contain the first 16 numbers and the second list the second 16 numbers.
-Only output the final 4 lists in the following format without any additional text or thoughts!:
+Only output the final 2 lists in the following format without any additional text or thoughts!:
 {{
     "List 1": [3, 4, 3, 5, 7, 8, 1, ...],
     "List 2": [2, 9, 2, 4, 7, 1, 5, ...]
@@ -135,7 +136,7 @@ Input: {input}"""
 Only output the final merged list without any additional text or thoughts!:</Instruction>
 
 <Approach>
-To merge the two lists in a merge-sort style approach, foloow these steps:
+To merge the two lists in a merge-sort style approach, follow these steps:
 1. Compare the first element of both lists.
 2. Append the smaller element to the merged list and move to the next element in the list from which the smaller element came.
 3. Repeat steps 1 and 2 until one of the lists is empty.
