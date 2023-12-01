@@ -121,7 +121,7 @@ We took extra care to fully document the code, so that you can easily understand
 The [examples](examples) directory contains several examples of problems that can be solved using the framework, including the ones presented in the paper.  
 It is a great starting point for learning how to use the framework to solve real problems.  
 Each example contains a `README.md` file with instructions on how to run it and play with it. The code is fully documented and should be easy to follow.
-You can also run the examples straight from the main directory. Note that the results will be stored in the repsective examples sub-directory.
+You can also run the examples straight from the main directory. Note that the results will be stored in the respective examples sub-directory.
 
 Try for instance:
 ```bash
