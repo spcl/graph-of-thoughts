@@ -17,7 +17,11 @@ import csv
 from typing import Dict, List, Callable, Union
 from graph_of_thoughts import controller, language_models, operations, prompter, parser
 
-from . import utils
+# This is a hack to also allow execution of this file from the examples directory
+try:
+    from . import utils
+except ImportError:
+    import utils
 
 
 class SetIntersectionPrompter(prompter.Prompter):
@@ -684,9 +688,9 @@ def run(
     """
 
     orig_budget = budget
-    path = os.path.join(os.path.dirname(__file__), "set_intersection_128.csv")
+    data_path = os.path.join(os.path.dirname(__file__), "set_intersection_128.csv")
     data = []
-    with open(path, "r") as f:
+    with open(data_path, "r") as f:
         reader = csv.reader(f)
         next(reader)
         for row in reader:
@@ -696,12 +700,15 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    if not os.path.exists(os.path.join(os.path.dirname(__file__), "results")):
-        os.makedirs(os.path.join(os.path.dirname(__file__), "results"))
+    results_dir = os.path.join(os.path.dirname(__file__), "results")
+
+    if not os.path.exists(results_dir):
+        os.makedirs(results_dir)
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     extra_info = f"{lm_name}_{'-'.join([method.__name__ for method in methods])}"
-    folder_name = f"results/{extra_info}_{timestamp}"
-    os.makedirs(os.path.join(os.path.dirname(__file__), folder_name))
+    folder_name = f"{extra_info}_{timestamp}"
+    results_folder = os.path.join(results_dir, folder_name)
+    os.makedirs(results_folder)
 
     config = {
         "data": selected_data,
@@ -709,13 +716,11 @@ def run(
         "lm": lm_name,
         "budget": budget,
     }
-    with open(
-        os.path.join(os.path.dirname(__file__), folder_name, "config.json"), "w"
-    ) as f:
+    with open(os.path.join(results_folder, "config.json"), "w") as f:
         json.dump(config, f)
 
     logging.basicConfig(
-        filename=f"{folder_name}/log.log",
+        filename=os.path.join(results_folder, "log.log"),
         filemode="w",
         format="%(name)s - %(levelname)s - %(message)s",
         level=logging.DEBUG,
@@ -723,9 +728,7 @@ def run(
 
     for method in methods:
         # create a results directory for the method
-        os.makedirs(
-            os.path.join(os.path.dirname(__file__), folder_name, method.__name__)
-        )
+        os.makedirs(os.path.join(results_folder, method.__name__))
 
     for data in selected_data:
         logging.info(f"Running data {data[0]}: {data[1]} {data[2]}")
@@ -743,7 +746,10 @@ def run(
                 )
                 break
             lm = language_models.ChatGPT(
-                "../../graph_of_thoughts/language_models/config.json",
+                os.path.join(
+                    os.path.dirname(__file__),
+                    "../../graph_of_thoughts/language_models/config.json",
+                ),
                 model_name=lm_name,
                 cache=True,
             )
@@ -767,8 +773,7 @@ def run(
             except Exception as e:
                 logging.error(f"Exception: {e}")
             path = os.path.join(
-                os.path.dirname(__file__),
-                folder_name,
+                results_folder,
                 method.__name__,
                 f"{data[0]}.json",
             )
