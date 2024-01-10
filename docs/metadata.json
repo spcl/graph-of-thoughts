@@ -7,7 +7,7 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "1": {
             "filepath": "/pyproject.toml",
@@ -17,12 +17,12 @@
         "2": {
             "filepath": "/examples/README.md",
             "entry_id": 20,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "3": {
             "filepath": "/examples/doc_merge/README.md",
             "entry_id": 24,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "4": {
             "filepath": "/examples/doc_merge/doc_merge.py",
@@ -42,7 +42,7 @@
         "7": {
             "filepath": "/examples/keyword_counting/README.md",
             "entry_id": 244,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "8": {
             "filepath": "/examples/keyword_counting/dataset_gen_countries.py",
@@ -57,7 +57,7 @@
         "10": {
             "filepath": "/examples/set_intersection/README.md",
             "entry_id": 294,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "11": {
             "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
@@ -77,7 +77,7 @@
         "14": {
             "filepath": "/examples/sorting/README.md",
             "entry_id": 332,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "15": {
             "filepath": "/examples/sorting/plot.py",
@@ -92,7 +92,7 @@
         "17": {
             "filepath": "/graph_of_thoughts/controller/README.md",
             "entry_id": 360,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "18": {
             "filepath": "/graph_of_thoughts/controller/__init__.py",
@@ -107,7 +107,7 @@
         "20": {
             "filepath": "/graph_of_thoughts/language_models/README.md",
             "entry_id": 384,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "21": {
             "filepath": "/graph_of_thoughts/language_models/__init__.py",
@@ -137,7 +137,7 @@
         "26": {
             "filepath": "/graph_of_thoughts/operations/README.md",
             "entry_id": 450,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "27": {
             "filepath": "/graph_of_thoughts/operations/__init__.py",
