@@ -1,0 +1,543 @@
+{
+    "400": {
+        "file_id": 20,
+        "content": "rd](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), log in and accept the license (_\"You have been granted access to this model\"_ message should appear).\n- Generate HuggingFace access token.\n- Log in from CLI with: `huggingface-cli login --token <your token>`.\nNote: 4-bit quantization is used to reduce the model size for inference. During instantiation, the model is downloaded from HuggingFace into the cache directory specified in the `config.json`. Running queries using larger models will require multiple GPUs (splitting across many GPUs is done automatically by the Transformers library).\n## Adding LLMs\nMore LLMs can be added by following these steps:\n- Create new class as a subclass of `AbstractLanguageModel`.\n- Use the constructor for loading configuration and instantiating the language model (if needed). \n```\nclass CustomLanguageModel(AbstractLanguageModel):\n    def __init__(\n        self,\n        config_path: str = \"\",\n        model_name: str = \"llama7b-hf\",\n        cache: bool = False\n    ) -> None:",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/README.md:59-76"
+    },
+    "401": {
+        "file_id": 20,
+        "content": "This code provides instructions for adding a new LLM (Language Language Model) to the existing model. To do so, create a subclass of `AbstractLanguageModel` and use the constructor to load configuration and instantiate the language model if needed. The model is downloaded from HuggingFace into the cache directory specified in the config.json. Running queries with larger models may require multiple GPUs, which will be automatically split by the Transformers library.",
+        "type": "comment"
+    },
+    "402": {
+        "file_id": 20,
+        "content": "        super().__init__(config_path, model_name, cache)\n        self.config: Dict = self.config[model_name]\n        # Load data from configuration into variables if needed\n        # Instantiate LLM if needed\n```\n- Implement `query` abstract method that is used to get a list of responses from the LLM (call to remote API or local model inference).\n```\ndef query(self, query: str, num_responses: int = 1) -> Any:\n    # Support caching \n    # Call LLM and retrieve list of responses - based on num_responses    \n    # Return LLM response structure (not only raw strings)    \n```\n- Implement `get_response_texts` abstract method that is used to get a list of raw texts from the LLM response structure produced by `query`.\n```\ndef get_response_texts(self, query_response: Union[List[Dict], Dict]) -> List[str]:\n    # Retrieve list of raw strings from the LLM response structure    \n```",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/README.md:77-95"
+    },
+    "403": {
+        "file_id": 20,
+        "content": "The code is a part of a class that serves as a base for building language models. It loads configuration and initializes the model. The `query` method calls the LLM to get responses based on a query, while `get_response_texts` retrieves raw texts from the response structure produced by `query`. These methods are abstract and need to be implemented in child classes.",
+        "type": "comment"
+    },
+    "404": {
+        "file_id": 21,
+        "content": "/graph_of_thoughts/language_models/__init__.py",
+        "type": "filepath"
+    },
+    "405": {
+        "file_id": 21,
+        "content": "This code imports the necessary classes (AbstractLanguageModel, ChatGPT, and Llama2HF) from their respective submodules in the language_models package.",
+        "type": "summary"
+    },
+    "406": {
+        "file_id": 21,
+        "content": "from .abstract_language_model import AbstractLanguageModel\nfrom .chatgpt import ChatGPT\nfrom .llamachat_hf import Llama2HF",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/__init__.py:1-3"
+    },
+    "407": {
+        "file_id": 21,
+        "content": "This code imports the necessary classes (AbstractLanguageModel, ChatGPT, and Llama2HF) from their respective submodules in the language_models package.",
+        "type": "comment"
+    },
+    "408": {
+        "file_id": 22,
+        "content": "/graph_of_thoughts/language_models/abstract_language_model.py",
+        "type": "filepath"
+    },
+    "409": {
+        "file_id": 22,
+        "content": "This code defines an AbstractLanguageModel class with config file path, model name, and caching options for language models. It also includes two abstract methods: 'query' and 'get_response_texts', serving as placeholders for derived classes to implement their own functionality.",
+        "type": "summary"
+    },
+    "410": {
+        "file_id": 22,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom abc import ABC, abstractmethod\nfrom typing import List, Dict, Union, Any\nimport json\nimport os\nimport logging\nclass AbstractLanguageModel(ABC):\n    \"\"\"\n    Abstract base class that defines the interface for all language models.\n    \"\"\"\n    def __init__(\n        self, config_path: str = \"\", model_name: str = \"\", cache: bool = False\n    ) -> None:\n        \"\"\"\n        Initialize the AbstractLanguageModel instance with configuration, model details, and caching options.\n        :param config_path: Path to the config file. Defaults to \"\".\n        :type config_path: str\n        :param model_name: Name of the language model. Defaults to \"\".\n        :type model_name: str\n        :param cache: Flag to determine whether to cache responses. Defaults to False.\n        :type cache: bool\n        \"\"\"\n        self.logger = logging.getLogger(self.__class__.__name__)",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/abstract_language_model.py:1-34"
+    },
+    "411": {
+        "file_id": 22,
+        "content": "This code snippet defines an abstract base class, AbstractLanguageModel, for language models with config file path, model name, and caching options in the initializer. It also initializes a logger for logging purposes.",
+        "type": "comment"
+    },
+    "412": {
+        "file_id": 22,
+        "content": "        self.config: Dict = None\n        self.model_name: str = model_name\n        self.cache = cache\n        if self.cache:\n            self.respone_cache: Dict[str, List[Any]] = {}\n        self.load_config(config_path)\n        self.prompt_tokens: int = 0\n        self.completion_tokens: int = 0\n        self.cost: float = 0.0\n    def load_config(self, path: str) -> None:\n        \"\"\"\n        Load configuration from a specified path.\n        :param path: Path to the config file. If an empty path provided,\n                     default is `config.json` in the current directory.\n        :type path: str\n        \"\"\"\n        if path == \"\":\n            current_dir = os.path.dirname(os.path.abspath(__file__))\n            path = os.path.join(current_dir, \"config.json\")\n        with open(path, \"r\") as f:\n            self.config = json.load(f)\n        self.logger.debug(f\"Loaded config from {path} for {self.model_name}\")\n    def clear_cache(self) -> None:\n        \"\"\"\n        Clear the response cache.\n        \"\"\"\n        self.respone_cache.clear()",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/abstract_language_model.py:35-66"
+    },
+    "413": {
+        "file_id": 22,
+        "content": "This code initializes an abstract language model object with optional cache and loads its configuration from a specified file. It also provides methods to clear the response cache.",
+        "type": "comment"
+    },
+    "414": {
+        "file_id": 22,
+        "content": "    @abstractmethod\n    def query(self, query: str, num_responses: int = 1) -> Any:\n        \"\"\"\n        Abstract method to query the language model.\n        :param query: The query to be posed to the language model.\n        :type query: str\n        :param num_responses: The number of desired responses.\n        :type num_responses: int\n        :return: The language model's response(s).\n        :rtype: Any\n        \"\"\"\n        pass\n    @abstractmethod\n    def get_response_texts(self, query_responses: Union[List[Any], Any]) -> List[str]:\n        \"\"\"\n        Abstract method to extract response texts from the language model's response(s).\n        :param query_responses: The responses returned from the language model.\n        :type query_responses: Union[List[Any], Any]\n        :return: List of textual responses.\n        :rtype: List[str]\n        \"\"\"\n        pass",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/abstract_language_model.py:68-92"
+    },
+    "415": {
+        "file_id": 22,
+        "content": "This code defines two abstract methods for a language model. The 'query' method takes a query and the desired number of responses, but doesn't specify what it should do with them. The 'get_response_texts' method expects response(s) from the language model, but doesn't clarify how to extract textual data. It serves as a placeholder for derived classes to implement their own functionality.",
+        "type": "comment"
+    },
+    "416": {
+        "file_id": 23,
+        "content": "/graph_of_thoughts/language_models/chatgpt.py",
+        "type": "filepath"
+    },
+    "417": {
+        "file_id": 23,
+        "content": "The code creates a ChatGPT class that inherits from AbstractLanguageModel, initializes with configuration and model details, sets query parameters, supports multiple responses, uses OpenAI's chat API, incorporates backoff and caching for optimization, logs response texts and costs, and utilizes `get_response_texts` to extract response strings.",
+        "type": "summary"
+    },
+    "418": {
+        "file_id": 23,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nimport backoff\nimport os\nimport random\nimport time\nfrom typing import List, Dict, Union\nfrom openai import OpenAI, OpenAIError\nfrom openai.types.chat.chat_completion import ChatCompletion\nfrom .abstract_language_model import AbstractLanguageModel\nclass ChatGPT(AbstractLanguageModel):\n    \"\"\"\n    The ChatGPT class handles interactions with the OpenAI models using the provided configuration.\n    Inherits from the AbstractLanguageModel and implements its abstract methods.\n    \"\"\"\n    def __init__(\n        self, config_path: str = \"\", model_name: str = \"chatgpt\", cache: bool = False\n    ) -> None:\n        \"\"\"\n        Initialize the ChatGPT instance with configuration, model details, and caching options.\n        :param config_path: Path to the configuration file. Defaults to \"\".\n        :type config_path: str\n    ",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:1-35"
+    },
+    "419": {
+        "file_id": 23,
+        "content": "This code is the initialization of a class called ChatGPT. It inherits from AbstractLanguageModel and initializes with configuration, model details, and caching options. The config_path parameter is for the path to a configuration file and defaults to an empty string. The model_name parameter specifies the model to be used, defaulting to \"chatgpt\", and cache can be set to True or False for enabling or disabling caching respectively.",
+        "type": "comment"
+    },
+    "420": {
+        "file_id": 23,
+        "content": "    :param model_name: Name of the model, default is 'chatgpt'. Used to select the correct configuration.\n        :type model_name: str\n        :param cache: Flag to determine whether to cache responses. Defaults to False.\n        :type cache: bool\n        \"\"\"\n        super().__init__(config_path, model_name, cache)\n        self.config: Dict = self.config[model_name]\n        # The model_id is the id of the model that is used for chatgpt, i.e. gpt-4, gpt-3.5-turbo, etc.\n        self.model_id: str = self.config[\"model_id\"]\n        # The prompt_token_cost and response_token_cost are the costs for 1000 prompt tokens and 1000 response tokens respectively.\n        self.prompt_token_cost: float = self.config[\"prompt_token_cost\"]\n        self.response_token_cost: float = self.config[\"response_token_cost\"]\n        # The temperature of a model is defined as the randomness of the model's output.\n        self.temperature: float = self.config[\"temperature\"]\n        # The maximum number of tokens to generate in the chat completion.",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:35-49"
+    },
+    "421": {
+        "file_id": 23,
+        "content": "The code initializes a model with a specified name and sets the cache flag. It retrieves the model ID, prompt token cost, response token cost, temperature, and maximum number of tokens for chat completion from the configuration file.",
+        "type": "comment"
+    },
+    "422": {
+        "file_id": 23,
+        "content": "        self.max_tokens: int = self.config[\"max_tokens\"]\n        # The stop sequence is a sequence of tokens that the model will stop generating at (it will not generate the stop sequence).\n        self.stop: Union[str, List[str]] = self.config[\"stop\"]\n        # The account organization is the organization that is used for chatgpt.\n        self.organization: str = self.config[\"organization\"]\n        if self.organization == \"\":\n            self.logger.warning(\"OPENAI_ORGANIZATION is not set\")\n        self.api_key: str = os.getenv(\"OPENAI_API_KEY\", self.config[\"api_key\"])\n        if self.api_key == \"\":\n            raise ValueError(\"OPENAI_API_KEY is not set\")\n        # Initialize the OpenAI Client\n        self.client = OpenAI(api_key=self.api_key, organization=self.organization)\n    def query(\n        self, query: str, num_responses: int = 1\n    ) -> Union[List[ChatCompletion], ChatCompletion]:\n        \"\"\"\n        Query the OpenAI model for responses.\n        :param query: The query to be posed to the language model.",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:50-69"
+    },
+    "423": {
+        "file_id": 23,
+        "content": "This code initializes an instance of a language model and sets parameters such as maximum tokens, stop sequence, organization, API key, and initializes the OpenAI client. It also includes a query method to ask the language model for responses.",
+        "type": "comment"
+    },
+    "424": {
+        "file_id": 23,
+        "content": "        :type query: str\n        :param num_responses: Number of desired responses, default is 1.\n        :type num_responses: int\n        :return: Response(s) from the OpenAI model.\n        :rtype: Dict\n        \"\"\"\n        if self.cache and query in self.respone_cache:\n            return self.respone_cache[query]\n        if num_responses == 1:\n            response = self.chat([{\"role\": \"user\", \"content\": query}], num_responses)\n        else:\n            response = []\n            next_try = num_responses\n            total_num_attempts = num_responses\n            while num_responses > 0 and total_num_attempts > 0:\n                try:\n                    assert next_try > 0\n                    res = self.chat([{\"role\": \"user\", \"content\": query}], next_try)\n                    response.append(res)\n                    num_responses -= next_try\n                    next_try = min(num_responses, next_try)\n                except Exception as e:\n                    next_try = (next_try + 1) // 2\n                    self.logger.warning(",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:70-94"
+    },
+    "425": {
+        "file_id": 23,
+        "content": "The code defines a function that takes a query and the number of desired responses. If the query is in the cache, it returns the corresponding response(s). If not, it calls the OpenAI chat model to generate responses for the given query. It supports generating multiple responses by repeatedly calling the OpenAI model until the required number of responses are obtained or an exception occurs. The function also logs any warnings during the process.",
+        "type": "comment"
+    },
+    "426": {
+        "file_id": 23,
+        "content": "                        f\"Error in chatgpt: {e}, trying again with {next_try} samples\"\n                    )\n                    time.sleep(random.randint(1, 3))\n                    total_num_attempts -= 1\n        if self.cache:\n            self.respone_cache[query] = response\n        return response\n    @backoff.on_exception(backoff.expo, OpenAIError, max_time=10, max_tries=6)\n    def chat(self, messages: List[Dict], num_responses: int = 1) -> ChatCompletion:\n        \"\"\"\n        Send chat messages to the OpenAI model and retrieves the model's response.\n        Implements backoff on OpenAI error.\n        :param messages: A list of message dictionaries for the chat.\n        :type messages: List[Dict]\n        :param num_responses: Number of desired responses, default is 1.\n        :type num_responses: int\n        :return: The OpenAI model's response.\n        :rtype: ChatCompletion\n        \"\"\"\n        response = self.client.chat.completions.create(\n            model=self.model_id,\n            messages=messages,",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:95-119"
+    },
+    "427": {
+        "file_id": 23,
+        "content": "This code is defining a class with a chat method that sends messages to the OpenAI model and retrieves the response. The method implements backoff on OpenAI error, allowing for multiple attempts if an error occurs. It also includes caching functionality to improve performance by storing previous responses in a cache.",
+        "type": "comment"
+    },
+    "428": {
+        "file_id": 23,
+        "content": "            temperature=self.temperature,\n            max_tokens=self.max_tokens,\n            n=num_responses,\n            stop=self.stop,\n        )\n        self.prompt_tokens += response.usage.prompt_tokens\n        self.completion_tokens += response.usage.completion_tokens\n        prompt_tokens_k = float(self.prompt_tokens) / 1000.0\n        completion_tokens_k = float(self.completion_tokens) / 1000.0\n        self.cost = (\n            self.prompt_token_cost * prompt_tokens_k\n            + self.response_token_cost * completion_tokens_k\n        )\n        self.logger.info(\n            f\"This is the response from chatgpt: {response}\"\n            f\"\\nThis is the cost of the response: {self.cost}\"\n        )\n        return response\n    def get_response_texts(\n        self, query_response: Union[List[ChatCompletion], ChatCompletion]\n    ) -> List[str]:\n        \"\"\"\n        Extract the response texts from the query response.\n        :param query_response: The response dictionary (or list of dictionaries) from the OpenAI model.",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:120-146"
+    },
+    "429": {
+        "file_id": 23,
+        "content": "This code interacts with an OpenAI model, specifically the ChatGPT API. It takes a query as input and generates multiple responses using the API. The code keeps track of usage costs in terms of prompt and completion tokens, and logs the response text along with the cost for each generated response. The `get_response_texts` method extracts the response texts from the query response dictionary or list of dictionaries returned by the OpenAI model.",
+        "type": "comment"
+    },
+    "430": {
+        "file_id": 23,
+        "content": "        :type query_response: Union[List[ChatCompletion], ChatCompletion]\n        :return: List of response strings.\n        :rtype: List[str]\n        \"\"\"\n        if not isinstance(query_response, List):\n            query_response = [query_response]\n        return [\n            choice.message.content\n            for response in query_response\n            for choice in response.choices\n        ]",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/chatgpt.py:147-157"
+    },
+    "431": {
+        "file_id": 23,
+        "content": "This function converts a single ChatCompletion or list of them into a list of response strings by iterating over the choices within each completion and extracting their content.",
+        "type": "comment"
+    },
+    "432": {
+        "file_id": 24,
+        "content": "/graph_of_thoughts/language_models/config_template.json",
+        "type": "filepath"
+    },
+    "433": {
+        "file_id": 24,
+        "content": "The code provides a generic language model configuration template, including parameters for model ID, prompt and response token costs, temperature, max tokens, stop words, cache directory (\"/llama\"), and optional values (top-k=10). This is a user-specific config without API key or organization.",
+        "type": "summary"
+    },
+    "434": {
+        "file_id": 24,
+        "content": "{\n    \"chatgpt\" : {\n        \"model_id\": \"gpt-3.5-turbo\",\n        \"prompt_token_cost\": 0.0015,\n        \"response_token_cost\": 0.002,\n        \"temperature\": 1.0,\n        \"max_tokens\": 1536,\n        \"stop\": null,\n        \"organization\": \"\",\n        \"api_key\": \"\"\n    },\n    \"chatgpt4\" : {\n        \"model_id\": \"gpt-4\",\n        \"prompt_token_cost\": 0.03,\n        \"response_token_cost\": 0.06,\n        \"temperature\": 1.0,\n        \"max_tokens\": 4096,\n        \"stop\": null,\n        \"organization\": \"\",\n        \"api_key\": \"\"\n    },\n    \"llama7b-hf\" : {\n        \"model_id\": \"Llama-2-7b-chat-hf\",\n        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    },\n    \"llama13b-hf\" : {\n        \"model_id\": \"Llama-2-13b-chat-hf\",\n        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    },\n    \"llama70b-hf\" : {\n        \"model_id\": \"Llama-2-70b-chat-hf\",",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/config_template.json:1-41"
+    },
+    "435": {
+        "file_id": 24,
+        "content": "This code appears to be a configuration template for language models, with each model (such as \"chatgpt\", \"chatgpt4\", \"llama7b-hf\", etc.) defined by its own set of parameters including the model ID, prompt and response token costs, temperature, max tokens, and optional stop words. The \"cache_dir\" parameter is specific to Llama models, suggesting these models require local caching. The absence of an API key and organization suggests that this is a generic template for user-specific configurations.",
+        "type": "comment"
+    },
+    "436": {
+        "file_id": 24,
+        "content": "        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    }\n}",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/config_template.json:42-49"
+    },
+    "437": {
+        "file_id": 24,
+        "content": "This code snippet contains a configuration template for a language model. It sets the cache directory path as \"/llama\", prompts and response tokens costs to 0, temperature at 0.6, top-k value as 10, and maximum generated token count as 4096.",
+        "type": "comment"
+    },
+    "438": {
+        "file_id": 25,
+        "content": "/graph_of_thoughts/language_models/llamachat_hf.py",
+        "type": "filepath"
+    },
+    "439": {
+        "file_id": 25,
+        "content": "The code initializes the LLaMA 2 model for text generation, sets up configurations and tokenizer, creates a pipeline, defines a method to generate responses by querying the model, formats responses into dictionaries, and extracts \"generated_text\" from multiple query response dictionaries.",
+        "type": "summary"
+    },
+    "440": {
+        "file_id": 25,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Ales Kubicek\nimport os\nimport torch\nfrom typing import List, Dict, Union\nfrom .abstract_language_model import AbstractLanguageModel\nclass Llama2HF(AbstractLanguageModel):\n    \"\"\"\n    An interface to use LLaMA 2 models through the HuggingFace library.\n    \"\"\"\n    def __init__(\n        self, config_path: str = \"\", model_name: str = \"llama7b-hf\", cache: bool = False\n    ) -> None:\n        \"\"\"\n        Initialize an instance of the Llama2HF class with configuration, model details, and caching options.\n        :param config_path: Path to the configuration file. Defaults to an empty string.\n        :type config_path: str\n        :param model_name: Specifies the name of the LLaMA model variant. Defaults to \"llama7b-hf\".\n                           Used to select the correct configuration.\n        :type model_name: str\n        :param cache: Flag to determine whether to cache responses. Defaults to False.",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/llamachat_hf.py:1-31"
+    },
+    "441": {
+        "file_id": 25,
+        "content": "The code imports necessary libraries, defines a class Llama2HF as an interface for using LLaMA 2 models through HuggingFace library, and initializes the class with configuration, model name, and caching options.",
+        "type": "comment"
+    },
+    "442": {
+        "file_id": 25,
+        "content": "        :type cache: bool\n        \"\"\"\n        super().__init__(config_path, model_name, cache)\n        self.config: Dict = self.config[model_name]\n        # Detailed id of the used model.\n        self.model_id: str = self.config[\"model_id\"]\n        # Costs for 1000 tokens.\n        self.prompt_token_cost: float = self.config[\"prompt_token_cost\"]\n        self.response_token_cost: float = self.config[\"response_token_cost\"]\n        # The temperature is defined as the randomness of the model's output.\n        self.temperature: float = self.config[\"temperature\"]\n        # Top K sampling.\n        self.top_k: int = self.config[\"top_k\"]\n        # The maximum number of tokens to generate in the chat completion.\n        self.max_tokens: int = self.config[\"max_tokens\"]\n        # Important: must be done before importing transformers\n        os.environ[\"TRANSFORMERS_CACHE\"] = self.config[\"cache_dir\"]\n        import transformers\n        hf_model_id = f\"meta-llama/{self.model_id}\"\n        model_config = transformers.AutoConfig.from_pretrained(hf_model_id)",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/llamachat_hf.py:32-53"
+    },
+    "443": {
+        "file_id": 25,
+        "content": "The code initializes a class and sets various attributes such as model_id, prompt and response token costs, temperature, top K sampling, and maximum tokens. It also sets the Transformers library cache environment variable before importing it to avoid conflicts with other caches.",
+        "type": "comment"
+    },
+    "444": {
+        "file_id": 25,
+        "content": "        bnb_config = transformers.BitsAndBytesConfig(\n            load_in_4bit=True,\n            bnb_4bit_quant_type=\"nf4\",\n            bnb_4bit_use_double_quant=True,\n            bnb_4bit_compute_dtype=torch.bfloat16,\n        )\n        self.tokenizer = transformers.AutoTokenizer.from_pretrained(hf_model_id)\n        self.model = transformers.AutoModelForCausalLM.from_pretrained(\n            hf_model_id,\n            trust_remote_code=True,\n            config=model_config,\n            quantization_config=bnb_config,\n            device_map=\"auto\",\n        )\n        self.model.eval()\n        torch.no_grad()\n        self.generate_text = transformers.pipeline(\n            model=self.model, tokenizer=self.tokenizer, task=\"text-generation\"\n        )\n    def query(self, query: str, num_responses: int = 1) -> List[Dict]:\n        \"\"\"\n        Query the LLaMA 2 model for responses.\n        :param query: The query to be posed to the language model.\n        :type query: str\n        :param num_responses: Number of desired responses, default is 1.",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/llamachat_hf.py:54-82"
+    },
+    "445": {
+        "file_id": 25,
+        "content": "The code initializes an LLaMA model for text generation, loads the tokenizer and model configurations, and creates a text generation pipeline. It also provides a function to query the model with a given input query and can generate multiple responses depending on the provided number of desired responses.",
+        "type": "comment"
+    },
+    "446": {
+        "file_id": 25,
+        "content": "        :type num_responses: int\n        :return: Response(s) from the LLaMA 2 model.\n        :rtype: List[Dict]\n        \"\"\"\n        if self.cache and query in self.respone_cache:\n            return self.respone_cache[query]\n        sequences = []\n        query = f\"<s><<SYS>>You are a helpful assistant. Always follow the intstructions precisely and output the response exactly in the requested format.<</SYS>>\\n\\n[INST] {query} [/INST]\"\n        for _ in range(num_responses):\n            sequences.extend(\n                self.generate_text(\n                    query,\n                    do_sample=True,\n                    top_k=self.top_k,\n                    num_return_sequences=1,\n                    eos_token_id=self.tokenizer.eos_token_id,\n                    max_length=self.max_tokens,\n                )\n            )\n        response = [\n            {\"generated_text\": sequence[\"generated_text\"][len(query) :].strip()}\n            for sequence in sequences\n        ]\n        if self.cache:\n            self.respone_cache[query] = response",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/llamachat_hf.py:83-107"
+    },
+    "447": {
+        "file_id": 25,
+        "content": "This code defines a method that generates responses from the LLaMA 2 language model. It first checks if the response is cached, then creates a query with system instructions and input. It generates multiple responses using the `generate_text` function, stores them in a list, and formats them into a response dictionary. Finally, it caches the response if necessary.",
+        "type": "comment"
+    },
+    "448": {
+        "file_id": 25,
+        "content": "        return response\n    def get_response_texts(self, query_responses: List[Dict]) -> List[str]:\n        \"\"\"\n        Extract the response texts from the query response.\n        :param query_responses: The response list of dictionaries generated from the `query` method.\n        :type query_responses: List[Dict]\n        :return: List of response strings.\n        :rtype: List[str]\n        \"\"\"\n        return [query_response[\"generated_text\"] for query_response in query_responses]",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/llamachat_hf.py:108-119"
+    },
+    "449": {
+        "file_id": 25,
+        "content": "This function takes a list of query response dictionaries, extracts the \"generated_text\" key from each dictionary and returns a list of those extracted texts.",
+        "type": "comment"
+    },
+    "450": {
+        "file_id": 26,
+        "content": "/graph_of_thoughts/operations/README.md",
+        "type": "filepath"
+    },
+    "451": {
+        "file_id": 26,
+        "content": "The Operations module manages thought manipulation with language models and helper classes, including 'ValidateAndImprove' and 'Generate' operations, as well as three additional operations: **KeepValid**, **Selector**, and **GroundTruth** for thought processing systems.",
+        "type": "summary"
+    },
+    "452": {
+        "file_id": 26,
+        "content": "# Operations\nThe Operations module contains operations to manipulate and process thoughts represented by the [Thought](thought.py) class.  \nOperations interface with a language model and use other helper classes like [Prompter](../prompter/prompter.py) and [Parser](../parser/parser.py) for effective communication and extraction of results from the language model.  \nThe [Graph of Operations](graph_of_operations.py) class is the main class of the module and is responsible for orchestrating the operations, defining their relationships and maintaining the state of the thought graph, also known as Graph Reasoning State.\n## Graph of Operations\nThe [GraphOfOperations](graph_of_operations.py) class facilitates the creation and management of a directed graph representing the sequence and interrelationships of operations on thoughts. Here’s how you can construct and work with the Graph of Operations:\n### Initialization\nCreating a new instance of GraphOfOperations:\n```python\nfrom graph_of_thoughts.operations import GraphOfOperations",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/README.md:1-14"
+    },
+    "453": {
+        "file_id": 26,
+        "content": "This code snippet describes the Operations module, which contains operations for manipulating and processing thoughts represented by the Thought class. It uses a language model and helper classes like Prompter and Parser for communication and result extraction. The Graph of Operations is the main class that orchestrates operations and maintains thought graph state.",
+        "type": "comment"
+    },
+    "454": {
+        "file_id": 26,
+        "content": "graph = GraphOfOperations()\n```\nUpon initialization, the graph will be empty with no operations, roots, or leaves.\n### Adding Operations\n**Append Operation:** You can append operations to the end of the graph using the append_operation method. This ensures that the operation becomes a successor to all current leaf operations in the graph.\n```python\nfrom graph_of_thoughts.operations import Generate\noperationA = Generate()\ngraph.append_operation(operationA)\n```\n**Add Operation with Relationships:** If you want to define specific relationships for an operation, use the add_operation method.\n```python\noperationB = Generate()\noperationB.predecessors.append(operationA)\ngraph.add_operation(operationB)\n```\nRemember to set up the predecessors (and optionally successors) for your operation before adding it to the graph.\n## Available Operations\nThe following operations are available in the module:\n**Score:** Collect all thoughts from preceding operations and score them either using the LLM or a custom scoring function.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/README.md:16-40"
+    },
+    "455": {
+        "file_id": 26,
+        "content": "The code initializes a GraphOfOperations object, which starts empty and can be used to add operations with relationships. Operations can be appended at the end or added while specifying their predecessors. Available operations include the Score operation for scoring thoughts using LLM or custom scoring functions.",
+        "type": "comment"
+    },
+    "456": {
+        "file_id": 26,
+        "content": "- num_samples (Optional): The number of samples to use for scoring, defaults to 1.\n- combined_scoring (Optional): Whether to score all thoughts together in a single prompt or separately, defaults to False.\n- scoring_function (Optional): A function that takes in a list of thought states and returns a list of scores for each thought.\n**ValidateAndImprove:** For each thought, validate it and if it is invalid, improve it.  \n- num_samples (Optional): The number of samples to use for validation, defaults to 1.\n- improve (Optional): Whether to improve the thought if it is invalid, defaults to True.\n- num_tries (Optional): The number of times to try improving the thought, before giving up, defaults to 3.\n- validate_function (Optional): A function that takes in a thought state and returns a boolean indicating whether the thought is valid.\n**Generate:** Generate new thoughts from the current thoughts. If no previous thoughts are available, the thoughts are initialized with the input to the [Controller](../controller/controller.py).  ",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/README.md:41-51"
+    },
+    "457": {
+        "file_id": 26,
+        "content": "This code describes several operations for a thought processing system. The 'ValidateAndImprove' operation validates each thought and attempts to improve it if invalid, while the 'Generate' operation generates new thoughts based on previous ones or initial input to the Controller. Optional parameters include number of samples, scoring function, validation function, and whether to improve or generate new thoughts.",
+        "type": "comment"
+    },
+    "458": {
+        "file_id": 26,
+        "content": "- num_branches_prompt (Optional): Number of responses that each prompt should generate (passed to prompter). Defaults to 1.\n- num_branches_response (Optional): Number of responses the LLM should generate for each prompt. Defaults to 1.\n**Improve:** Improve the current thoughts. This operation is similar to the ValidateAndImprove operation, but it does not validate the thoughts and always tries to improve them.  \n**Aggregate:** Aggregate the current thoughts into a single thought. This operation is useful when you want to combine multiple thoughts into a single thought.  \n- num_responses (Optional): Number of responses to request from the LLM (generates multiple new thoughts). Defaults to 1.\n**KeepBestN:** Keep the best N thoughts from the preceding thoughts. Assumes that the thoughts are already scored and throws an error if they are not.\n- n: The number of thoughts to keep in order of score.\n- higher_is_better (Optional): Whether higher scores are better (True) or lower scores are better (False). Defaults to True.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/README.md:52-62"
+    },
+    "459": {
+        "file_id": 26,
+        "content": "This code snippet provides details about the available operations and their respective parameters for generating, aggregating, or filtering thoughts. It allows users to generate multiple responses, combine them into a single thought, or keep the best N thoughts based on scores. The code also includes default values for optional parameters to ease usage.",
+        "type": "comment"
+    },
+    "460": {
+        "file_id": 26,
+        "content": "**KeepValid:** Keep only the valid thoughts from the preceding thoughts. Assumes that each thought has already been validated, if not, it will be considered valid.\n**Selector:** Select a number of thoughts from the preceding thoughts using a selection function. This is useful if subsequent operations should only be applied to a subset of the preceding thoughts.\n- selector: A function that takes in a list of thoughts and returns a list of thoughts to select.\n**GroundTruth**: Evaluates if the preceding/current thoughts solve the problem and equal the ground truth. This operation is useful for terminating the graph and checking if the final thoughts solve the problem, but is only useful if the ground truth is known.\n- ground_truth_evaluator: A function that takes in a thought state and returns a boolean indicating whether the thought solves the problem.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/README.md:64-70"
+    },
+    "461": {
+        "file_id": 26,
+        "content": "This code defines three operations: **KeepValid** retains valid thoughts, **Selector** selects a subset of thoughts using a selection function, and **GroundTruth** checks if the preceding/current thoughts solve the problem (requires known ground truth).",
+        "type": "comment"
+    },
+    "462": {
+        "file_id": 27,
+        "content": "/graph_of_thoughts/operations/__init__.py",
+        "type": "filepath"
+    },
+    "463": {
+        "file_id": 27,
+        "content": "This code imports classes from different modules within the \"graph-of-thoughts\" package to be used in operations. It includes classes for Thought, GraphOfOperations, Operation, Score, ValidateAndImprove, Generate, Aggregate, KeepBestN, KeepValid, Selector, GroundTruth, and Improve.",
+        "type": "summary"
+    },
+    "464": {
+        "file_id": 27,
+        "content": "from .thought import Thought\nfrom .graph_of_operations import GraphOfOperations\nfrom .operations import (\n    Operation,\n    Score,\n    ValidateAndImprove,\n    Generate,\n    Aggregate,\n    KeepBestN,\n    KeepValid,\n    Selector,\n    GroundTruth,\n    Improve,\n)",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/__init__.py:1-14"
+    },
+    "465": {
+        "file_id": 27,
+        "content": "This code imports classes from different modules within the \"graph-of-thoughts\" package to be used in operations. It includes classes for Thought, GraphOfOperations, Operation, Score, ValidateAndImprove, Generate, Aggregate, KeepBestN, KeepValid, Selector, GroundTruth, and Improve.",
+        "type": "comment"
+    },
+    "466": {
+        "file_id": 28,
+        "content": "/graph_of_thoughts/operations/graph_of_operations.py",
+        "type": "filepath"
+    },
+    "467": {
+        "file_id": 28,
+        "content": "The Graph of Operations class manages operation execution plans, initializing with empty lists and providing a method to append operations. It iterates through predecessors, removing leaves and appending operations without successors.",
+        "type": "summary"
+    },
+    "468": {
+        "file_id": 28,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom __future__ import annotations\nfrom typing import List\nfrom graph_of_thoughts.operations.operations import Operation\nclass GraphOfOperations:\n    \"\"\"\n    Represents the Graph of Operations, which prescribes the execution plan of thought operations.\n    \"\"\"\n    def __init__(self) -> None:\n        \"\"\"\n        Initializes a new Graph of Operations instance with empty operations, roots, and leaves.\n        The roots are the entry points in the graph with no predecessors.\n        The leaves are the exit points in the graph with no successors.\n        \"\"\"\n        self.operations: List[Operation] = []\n        self.roots: List[Operation] = []\n        self.leaves: List[Operation] = []\n    def append_operation(self, operation: Operation) -> None:\n        \"\"\"\n        Appends an operation to all leaves in the graph and updates the relationships.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/graph_of_operations.py:1-32"
+    },
+    "469": {
+        "file_id": 28,
+        "content": "This code represents the Graph of Operations class, which is responsible for managing the execution plan of thought operations. It initializes with empty lists for operations, roots, and leaves, and provides a method to append an operation to all leaves in the graph while updating relationships.",
+        "type": "comment"
+    },
+    "470": {
+        "file_id": 28,
+        "content": "        :param operation: The operation to append.\n        :type operation: Operation\n        \"\"\"\n        self.operations.append(operation)\n        if len(self.roots) == 0:\n            self.roots = [operation]\n        else:\n            for leave in self.leaves:\n                leave.add_successor(operation)\n        self.leaves = [operation]\n    def add_operation(self, operation: Operation) -> None:\n        \"\"\"\n        Add an operation to the graph considering its predecessors and successors.\n        Adjust roots and leaves based on the added operation's position within the graph.\n        :param operation: The operation to add.\n        :type operation: Operation\n        \"\"\"\n        self.operations.append(operation)\n        if len(self.roots) == 0:\n            self.roots = [operation]\n            self.leaves = [operation]\n            assert (\n                len(operation.predecessors) == 0\n            ), \"First operation should have no predecessors\"\n        else:\n            if len(operation.predecessors) == 0:\n                self.roots.append(operation)",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/graph_of_operations.py:34-64"
+    },
+    "471": {
+        "file_id": 28,
+        "content": "This code appends an operation to the graph and adjusts roots and leaves accordingly. If there are no roots, it sets the added operation as both root and leaf with no predecessors. If the added operation has no predecessors, it adds it as a new root.",
+        "type": "comment"
+    },
+    "472": {
+        "file_id": 28,
+        "content": "            for predecessor in operation.predecessors:\n                if predecessor in self.leaves:\n                    self.leaves.remove(predecessor)\n            if len(operation.successors) == 0:\n                self.leaves.append(operation)",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/graph_of_operations.py:65-69"
+    },
+    "473": {
+        "file_id": 28,
+        "content": "Iterates through predecessors of an operation, removes leaves if they are also operation's predecessors, appends the operation to the leaves list if it has no successors.",
+        "type": "comment"
+    },
+    "474": {
+        "file_id": 29,
+        "content": "/graph_of_thoughts/operations/operations.py",
+        "type": "filepath"
+    },
+    "475": {
+        "file_id": 29,
+        "content": "The comments describe operations that preserve valid thoughts from predecessors, with Comment A introducing an abstract base class for Graph of Thoughts operations and Comment B focusing on the GroundTruth operation in a code context.",
+        "type": "summary"
+    },
+    "476": {
+        "file_id": 29,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom __future__ import annotations\nimport logging\nfrom enum import Enum\nfrom typing import List, Iterator, Dict, Callable, Union\nfrom abc import ABC, abstractmethod\nimport itertools\nfrom graph_of_thoughts.operations.thought import Thought\nfrom graph_of_thoughts.language_models import AbstractLanguageModel\nfrom graph_of_thoughts.prompter import Prompter\nfrom graph_of_thoughts.parser import Parser\nclass OperationType(Enum):\n    \"\"\"\n    Enum to represent different operation types that can be used as unique identifiers.\n    \"\"\"\n    score: int = 0\n    validate_and_improve: int = 1\n    generate: int = 2\n    improve: int = 3\n    aggregate: int = 4\n    keep_best_n: int = 5\n    keep_valid: int = 6\n    ground_truth_evaluator: int = 7\n    selector: int = 8\nclass Operation(ABC):\n    \"\"\"\n    Abstract base class that defines the interface for all operations.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:1-40"
+    },
+    "477": {
+        "file_id": 29,
+        "content": "This code defines an abstract base class for operations in the Graph of Thoughts system. It includes an OperationType Enum representing unique operation identifiers and outlines the interface for all operations. This base class will be used to create concrete implementations of different types of operations within the system.",
+        "type": "comment"
+    },
+    "478": {
+        "file_id": 29,
+        "content": "    \"\"\"\n    _ids: Iterator[int] = itertools.count(0)\n    operation_type: OperationType = None\n    def __init__(self) -> None:\n        \"\"\"\n        Initializes a new Operation instance with a unique id, and empty predecessors and successors.\n        \"\"\"\n        self.logger: logging.Logger = logging.getLogger(self.__class__.__name__)\n        self.id: int = next(Operation._ids)\n        self.predecessors: List[Operation] = []\n        self.successors: List[Operation] = []\n        self.executed: bool = False\n    def can_be_executed(self) -> bool:\n        \"\"\"\n        Checks if the operation can be executed based on its predecessors.\n        :return: True if all predecessors have been executed, False otherwise.\n        :rtype: bool\n        \"\"\"\n        return all(predecessor.executed for predecessor in self.predecessors)\n    def get_previous_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Iterates over all predecessors and aggregates their thoughts.\n        :return: A list of all thoughts from the predecessors.\n        :rtype: List[Thought]",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:41-71"
+    },
+    "479": {
+        "file_id": 29,
+        "content": "Initializes a new Operation instance with a unique ID and empty predecessors and successors. The operation can be executed if all its predecessors have been executed. Aggregates thoughts from predecessors to return all thoughts from them.",
+        "type": "comment"
+    },
+    "480": {
+        "file_id": 29,
+        "content": "        \"\"\"\n        previous_thoughts: List[Thought] = [\n            thought\n            for predecessor in self.predecessors\n            for thought in predecessor.get_thoughts()\n        ]\n        return previous_thoughts\n    def add_predecessor(self, operation: Operation) -> None:\n        \"\"\"\n        Add a preceding operation and update the relationships.\n        :param operation: The operation to be set as a predecessor.\n        :type operation: Operation\n        \"\"\"\n        self.predecessors.append(operation)\n        operation.successors.append(self)\n    def add_successor(self, operation: Operation) -> None:\n        \"\"\"\n        Add a succeeding operation and update the relationships.\n        :param operation: The operation to be set as a successor.\n        :type operation: Operation\n        \"\"\"\n        self.successors.append(operation)\n        operation.predecessors.append(self)\n    def execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Execute the operation, assuring that all predecessors have been executed.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:72-105"
+    },
+    "481": {
+        "file_id": 29,
+        "content": "This code defines an Operation class with methods to add predecessors and successors, ensuring proper relationships are updated. The execute method executes the operation after all predecessors have been executed.",
+        "type": "comment"
+    },
+    "482": {
+        "file_id": 29,
+        "content": "        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If not all predecessors have been executed.\n        \"\"\"\n        assert self.can_be_executed(), \"Not all predecessors have been executed\"\n        self.logger.info(\n            \"Executing operation %d of type %s\", self.id, self.operation_type\n        )\n        self._execute(lm, prompter, parser, **kwargs)\n        self.logger.debug(\"Operation %d executed\", self.id)\n        self.executed = True\n    @abstractmethod\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Abstract method for the actual execution of the operation.\n        This should be implemented in derived classes.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:107-130"
+    },
+    "483": {
+        "file_id": 29,
+        "content": "The code defines a class with an abstract method for executing operations, requiring a language model (AbstractLanguageModel), prompter (Prompter), and parser (Parser). The class checks if all predecessors have been executed before execution, logs information during execution, marks itself as executed upon completion.",
+        "type": "comment"
+    },
+    "484": {
+        "file_id": 29,
+        "content": "        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        \"\"\"\n        pass\n    @abstractmethod\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Abstract method to retrieve the thoughts associated with the operation.\n        This should be implemented in derived classes.\n        :return: List of associated thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        pass\nclass Score(Operation):\n    \"\"\"\n    Operation to score thoughts.\n    \"\"\"\n    operation_type: OperationType = OperationType.score\n    def __init__(\n        self,\n        num_samples: int = 1,\n        combined_scoring: bool = False,\n        scoring_function: Callable[\n            [Union[List[Dict], Dict]], Union[List[float], float]\n        ] = None,\n    ) -> None:",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:132-168"
+    },
+    "485": {
+        "file_id": 29,
+        "content": "This code defines an abstract class \"Operation\" with a method to get associated thoughts and a concrete class \"Score\" that inherits from it. The Score class takes parameters like num_samples, combined_scoring, and scoring_function for scoring thoughts. The get_thoughts method must be implemented in derived classes.",
+        "type": "comment"
+    },
+    "486": {
+        "file_id": 29,
+        "content": "        \"\"\"\n        Initializes a new Score operation.\n        :param num_samples: Number of samples to use for scoring. Defaults to 1.\n        :type num_samples: int\n        :param combined_scoring: Whether to score all thoughts together or individually. Defaults to False.\n        :type combined_scoring: bool\n        :param scoring_function: A function to score thoughts (if not using LM). Defaults to None.\n        :type scoring_function: Takes a list of thought states or a single thought state and\n                                returns a list of scores or a single score.\n        \"\"\"\n        super().__init__()\n        self.num_samples: int = num_samples\n        self.combined_scoring: bool = combined_scoring\n        self.thoughts: List[Thought] = []\n        self.scoring_function: Callable[\n            [Union[List[Dict], Dict]], Union[List[float], float]\n        ] = scoring_function\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts associated with the operation.\n        :return: List of scored thoughts.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:169-192"
+    },
+    "487": {
+        "file_id": 29,
+        "content": "This code defines a class for a Score operation that takes a specified number of samples, whether to score thoughts individually or combined, and a scoring function (defaulting to None). It initializes the operation with these parameters and returns the associated scored thoughts.",
+        "type": "comment"
+    },
+    "488": {
+        "file_id": 29,
+        "content": "        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the scoring operation by scoring the thoughts from the predecessors.\n        If combined scoring is used, the thoughts are scored together, otherwise individually.\n        If a scoring function is provided, it is used, otherwise the LM is prompted.\n        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        assert (\n            len(self.predecessors) > 0\n        ), \"Score operation needs at least one predecessor\"",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:193-218"
+    },
+    "489": {
+        "file_id": 29,
+        "content": "This code defines a method that executes a scoring operation on thoughts from predecessors. It first gets the previous thoughts and asserts that there is at least one predecessor. If combined scoring is used, it scores the thoughts together; otherwise, individually. The language model (LM) and prompter are used for prompting if a scoring function is not provided.",
+        "type": "comment"
+    },
+    "490": {
+        "file_id": 29,
+        "content": "        if self.combined_scoring:\n            previous_thoughts_states = [thought.state for thought in previous_thoughts]\n            if self.scoring_function is not None:\n                self.logger.debug(\n                    \"Using scoring function %s to score states\", self.scoring_function\n                )\n                scores = self.scoring_function(previous_thoughts_states)\n            else:\n                prompt = prompter.score_prompt(previous_thoughts_states)\n                self.logger.debug(\"Prompt for LM: %s\", prompt)\n                responses = lm.get_response_texts(\n                    lm.query(prompt, num_responses=self.num_samples)\n                )\n                self.logger.debug(\"Responses from LM: %s\", responses)\n                scores = parser.parse_score_answer(previous_thoughts_states, responses)\n            for thought, score in zip(previous_thoughts, scores):\n                new_thought = Thought.from_thought(thought)\n                new_thought.score = score\n                self.thoughts.append(new_thought)",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:220-239"
+    },
+    "491": {
+        "file_id": 29,
+        "content": "This code calculates scores for each previous thought using either a scoring function or by generating prompts from the thoughts and querying a language model. The scores are then assigned to the respective thoughts, and new Thought objects are created with the updated scores before being added to the thoughts list.",
+        "type": "comment"
+    },
+    "492": {
+        "file_id": 29,
+        "content": "        else:\n            for thought in previous_thoughts:\n                new_thought = Thought.from_thought(thought)\n                if self.scoring_function is not None:\n                    self.logger.debug(\n                        \"Using scoring function %s to score state\",\n                        self.scoring_function,\n                    )\n                    score = self.scoring_function(thought.state)\n                else:\n                    prompt = prompter.score_prompt([thought.state])\n                    self.logger.debug(\"Prompt for LM: %s\", prompt)\n                    responses = lm.get_response_texts(\n                        lm.query(prompt, num_responses=self.num_samples)\n                    )\n                    self.logger.debug(\"Responses from LM: %s\", responses)\n                    score = parser.parse_score_answer([thought.state], responses)[0]\n                new_thought.score = score\n                self.thoughts.append(new_thought)\n        self.logger.info(\n            \"Score operation %d scored %d thoughts\",",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:240-263"
+    },
+    "493": {
+        "file_id": 29,
+        "content": "This code handles scoring thoughts based on whether a scoring function is defined or not. If the scoring function is not defined, it prompts a language model (LM) to generate responses for each thought state and uses a parser to calculate scores from the LM's responses. The new score is then assigned to the thought object, and the thought is appended to the thoughts list.",
+        "type": "comment"
+    },
+    "494": {
+        "file_id": 29,
+        "content": "            self.id,\n            len(self.thoughts),\n        )\nclass ValidateAndImprove(Operation):\n    \"\"\"\n    Operation to validate and improve thoughts.\n    \"\"\"\n    operation_type: OperationType = OperationType.validate_and_improve\n    def __init__(\n        self,\n        num_samples: int = 1,\n        improve: bool = True,\n        num_tries: int = 3,\n        validate_function: Callable[[Dict], bool] = None,\n    ) -> None:\n        \"\"\"\n        Initializes a new ValidateAndImprove operation.\n        :param num_samples: Number of samples to use for validation. Defaults to 1.\n        :type num_samples: int\n        :param improve: Whether to improve the thought if it is not valid. Defaults to True.\n        :type improve: bool\n        :param num_tries: Number of tries to improve the thought before giving up. Defaults to 3.\n        :type num_tries: int\n        :param validate_function: A function to validate thoughts (if not using LM). Defaults to None.\n        :type validate_function: Takes a thought state and returns a boolean.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:264-293"
+    },
+    "495": {
+        "file_id": 29,
+        "content": "This code defines a class called `ValidateAndImprove` that extends the `Operation` class. It is designed to validate and improve thoughts, with parameters for number of samples, whether to improve if not valid, number of tries before giving up, and a function to validate thoughts (optional). The operation type is specified as \"validate_and_improve\".",
+        "type": "comment"
+    },
+    "496": {
+        "file_id": 29,
+        "content": "        \"\"\"\n        super().__init__()\n        self.num_samples: int = num_samples\n        self.improve: bool = improve\n        self.num_tries: int = num_tries\n        self.validate_function: Callable[[Dict], bool] = validate_function\n        self.thoughts: List[List[Thought]] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the list of final thoughts, after validation and improvement.\n        :return: List of final validated and improved thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return [thought_list[-1] for thought_list in self.thoughts]\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the ValidateAndImprove operation by validating and improving the predecessors' thoughts.\n        If a validation function is provided, it is used, otherwise the LM is prompted.\n        If improvement is enabled, the LM is prompted to improve the thought, if it is not valid.\n        :param lm: The language model to be used.",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:294-319"
+    },
+    "497": {
+        "file_id": 29,
+        "content": "This code defines a class called `ValidateAndImprove` with attributes for the number of samples, whether to validate and improve thoughts, the number of tries, and a function to validate the thoughts. It also has methods to get final validated and improved thoughts, and execute validation and improvement using a language model.",
+        "type": "comment"
+    },
+    "498": {
+        "file_id": 29,
+        "content": "        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        assert (\n            len(self.predecessors) > 0\n        ), \"ValidateAndImprove operation needs at least one predecessor\"\n        for thought in previous_thoughts:\n            thought_list = []\n            current_thought = Thought.from_thought(thought)\n            current_try = 0\n            while True:\n                if self.validate_function is not None:\n                    self.logger.debug(\n                        \"Using validate function %s to score states\",\n                        self.validate_function,\n                    )\n                    valid = self.validate_function(current_thought.state)",
+        "type": "code",
+        "location": "/graph_of_thoughts/operations/operations.py:320-344"
+    },
+    "499": {
+        "file_id": 29,
+        "content": "This function gets the previous thoughts, checks that it has at least one predecessor, then iterates through the previous thoughts. It creates a new thought from each previous thought and enters a loop where it validates the current thought's state using a validate function.",
+        "type": "comment"
+    }
+}

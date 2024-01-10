@@ -1,0 +1,24 @@
+{
+    "600": {
+        "file_id": 36,
+        "content": ")\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_064\", get_final_scores),\n    length=64,\n    y_upper=64,\n    cost_upper=5.1,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_128\", get_final_scores),\n    length=128,\n    y_upper=128,\n    cost_upper=17,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"keyword_counting\",\n    get_plotting_data(\"keyword_counting_gpt35\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"gsp4\", \"gsp8\", \"gspx\"],\n    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT4\", \"GoT8\", \"GoTx\"],\n    y_upper=35,\n    cost_upper=9,\n    display_solved=True,\n    annotation_offset=-0.3,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"document_merging\",\n    get_plotting_data(\"document_merging_gpt35_16k\", get_final_scores_doc_merge),\n    methods_order=[\"io\", \"cot\", \"tot\", \"gsp\", \"gsp2\"],",
+        "type": "code",
+        "location": "/paper/plots.py:290-330"
+    },
+    "601": {
+        "file_id": 36,
+        "content": "Code snippet contains multiple function calls to plot results using different sets of data and parameters. It plots data for tasks \"sorting\" and \"keyword_counting\", and \"document_merging\". Each call specifies the task, data, methods order, labels, limits, display options, and other settings.",
+        "type": "comment"
+    },
+    "602": {
+        "file_id": 36,
+        "content": "    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"GoT\", \"GoT2\"],\n    y_upper=10,\n    cost_upper=15,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)",
+        "type": "code",
+        "location": "/paper/plots.py:331-337"
+    },
+    "603": {
+        "file_id": 36,
+        "content": "Parameters for plotting methods labels, upper limit of y-axis, cost threshold, and display options.",
+        "type": "comment"
+    }
+}
