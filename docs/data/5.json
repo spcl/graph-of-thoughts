@@ -1,545 +1,544 @@
 {
     "500": {
-        "file_id": 29,
-        "content": "                else:\n                    prompt = prompter.validation_prompt(**current_thought.state)\n                    self.logger.debug(\"Prompt for LM: %s\", prompt)\n                    responses = lm.get_response_texts(\n                        lm.query(prompt, num_responses=self.num_samples)\n                    )\n                    self.logger.debug(\"Responses from LM: %s\", responses)\n                    valid = parser.parse_validation_answer(\n                        current_thought.state, responses\n                    )\n                current_thought.valid = valid\n                thought_list.append(current_thought)\n                if (\n                    not self.improve\n                    or current_thought.valid\n                    or current_try >= self.num_tries\n                ):\n                    break\n                improve_prompt = prompter.improve_prompt(**current_thought.state)\n                self.logger.debug(\"Prompt for LM: %s\", improve_prompt)\n                responses = lm.get_response_texts(",
-        "type": "code",
-        "location": "/graph_of_thoughts/operations/operations.py:345-366"
-    },
-    "501": {
-        "file_id": 29,
-        "content": "Code block retrieves a prompt from prompter, then uses it to get responses from a language model (LM). It validates the response, updates the current thought's validation status and adds it to the thought list. If conditions met, breaks out of the loop.",
-        "type": "comment"
-    },
-    "502": {
-        "file_id": 29,
-        "content": "                    lm.query(improve_prompt, num_responses=1)\n                )\n                self.logger.debug(\"Responses from LM: %s\", responses)\n                state_update = parser.parse_improve_answer(\n                    current_thought.state, responses\n                )\n                current_thought = Thought({**current_thought.state, **state_update})\n                current_try += 1\n            self.thoughts.append(thought_list)\n        self.logger.info(\n            \"Validate and improve operation %d created %d valid thoughts from %d previous thoughts\",\n            self.id,\n            len(\n                [\n                    thought_list[-1]\n                    for thought_list in self.thoughts\n                    if thought_list[-1].valid\n                ]\n            ),\n            len(previous_thoughts),\n        )\nclass Generate(Operation):\n    \"\"\"\n    Operation to generate thoughts.\n    \"\"\"\n    operation_type: OperationType = OperationType.generate\n    def __init__(\n        self, num_branches_prompt: int = 1, num_branches_response: int = 1",
-        "type": "code",
-        "location": "/graph_of_thoughts/operations/operations.py:367-399"
-    },
-    "503": {
-        "file_id": 29,
-        "content": "This code defines an operation class \"Generate\" for generating thoughts using a language model (LM). It iteratively improves and validates each thought until it reaches the specified number of valid thoughts. Each thought is stored in the \"thoughts\" list. The \"Validate and improve\" operation creates new valid thoughts from previous invalid ones, appending them to the \"thoughts\" list.",
-        "type": "comment"
-    },
-    "504": {
-        "file_id": 29,
-        "content": "    ) -> None:\n        \"\"\"\n        Initializes a new Generate operation.\n        :param num_branches_prompt: Number of responses that each prompt should generate (passed to prompter). Defaults to 1.\n        :type num_branches_prompt: int\n        :param num_branches_response: Number of responses the LM should generate for each prompt. Defaults to 1.\n        :type num_branches_response: int\n        \"\"\"\n        super().__init__()\n        self.num_branches_prompt: int = num_branches_prompt\n        self.num_branches_response: int = num_branches_response\n        self.thoughts: List[Thought] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts associated with the operation.\n        :return: List of generated thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the Generate operation by generating thoughts from the predecessors.",
-        "type": "code",
-        "location": "/graph_of_thoughts/operations/operations.py:400-427"
-    },
-    "505": {
-        "file_id": 29,
-        "content": "This code defines a class for generating thoughts, with parameters for the number of responses per prompt and the language model used. It initializes these parameters, stores generated thoughts in a list, and provides methods to retrieve them. The `_execute` method is responsible for generating thoughts using a language model, prompter, and parser.",
-        "type": "comment"
-    },
-    "506": {
-        "file_id": 29,
+        "file_id": 28,
         "content": "        The thoughts are generated by prompting the LM with the predecessors' thought states.\n        If there are no predecessors, the kwargs are used as a base state.\n        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        if len(previous_thoughts) == 0 and len(self.predecessors) > 0:\n            return\n        if len(previous_thoughts) == 0:\n            # no predecessors, use kwargs as base state\n            previous_thoughts = [Thought(state=kwargs)]\n        for thought in previous_thoughts:\n            base_state = thought.state\n            prompt = prompter.generate_prompt(self.num_branches_prompt, **base_state)\n            self.logger.debug(\"Prompt for LM: %s\", prompt)",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:428-451"
     },
-    "507": {
-        "file_id": 29,
+    "501": {
+        "file_id": 28,
         "content": "This function generates thoughts by using a language model (LM) with the predecessor's thought states as prompts. If there are no predecessors, it uses kwargs as a base state to generate thoughts. It then parses and logs the generated prompt for the LM.",
         "type": "comment"
     },
-    "508": {
-        "file_id": 29,
+    "502": {
+        "file_id": 28,
         "content": "            responses = lm.get_response_texts(\n                lm.query(prompt, num_responses=self.num_branches_response)\n            )\n            self.logger.debug(\"Responses from LM: %s\", responses)\n            for new_state in parser.parse_generate_answer(base_state, responses):\n                new_state = {**base_state, **new_state}\n                self.thoughts.append(Thought(new_state))\n                self.logger.debug(\n                    \"New thought %d created with state %s\",\n                    self.thoughts[-1].id,\n                    self.thoughts[-1].state,\n                )\n        if (\n            len(self.thoughts)\n            > self.num_branches_prompt\n            * self.num_branches_response\n            * len(previous_thoughts)\n            and self.num_branches_prompt > 0\n        ):\n            self.logger.warning(\n                \"Generate operation %d created more thoughts than expected\",\n                self.id,\n            )\n        self.logger.info(\n            \"Generate operation %d created %d new thoughts\", self.id, len(self.thoughts)",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:452-476"
     },
-    "509": {
-        "file_id": 29,
+    "503": {
+        "file_id": 28,
         "content": "This code generates responses from a language model, parses them using a parser, and appends new thoughts to the thoughts list. If more thoughts are created than expected based on prompt and response numbers, a warning is logged.",
         "type": "comment"
     },
-    "510": {
-        "file_id": 29,
+    "504": {
+        "file_id": 28,
         "content": "        )\nclass Improve(Operation):\n    \"\"\"\n    Operation to improve thoughts.\n    \"\"\"\n    operation_type: OperationType = OperationType.improve\n    def __init__(self) -> None:\n        \"\"\"\n        Initializes a new Improve operation.\n        \"\"\"\n        super().__init__()\n        self.thoughts: List[Thought] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts associated with the operation after improvement.\n        :return: List of improved thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the Improve operation by improving the predecessors' thoughts.\n        The thoughts are improved by prompting the LM with the predecessors' thought states.\n        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:477-513"
     },
-    "511": {
-        "file_id": 29,
+    "505": {
+        "file_id": 28,
         "content": "The code defines a class \"Improve\" which represents an operation to enhance thoughts. It initializes a new Improve operation and gets the associated thoughts after improvement. The \"_execute\" method executes the operation by improving the predecessor's thoughts using language model (LM) prompts.",
         "type": "comment"
     },
-    "512": {
-        "file_id": 29,
+    "506": {
+        "file_id": 28,
         "content": "        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        assert len(self.predecessors) > 0, \"Needs at least one predecessor\"\n        for thought in previous_thoughts:\n            improve_prompt = prompter.improve_prompt(**thought.state)\n            self.logger.debug(\"Prompt for LM: %s\", improve_prompt)\n            responses = lm.get_response_texts(lm.query(improve_prompt, num_responses=1))\n            self.logger.debug(\"Responses from LM: %s\", responses)\n            state_update = parser.parse_improve_answer(thought.state, responses)\n            self.thoughts.append(Thought({**thought.state, **state_update}))\n        self.logger.info(\n            \"Improve operation %d improved %d thoughts\", self.id, len(self.thoughts)\n        )\nclass Aggregate(Operation):\n    \"\"\"",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:514-537"
     },
-    "513": {
-        "file_id": 29,
+    "507": {
+        "file_id": 28,
         "content": "This code defines two classes: \"Improve\" and \"Aggregate\", which are subclasses of the \"Operation\" class. The \"Improve\" operation retrieves previous thoughts, improves their prompts using a prompter and language model (LM), gets response texts, parses the responses using a parser, and appends the updated thoughts to the list of thoughts for the current operation. The \"Aggregate\" operation also exists but has no implementation shown in this code snippet.",
         "type": "comment"
     },
-    "514": {
-        "file_id": 29,
+    "508": {
+        "file_id": 28,
         "content": "    Operation to aggregate thoughts.\n    \"\"\"\n    operation_type: OperationType = OperationType.aggregate\n    def __init__(self, num_responses: int = 1) -> None:\n        \"\"\"\n        Initializes a new Aggregate operation.\n        :param num_responses: Number of responses to use for aggregation. Defaults to 1.\n        :type num_responses: int\n        \"\"\"\n        super().__init__()\n        self.thoughts: List[Thought] = []\n        self.num_responses: int = num_responses\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts associated with the operation after aggregation.\n        :return: List of aggregated thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the Aggregate operation by aggregating the predecessors' thoughts.\n        The thoughts are aggregated by prompting the LM with the predecessors' thought states.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:538-568"
     },
-    "515": {
-        "file_id": 29,
+    "509": {
+        "file_id": 28,
         "content": "This code defines an Aggregate operation class that initializes a new Aggregate operation and gets the associated thoughts after aggregation. It also includes a method to execute the operation by prompting the language model with predecessors' thought states for aggregation.",
         "type": "comment"
     },
-    "516": {
-        "file_id": 29,
+    "510": {
+        "file_id": 28,
         "content": "        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        \"\"\"\n        assert (\n            len(self.predecessors) >= 1\n        ), \"Aggregate operation must have at least one predecessor\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        if len(previous_thoughts) == 0:\n            return\n        # applied in order of score\n        base_state: Dict = {}\n        for thought in sorted(previous_thoughts, key=lambda thought: thought.score):\n            base_state = {**base_state, **thought.state}\n        previous_thought_states = [thought.state for thought in previous_thoughts]\n        prompt = prompter.aggregation_prompt(previous_thought_states)",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:570-594"
     },
-    "517": {
-        "file_id": 29,
+    "511": {
+        "file_id": 28,
         "content": "This code is a part of an operation class in Python. It checks if the operation has at least one predecessor and retrieves the previous thoughts from it. Then, it sorts the previous thoughts based on their score and constructs a prompt for aggregation using the prompter. Finally, it stores the states of the previous thoughts.",
         "type": "comment"
     },
-    "518": {
-        "file_id": 29,
+    "512": {
+        "file_id": 28,
         "content": "        self.logger.debug(\"Prompt for LM: %s\", prompt)\n        responses = lm.get_response_texts(\n            lm.query(prompt, num_responses=self.num_responses)\n        )\n        self.logger.debug(\"Responses from LM: %s\", responses)\n        parsed = parser.parse_aggregation_answer(previous_thought_states, responses)\n        if isinstance(parsed, dict):\n            parsed = [parsed]\n        for new_state in parsed:\n            self.thoughts.append(Thought({**base_state, **new_state}))\nclass KeepBestN(Operation):\n    \"\"\"\n    Operation to keep the best N thoughts from predecessors based on their score.\n    \"\"\"\n    operation_type: OperationType = OperationType.keep_best_n\n    def __init__(self, n: int, higher_is_better: bool = True) -> None:\n        \"\"\"\n        Initializes a new KeepBestN operation.\n        :param n: Maximum number of thoughts to keep.\n        :type n: int\n        :param higher_is_better: Whether higher scores are better. Defaults to True.\n        :type higher_is_better: bool\n        :raises AssertionError: If `n` is not greater than zero.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:596-627"
     },
-    "519": {
-        "file_id": 29,
+    "513": {
+        "file_id": 28,
         "content": "The code defines a class `KeepBestN` that represents an operation to keep the best N thoughts from predecessors based on their score. The `__init__` method initializes a new `KeepBestN` object with the maximum number of thoughts to keep and whether higher scores are better.",
         "type": "comment"
     },
-    "520": {
-        "file_id": 29,
+    "514": {
+        "file_id": 28,
         "content": "        \"\"\"\n        super().__init__()\n        self.n: int = n\n        assert self.n > 0, \"KeepBestN operation must keep at least one thought\"\n        self.higher_is_better: bool = higher_is_better\n        self.thoughts: List[Thought] = []\n    def get_best_n(self) -> List[Thought]:\n        \"\"\"\n        Returns the best N thoughts from the predecessors based on their score.\n        :return: List of best N thoughts.\n        :rtype: List[Thought]\n        :raises AssertionError: If not all predecessors have been executed.\n        :raises AssertionError: If not all thoughts have been scored.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        assert all(\n            previous_thought.scored for previous_thought in previous_thoughts\n        ), \"Not all thoughts have been scored\"\n        try:\n            return sorted(\n                previous_thoughts,\n                key=lambda thought: thought.score,\n                reverse=self.higher_is_better,\n            )[: self.n]\n        except:",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:628-655"
     },
-    "521": {
-        "file_id": 29,
+    "515": {
+        "file_id": 28,
         "content": "Class `KeepBestN` initializes its attributes and checks the minimum number of thoughts to keep, then provides a method `get_best_n()` that returns the top N thoughts based on their scores. It raises `AssertionError` if all predecessors haven't been executed or if not all thoughts have been scored.",
         "type": "comment"
     },
-    "522": {
-        "file_id": 29,
+    "516": {
+        "file_id": 28,
         "content": "            self.logger.error(\"Error in KeepBestN operation\")\n            self.logger.error(\n                \"Previous operation: %s\", [op.id for op in self.predecessors]\n            )\n            self.logger.error(\"Previous thoughts: %s\", previous_thoughts)\n            self.logger.error(\n                \"Scores: %s\", [thought.score for thought in previous_thoughts]\n            )\n            return sorted(\n                [i for i in previous_thoughts if isinstance(i.score, float)],\n                key=lambda thought: thought.score,\n                reverse=self.higher_is_better,\n            )[: self.n]\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts kept by the operation.\n        :return: List of kept thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the KeepBestN operation by keeping the best N thoughts from the predecessors according to their score.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:656-683"
     },
-    "523": {
-        "file_id": 29,
+    "517": {
+        "file_id": 28,
         "content": "This code defines a `KeepBestN` operation that keeps the top N thoughts from predecessors based on their scores. It logs an error message with previous operation details and previous thoughts' scores, and returns the sorted list of thoughts. The class has methods to access kept thoughts and execute the operation using given language model, prompter, and parser.",
         "type": "comment"
     },
-    "524": {
-        "file_id": 29,
+    "518": {
+        "file_id": 28,
         "content": "        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        :raises AssertionError: If not all predecessors have been executed.\n        :raises AssertionError: If not all thoughts have been scored.\n        \"\"\"\n        assert (\n            len(self.predecessors) >= 1\n        ), \"KeepBestN operation must have at least one predecessor\"\n        self.thoughts = [Thought.from_thought(thought) for thought in self.get_best_n()]\n        for thought in self.thoughts:\n            self.logger.debug(\n                \"Thought %d with state %s kept\", thought.id, thought.state\n            )\n        self.logger.info(\n            \"KeepBestN operation %d kept %d thoughts\", self.id, len(self.thoughts)",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:685-708"
     },
-    "525": {
-        "file_id": 29,
+    "519": {
+        "file_id": 28,
         "content": "The code defines a function for the KeepBestN operation, which requires at least one predecessor, and raises AssertionError if any conditions are not met. It retrieves thoughts from predecessors and logs information about the kept thoughts.",
         "type": "comment"
     },
-    "526": {
-        "file_id": 29,
+    "520": {
+        "file_id": 28,
         "content": "        )\nclass KeepValid(Operation):\n    \"\"\"\n    Operation to keep valid thoughts from predecessors.\n    \"\"\"\n    operation_type: OperationType = OperationType.keep_valid\n    def __init__(self) -> None:\n        \"\"\"\n        Initializes a new KeepValid operation.\n        \"\"\"\n        super().__init__()\n        self.thoughts: List[Thought] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts kept by the operation.\n        :return: List of kept thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the KeepValid operation by keeping the valid thoughts from the predecessors.\n        Keeps unvalidated thoughts as well.\n        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:709-746"
     },
-    "527": {
-        "file_id": 29,
+    "521": {
+        "file_id": 28,
         "content": "The `KeepValid` operation keeps valid thoughts from predecessors and returns them. It also preserves unvalidated thoughts. This class initializes a new KeepValid operation and provides methods for retrieving the kept thoughts and executing the operation using a language model, prompter, and parser.",
         "type": "comment"
     },
-    "528": {
-        "file_id": 29,
+    "522": {
+        "file_id": 28,
         "content": "        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessors.\n        \"\"\"\n        assert (\n            len(self.predecessors) >= 1\n        ), \"KeepValid operation must have at least one predecessor\"\n        self.thoughts: List[Thought] = [\n            Thought.from_thought(thought)\n            for thought in self.get_previous_thoughts()\n            if not thought.validated or thought.valid\n        ]\n        if any(not thought.validated for thought in self.thoughts):\n            self.logger.warning(\n                \"KeepValid operation %d has unvalidated thoughts\", self.id\n            )\n        for thought in self.thoughts:\n            self.logger.debug(\n                \"Thought %d with state %s kept\", thought.id, thought.state\n            )\n        self.logger.info(\n            \"KeepValid operation %d kept %d thoughts\", self.id, len(self.thoughts)\n        )\nclass GroundTruth(Operation):\n    \"\"\"\n    Operation to evaluate if thoughts correctly solve the problem, using a ground truth evaluator",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:747-778"
     },
-    "529": {
-        "file_id": 29,
+    "523": {
+        "file_id": 28,
         "content": "The code defines two classes: \"KeepValid\" and \"GroundTruth\". The KeepValid class is an operation that requires at least one predecessor. It collects thoughts from previous operations (excluding those that are not valid or already valid) into a list called \"self.thoughts\". If there are any unvalidated thoughts, it logs a warning. Then, it logs debug and info messages for each thought in the list, including its ID and state, as well as the total number of thoughts kept. The GroundTruth class is an operation that uses a ground truth evaluator to assess if thoughts correctly solve the problem.",
         "type": "comment"
     },
-    "530": {
-        "file_id": 29,
+    "524": {
+        "file_id": 28,
         "content": "    \"\"\"\n    operation_type: OperationType = OperationType.ground_truth_evaluator\n    def __init__(self, ground_truth_evaluator: Callable[[Dict], bool]) -> None:\n        \"\"\"\n        Initializes a new GroundTruth operation.\n        :param ground_truth_evaluator: A function to evaluate if a thought solves the problem.\n        :type ground_truth_evaluator: A function that takes a thought state and returns a boolean.\n        \"\"\"\n        super().__init__()\n        self.ground_truth_evaluator: Callable[[Dict], bool] = ground_truth_evaluator\n        self.thoughts: List[Thought] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts associated with the operation.\n        :return: List of evaluated thoughts.\n        :rtype: List[Thought]\n        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the GroundTruth operation by evaluating the predecessors' thoughts using the ground truth evaluator function.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:779-807"
     },
-    "531": {
-        "file_id": 29,
+    "525": {
+        "file_id": 28,
         "content": "This code defines a class for the GroundTruth operation, which initializes with a ground truth evaluator function. The operation evaluates predecessors' thoughts using this function and stores them in a list of thoughts. The get_thoughts method returns these evaluated thoughts.",
         "type": "comment"
     },
-    "532": {
-        "file_id": 29,
+    "526": {
+        "file_id": 28,
         "content": "        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        :raises AssertionError: If operation has no predecessor.\n        \"\"\"\n        assert (\n            len(self.predecessors) >= 1\n        ), \"GroundTruth operation must have at least one predecessor\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        for thought in previous_thoughts:\n            new_thought = Thought.from_thought(thought)\n            try:\n                new_thought.solved = self.ground_truth_evaluator(new_thought.state)\n            except:\n                new_thought.solved = False\n            self.thoughts.append(new_thought)\n        self.logger.info(\n            \"GroundTruth operation %d evaluated %d thoughts and %d solved the problem\",",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:809-833"
     },
-    "533": {
-        "file_id": 29,
+    "527": {
+        "file_id": 28,
         "content": "This code is part of a class that implements the GroundTruth operation. It ensures that the operation has at least one predecessor and evaluates the thoughts generated by the previous operations. The evaluated thoughts are then added to the current operation's thoughts list, and their solved status is determined using the ground_truth_evaluator method. If any exceptions occur during the evaluation process, the solved status is set to False. Finally, an info message is logged indicating how many thoughts were evaluated and how many of them solved the problem.",
         "type": "comment"
     },
-    "534": {
-        "file_id": 29,
+    "528": {
+        "file_id": 28,
         "content": "            self.id,\n            len(self.thoughts),\n            len([thought for thought in self.thoughts if thought.solved]),\n        )\nclass Selector(Operation):\n    \"\"\"\n    Operation to select thoughts from predecessors.\n    Useful for separating thoughts to perform different, subsequent operations on them.\n    \"\"\"\n    operation_type: OperationType = OperationType.selector\n    def __init__(self, selector: Callable[[List[Thought]], List[Thought]]) -> None:\n        \"\"\"\n        Initializes a new Selector operation.\n        :param selector: A function to select thoughts from the predecessors' thoughts.\n        :type selector: A function that takes a list of thoughts and returns a list of thoughts.\n        \"\"\"\n        super().__init__()\n        self.selector: Callable[[List[Thought]], List[Thought]] = selector\n        self.thoughts: List[Thought] = []\n    def get_thoughts(self) -> List[Thought]:\n        \"\"\"\n        Returns the thoughts selected by the operation.\n        :return: List of selected thoughts.\n        :rtype: List[Thought]",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:834-864"
     },
-    "535": {
-        "file_id": 29,
+    "529": {
+        "file_id": 28,
         "content": "This code defines a Selector operation for the Graph of Thoughts, which selects thoughts from predecessors to be used in subsequent operations. The constructor takes a selector function that accepts a list of thoughts and returns a list of selected thoughts. The get_thoughts method returns the thoughts selected by the operation.",
         "type": "comment"
     },
-    "536": {
-        "file_id": 29,
+    "530": {
+        "file_id": 28,
         "content": "        \"\"\"\n        return self.thoughts\n    def _execute(\n        self, lm: AbstractLanguageModel, prompter: Prompter, parser: Parser, **kwargs\n    ) -> None:\n        \"\"\"\n        Executes the Selector operation by selecting thoughts from the predecessors using the selector function.\n        If the Selector has no predecessors, the selector function is called with a thought containing the kwargs as state.\n        :param lm: The language model to be used.\n        :type lm: AbstractLanguageModel\n        :param prompter: The prompter for crafting prompts.\n        :type prompter: Prompter\n        :param parser: The parser for parsing responses.\n        :type parser: Parser\n        :param kwargs: Additional parameters for execution.\n        \"\"\"\n        previous_thoughts: List[Thought] = self.get_previous_thoughts()\n        if len(previous_thoughts) == 0:\n            previous_thoughts = [Thought(kwargs)]\n        self.thoughts = [\n            Thought.from_thought(thought)\n            for thought in self.selector(previous_thoughts)",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:865-890"
     },
-    "537": {
-        "file_id": 29,
+    "531": {
+        "file_id": 28,
         "content": "This code defines a Selector operation, which selects thoughts from predecessors using a provided selector function. If there are no predecessors, the function calls the selector with a thought containing the provided kwargs as state. The selected thoughts are then returned.",
         "type": "comment"
     },
-    "538": {
-        "file_id": 29,
+    "532": {
+        "file_id": 28,
         "content": "        ]\n        for thought in self.thoughts:\n            self.logger.debug(\n                \"Thought %d with state %s selected\", thought.id, thought.state\n            )\n        self.logger.info(\n            \"Selector operation %d selected %d thoughts\", self.id, len(self.thoughts)\n        )",
         "type": "code",
         "location": "/graph_of_thoughts/operations/operations.py:891-900"
     },
-    "539": {
-        "file_id": 29,
+    "533": {
+        "file_id": 28,
         "content": "This code segment is logging the selection of thoughts by a selector operation. It iterates over each thought in the self.thoughts list, and logs their ID and state. Finally, it logs the total number of thoughts selected by this operation.",
         "type": "comment"
     },
-    "540": {
-        "file_id": 30,
+    "534": {
+        "file_id": 29,
         "content": "/graph_of_thoughts/operations/thought.py",
         "type": "filepath"
     },
-    "541": {
-        "file_id": 30,
+    "535": {
+        "file_id": 29,
         "content": "The Thought class represents an LLM thought with attributes including state, score, validity flag, and solution flag. It includes methods for initializing new instances and cloning existing thoughts, as well as properties for validity, score, and solved flag management.",
         "type": "summary"
     },
-    "542": {
-        "file_id": 30,
+    "536": {
+        "file_id": 29,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom __future__ import annotations\nimport logging\nfrom typing import Iterator, Dict, Optional\nimport itertools\nclass Thought:\n    \"\"\"\n    Represents an LLM thought with its state, constructed by the parser, and various flags.\n    \"\"\"\n    _ids: Iterator[int] = itertools.count(0)\n    def __init__(self, state: Optional[Dict] = None) -> None:\n        \"\"\"\n        Initializes a new Thought instance with a state and various default flags.\n        :param state: The state of the thought. Defaults to None.\n        :type state: Optional[Dict]\n        \"\"\"\n        self.logger: logging.Logger = logging.getLogger(self.__class__.__name__)\n        self.id: int = next(Thought._ids)\n        self.state: Dict = state\n        self._score: float = 0.0\n        self._valid: bool = False\n        self._solved: bool = False\n        self.scored: bool = False",
         "type": "code",
         "location": "/graph_of_thoughts/operations/thought.py:1-35"
     },
-    "543": {
-        "file_id": 30,
+    "537": {
+        "file_id": 29,
         "content": "This code defines a `Thought` class that represents an LLM thought with its state, constructed by the parser, and various flags. The class has instance attributes including a logger, unique ID, state, score, validity flag, solution flag, and a method to initialize a new Thought instance with a state and default flags if none provided.",
         "type": "comment"
     },
-    "544": {
-        "file_id": 30,
+    "538": {
+        "file_id": 29,
         "content": "        self.validated: bool = False\n        self.compared_to_ground_truth: bool = False\n    @staticmethod\n    def from_thought(thought: Thought) -> Thought:\n        \"\"\"\n        Creates a new thought from an existing one.\n        :param thought: An instance of a Thought to clone.\n        :return: A new Thought instance with properties copied from the input thought.\n        \"\"\"\n        new_thought = Thought(thought.state)\n        new_thought.score = thought.score\n        new_thought.valid = thought.valid\n        new_thought.solved = thought.solved\n        new_thought.scored = thought.scored\n        new_thought.validated = thought.validated\n        new_thought.compared_to_ground_truth = thought.compared_to_ground_truth\n        return new_thought\n    @property\n    def valid(self) -> bool:\n        \"\"\"\n        Returns the validity of the thought.\n        :return: The validity of the thought.\n        :rtype: bool\n        \"\"\"\n        return self._valid\n    @valid.setter\n    def valid(self, valid: bool) -> None:\n        \"\"\"",
         "type": "code",
         "location": "/graph_of_thoughts/operations/thought.py:36-68"
     },
-    "545": {
-        "file_id": 30,
+    "539": {
+        "file_id": 29,
         "content": "This code defines a Thought class with properties like state, score, validity, solved status, scoring information, and comparison to ground truth. The class also has a static method `from_thought` to create a new thought from an existing one by cloning its properties. The `valid` property is a boolean representing the validity of the thought, which can be accessed using the `@property` decorator and modified with the `@valid.setter` decorator.",
         "type": "comment"
     },
-    "546": {
-        "file_id": 30,
+    "540": {
+        "file_id": 29,
         "content": "        Sets the validity of the thought and the validated flag.\n        :param valid: The validity of the thought.\n        :type valid: bool\n        \"\"\"\n        self.validated = True\n        self._valid = valid\n    @property\n    def score(self) -> float:\n        \"\"\"\n        Returns the score of the thought.\n        :return: The score of the thought.\n        :rtype: float\n        \"\"\"\n        return self._score\n    @score.setter\n    def score(self, new_score: float) -> None:\n        \"\"\"\n        Sets the score of the thought and the scored flag.\n        :param new_score: The score of the thought.\n        :type new_score: float\n        \"\"\"\n        self.scored = True\n        self._score = new_score\n    @property\n    def solved(self) -> bool:\n        \"\"\"\n        Returns the solved flag of the thought.\n        :return: The solved flag of the thought.\n        :rtype: bool\n        \"\"\"\n        return self._solved\n    @solved.setter\n    def solved(self, solved: bool) -> None:\n        \"\"\"\n        Sets the solved flag of the thought and the compared_to_ground_truth flag.",
         "type": "code",
         "location": "/graph_of_thoughts/operations/thought.py:69-111"
     },
-    "547": {
-        "file_id": 30,
+    "541": {
+        "file_id": 29,
         "content": "This code defines a Thought class with properties for validity, score, and solved flag. The valid property can be set and gets the validity of the thought. The score property returns and sets the score of the thought, marking it as scored when updated. The solved property returns and sets the solved flag of the thought, also marking it as compared_to_ground_truth when updated.",
         "type": "comment"
     },
-    "548": {
-        "file_id": 30,
+    "542": {
+        "file_id": 29,
         "content": "        :param solved: Whether the thought contains a solution to the problem.\n        :type solved: bool\n        \"\"\"\n        self.compared_to_ground_truth = True\n        self._solved = solved",
         "type": "code",
         "location": "/graph_of_thoughts/operations/thought.py:113-117"
     },
-    "549": {
-        "file_id": 30,
+    "543": {
+        "file_id": 29,
         "content": "Method defining a Thought object with a boolean parameter \"solved\" indicating if it contains a solution to the problem. The method sets self.compared_to_ground_truth to True and assigns the value of solved to self._solved.",
         "type": "comment"
     },
-    "550": {
-        "file_id": 31,
+    "544": {
+        "file_id": 30,
         "content": "/graph_of_thoughts/parser/__init__.py",
         "type": "filepath"
     },
-    "551": {
-        "file_id": 31,
+    "545": {
+        "file_id": 30,
         "content": "The code imports the Parser class from the \"parser\" module in the current package, allowing for easier usage and organization of related functions and classes.",
         "type": "summary"
     },
-    "552": {
-        "file_id": 31,
+    "546": {
+        "file_id": 30,
         "content": "from .parser import Parser",
         "type": "code",
         "location": "/graph_of_thoughts/parser/__init__.py:1-1"
     },
-    "553": {
-        "file_id": 31,
+    "547": {
+        "file_id": 30,
         "content": "The code imports the Parser class from the \"parser\" module in the current package, allowing for easier usage and organization of related functions and classes.",
         "type": "comment"
     },
-    "554": {
-        "file_id": 32,
+    "548": {
+        "file_id": 31,
         "content": "/graph_of_thoughts/parser/parser.py",
         "type": "filepath"
     },
-    "555": {
-        "file_id": 32,
+    "549": {
+        "file_id": 31,
         "content": "The code includes an abstract class that defines three methods for parsing different language model responses, utilizing thought states and text inputs. The 'pass' statement serves as a placeholder or temporary measure.",
         "type": "summary"
     },
-    "556": {
-        "file_id": 32,
+    "550": {
+        "file_id": 31,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main authors: Robert Gerstenberger, Nils Blach\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\nfrom typing import Dict, List, Union\nclass Parser(ABC):\n    \"\"\"\n    Abstract base class that defines the interface for all parsers.\n    Parsers are used to parse the responses from the language models.\n    \"\"\"\n    @abstractmethod\n    def parse_aggregation_answer(\n        self, states: List[Dict], texts: List[str]\n    ) -> Union[Dict, List[Dict]]:\n        \"\"\"\n        Parse the response from the language model for a aggregation prompt.\n        :param states: The thought states used to generate the prompt.\n        :type states: List[Dict]\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The new thought states after parsing the response from the language model.",
         "type": "code",
         "location": "/graph_of_thoughts/parser/parser.py:1-31"
     },
-    "557": {
-        "file_id": 32,
+    "551": {
+        "file_id": 31,
         "content": "Parser abstract class for language model responses parsing. Defines an interface to be implemented by subclasses. Used for aggregation prompts and takes thought states and language model responses as input, returning updated thought states after parsing the response.",
         "type": "comment"
     },
-    "558": {
-        "file_id": 32,
+    "552": {
+        "file_id": 31,
         "content": "        :rtype: Union[Dict, List[Dict]]\n        \"\"\"\n        pass\n    @abstractmethod\n    def parse_improve_answer(self, state: Dict, texts: List[str]) -> Dict:\n        \"\"\"\n        Parse the response from the language model for an improve prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The new thought state after parsing the response from the language model.\n        :rtype: Dict\n        \"\"\"\n        pass\n    @abstractmethod\n    def parse_generate_answer(self, state: Dict, texts: List[str]) -> List[Dict]:\n        \"\"\"\n        Parse the response from the language model for a generate prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The new thought states after parsing the response from the language model.",
         "type": "code",
         "location": "/graph_of_thoughts/parser/parser.py:32-59"
     },
-    "559": {
-        "file_id": 32,
+    "553": {
+        "file_id": 31,
         "content": "This code defines three abstract methods in a class: `parse_improve_answer`, `parse_generate_answer`, and `parse`. These methods are responsible for parsing responses from a language model given a thought state and text inputs. The return types vary depending on the method, with `parse` returning either a dictionary or a list of dictionaries.",
         "type": "comment"
     },
-    "560": {
-        "file_id": 32,
+    "554": {
+        "file_id": 31,
         "content": "        :rtype: List[Dict]\n        \"\"\"\n        pass\n    @abstractmethod\n    def parse_validation_answer(self, state: Dict, texts: List[str]) -> bool:\n        \"\"\"\n        Parse the response from the language model for a validation prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: Whether the thought state is valid or not.\n        :rtype: bool\n        \"\"\"\n        pass\n    @abstractmethod\n    def parse_score_answer(self, states: List[Dict], texts: List[str]) -> List[float]:\n        \"\"\"\n        Parse the response from the language model for a score prompt.\n        :param states: The thought states used to generate the prompt.\n        :type states: List[Dict]\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The scores for the thought states.\n        :rtype: List[float]\n        \"\"\"",
         "type": "code",
         "location": "/graph_of_thoughts/parser/parser.py:60-89"
     },
-    "561": {
-        "file_id": 32,
+    "555": {
+        "file_id": 31,
         "content": "This code defines an abstract base class with three methods for parsing different types of language model responses. The `parse_thought_answer` method takes a thought state and text response to determine if the thought is valid. The `parse_validation_answer` method takes a list of thought states and text responses to determine if each thought's state is valid. Finally, the `parse_score_answer` method takes a list of thought states and text responses and returns the scores for each thought state.",
         "type": "comment"
     },
-    "562": {
-        "file_id": 32,
+    "556": {
+        "file_id": 31,
         "content": "        pass",
         "type": "code",
         "location": "/graph_of_thoughts/parser/parser.py:90-90"
     },
-    "563": {
-        "file_id": 32,
+    "557": {
+        "file_id": 31,
         "content": "The code contains a 'pass' statement, which is used as a placeholder and does nothing. It could be used for future implementation or as a temporary measure during development.",
         "type": "comment"
     },
-    "564": {
-        "file_id": 33,
+    "558": {
+        "file_id": 32,
         "content": "/graph_of_thoughts/prompter/__init__.py",
         "type": "filepath"
     },
-    "565": {
-        "file_id": 33,
+    "559": {
+        "file_id": 32,
         "content": "This line imports the Prompter class from the \"prompter\" module within the current package, allowing its functionality to be accessed by other parts of the codebase.",
         "type": "summary"
     },
-    "566": {
-        "file_id": 33,
+    "560": {
+        "file_id": 32,
         "content": "from .prompter import Prompter",
         "type": "code",
         "location": "/graph_of_thoughts/prompter/__init__.py:1-1"
     },
-    "567": {
-        "file_id": 33,
+    "561": {
+        "file_id": 32,
         "content": "This line imports the Prompter class from the \"prompter\" module within the current package, allowing its functionality to be accessed by other parts of the codebase.",
         "type": "comment"
     },
-    "568": {
-        "file_id": 34,
+    "562": {
+        "file_id": 33,
         "content": "/graph_of_thoughts/prompter/prompter.py",
         "type": "filepath"
     },
-    "569": {
-        "file_id": 34,
+    "563": {
+        "file_id": 33,
         "content": "The code presents an abstract base class, Prompter, that generates language model prompts through two methods: `aggregation_prompt()` and `improve_prompt()`. It also includes optional parameters and keyword arguments for subclass customization.",
         "type": "summary"
     },
-    "570": {
-        "file_id": 34,
+    "564": {
+        "file_id": 33,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main authors: Robert Gerstenberger, Nils Blach\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\nfrom typing import Dict, List\nclass Prompter(ABC):\n    \"\"\"\n    Abstract base class that defines the interface for all prompters.\n    Prompters are used to generate the prompts for the language models.\n    \"\"\"\n    @abstractmethod\n    def aggregation_prompt(self, state_dicts: List[Dict], **kwargs) -> str:\n        \"\"\"\n        Generate a aggregation prompt for the language model.\n        :param state_dicts: The thought states that should be aggregated.\n        :type state_dicts: List[Dict]\n        :param kwargs: Additional keyword arguments.\n        :return: The aggregation prompt.\n        :rtype: str\n        \"\"\"\n        pass\n    @abstractmethod\n    def improve_prompt(self, **kwargs) -> str:\n        \"\"\"\n        Generate an improve prompt for the language model.",
         "type": "code",
         "location": "/graph_of_thoughts/prompter/prompter.py:1-36"
     },
-    "571": {
-        "file_id": 34,
+    "565": {
+        "file_id": 33,
         "content": "This code is an abstract base class called Prompter, which defines interfaces for all prompters. It helps generate prompts for language models in the form of aggregation and improve prompts. The class has two abstract methods: `aggregation_prompt()` and `improve_prompt()`, both with their own parameters and return types.",
         "type": "comment"
     },
-    "572": {
-        "file_id": 34,
+    "566": {
+        "file_id": 33,
         "content": "        The thought state is unpacked to allow for additional keyword arguments\n        and concrete implementations to specify required arguments explicitly.\n        :param kwargs: Additional keyword arguments.\n        :return: The improve prompt.\n        :rtype: str\n        \"\"\"\n        pass\n    @abstractmethod\n    def generate_prompt(self, num_branches: int, **kwargs) -> str:\n        \"\"\"\n        Generate a generate prompt for the language model.\n        The thought state is unpacked to allow for additional keyword arguments\n        and concrete implementations to specify required arguments explicitly.\n        :param num_branches: The number of responses the prompt should ask the LM to generate.\n        :type num_branches: int\n        :param kwargs: Additional keyword arguments.\n        :return: The generate prompt.\n        :rtype: str\n        \"\"\"\n        pass\n    @abstractmethod\n    def validation_prompt(self, **kwargs) -> str:\n        \"\"\"\n        Generate a validation prompt for the language model.\n        The thought state is unpacked to allow for additional keyword arguments",
         "type": "code",
         "location": "/graph_of_thoughts/prompter/prompter.py:37-65"
     },
-    "573": {
-        "file_id": 34,
+    "567": {
+        "file_id": 33,
         "content": "This code defines a base class for generating prompts and validation prompts for language models. The `generate_prompt` and `validation_prompt` methods are abstract, indicating that concrete implementations should override them. The methods accept an optional parameter `num_branches`, and additional keyword arguments (`kwargs`) to allow for customization in subclasses. The thought state is unpacked to enable explicit specification of required arguments.",
         "type": "comment"
     },
-    "574": {
-        "file_id": 34,
+    "568": {
+        "file_id": 33,
         "content": "        and concrete implementations to specify required arguments explicitly.\n        :param kwargs: Additional keyword arguments.\n        :return: The validation prompt.\n        :rtype: str\n        \"\"\"\n        pass\n    @abstractmethod\n    def score_prompt(self, state_dicts: List[Dict], **kwargs) -> str:\n        \"\"\"\n        Generate a score prompt for the language model.\n        :param state_dicts: The thought states that should be scored,\n                            if more than one, they should be scored together.\n        :type state_dicts: List[Dict]\n        :param kwargs: Additional keyword arguments.\n        :return: The score prompt.\n        :rtype: str\n        \"\"\"\n        pass",
         "type": "code",
         "location": "/graph_of_thoughts/prompter/prompter.py:66-86"
     },
-    "575": {
-        "file_id": 34,
+    "569": {
+        "file_id": 33,
         "content": "This code defines an abstract class with two methods: `generate_prompt()` and `score_prompt()`. The first method generates a validation prompt, and the second method generates a score prompt. Both methods accept additional keyword arguments. State dictionaries are used as input for the `score_prompt()` method to generate prompts for multiple thought states simultaneously.",
         "type": "comment"
     },
-    "576": {
-        "file_id": 35,
+    "570": {
+        "file_id": 34,
         "content": "/paper/README.md",
         "type": "filepath"
     },
-    "577": {
-        "file_id": 35,
+    "571": {
+        "file_id": 34,
         "content": "The code provides instructions to access and visualize arXiv preprint data, which is stored in the `final_results_gpt35.tar.bz2` archive. The `plots.py` file needs to be executed after unpacking the archive for visualization purposes.",
         "type": "summary"
     },
-    "578": {
-        "file_id": 35,
+    "572": {
+        "file_id": 34,
         "content": "## Plot Data\nThe data used to create the figure of the arXiv preprint article can be\nfound in the `final_results_gpt35.tar.bz2` archive.  Unpack the archive\nand run the file `plots.py`.",
         "type": "code",
         "location": "/paper/README.md:1-5"
     },
-    "579": {
-        "file_id": 35,
+    "573": {
+        "file_id": 34,
         "content": "The code provides instructions to access and visualize arXiv preprint data, which is stored in the `final_results_gpt35.tar.bz2` archive. The `plots.py` file needs to be executed after unpacking the archive for visualization purposes.",
         "type": "comment"
     },
-    "580": {
-        "file_id": 36,
+    "574": {
+        "file_id": 35,
         "content": "/paper/plots.py",
         "type": "filepath"
     },
-    "581": {
-        "file_id": 36,
+    "575": {
+        "file_id": 35,
         "content": "Both scripts utilize Python to process data from JSON files, generate boxplots, and customize visualizations with various settings such as titles, colors, y-axis limits, cost thresholds, and display options.",
         "type": "summary"
     },
-    "582": {
-        "file_id": 36,
+    "576": {
+        "file_id": 35,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\n# contributions: Robert Gerstenberger\nimport json\nimport os\nimport matplotlib.pyplot as plt\ndef get_complete_results(base_directory):\n    results_complete = {}\n    for folder_name in os.listdir(base_directory):\n        folder_path = os.path.join(base_directory, folder_name)\n        if os.path.isdir(folder_path):\n            results_complete[folder_name] = []\n            for file_name in os.listdir(folder_path):\n                if file_name.endswith(\".json\"):\n                    file_path = os.path.join(folder_path, file_name)\n                    with open(file_path, \"r\") as f:\n                        data = json.load(f)\n                        results_complete[folder_name].append(\n                            {\"key\": int(file_name.split(\".\")[0]), \"data\": data}\n                        )\n        for key in results_complete.keys():",
         "type": "code",
         "location": "/paper/plots.py:1-29"
     },
-    "583": {
-        "file_id": 36,
+    "577": {
+        "file_id": 35,
         "content": "This Python script reads data from a directory of JSON files, organizes it by folders, and stores the results in a dictionary. It uses the matplotlib library for plotting, but the code provided focuses on reading and organizing data, not plotting itself. The script is likely part of a larger program that utilizes this data for further analysis or visualization.",
         "type": "comment"
     },
-    "584": {
-        "file_id": 36,
+    "578": {
+        "file_id": 35,
         "content": "            results_complete[key] = sorted(\n                results_complete[key], key=lambda x: x[\"key\"]\n            )\n    return results_complete\ndef get_final_scores(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 100\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in result[\"data\"]:\n                if \"operation\" in op and op[\"operation\"] == \"ground_truth_evaluator\":\n                    try:\n                        score = min(op[\"scores\"])\n                        solved = any(op[\"problem_solved\"])\n                    except:\n                        continue\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]",
         "type": "code",
         "location": "/paper/plots.py:30-58"
     },
-    "585": {
-        "file_id": 36,
+    "579": {
+        "file_id": 35,
         "content": "This code snippet sorts the results and then calculates final scores for different methods based on metrics like score, solution status, prompt and completion tokens, and cost.",
         "type": "comment"
     },
-    "586": {
-        "file_id": 36,
+    "580": {
+        "file_id": 35,
         "content": "            )\n        scores[method] = sorted(scores[method], key=lambda x: x[0])\n    return scores\ndef get_final_scores_doc_merge(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 0\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in reversed(result[\"data\"]):\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n                if \"operation\" in op and op[\"operation\"] == \"score\":\n                    try:\n                        score = max(op[\"scores\"])\n                        break\n                    except:\n                        continue\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]\n            )",
         "type": "code",
         "location": "/paper/plots.py:59-87"
     },
-    "587": {
-        "file_id": 36,
+    "581": {
+        "file_id": 35,
         "content": "This function calculates the final scores for each method in the results_complete dictionary, considering factors like cost, prompt and completion tokens, and operation scores. It sorts the scores in ascending order before returning them.",
         "type": "comment"
     },
-    "588": {
-        "file_id": 36,
+    "582": {
+        "file_id": 35,
         "content": "        scores[method] = sorted(scores[method], key=lambda x: x[0])\n    return scores\ndef get_plotting_data(base_directory, score_method):\n    results_complete = get_complete_results(base_directory)\n    scores = score_method(results_complete)\n    results_plotting = {\n        method: {\n            \"scores\": [x[1] for x in scores[method]],\n            \"solved\": sum([1 for x in scores[method] if x[2]]),\n            \"costs\": [x[5] for x in scores[method]],\n        }\n        for method in scores.keys()\n    }\n    return results_plotting\ndef plot_results(\n    name,\n    results,\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"tog\"],\n    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT\"],\n    model=\"GPT-3.5\",\n    length=32,\n    y_lower=0,\n    y_upper=16,\n    cost_upper=1.8,\n    display_solved=True,\n    annotation_offset=1,\n    display_left_ylabel=False,\n    display_right_ylabel=False,\n):\n    methods_order = [method for method in methods_order if method in results]\n    # Extract scores based on the order\n    if name == \"set_intersection\":",
         "type": "code",
         "location": "/paper/plots.py:88-123"
     },
-    "589": {
-        "file_id": 36,
+    "583": {
+        "file_id": 35,
         "content": "The code defines a function `get_plotting_data` that takes a base directory and a score method as input, returns plotting data for different methods by extracting scores, solved counts, and costs from the complete results. Another function, `plot_results`, is defined which takes various parameters such as name, results, methods order, etc., and plots the results based on the specified parameters. The code also includes checks to ensure that only valid methods are considered for plotting.",
         "type": "comment"
     },
-    "590": {
-        "file_id": 36,
+    "584": {
+        "file_id": 35,
         "content": "        scores_ordered = [\n            [min(score, length) for score in results[method][\"scores\"] if score != 1000]\n            for method in methods_order\n        ]\n    elif name == \"sorting\":\n        scores_ordered = [\n            [\n                min(score, length)\n                for score in results[method][\"scores\"]\n                if score != 100 and score != 300\n            ]\n            for method in methods_order\n        ]\n    elif name == \"keyword_counting\":\n        scores_ordered = [\n            [\n                score\n                for score in results[method][\"scores\"]\n                if score != 100 and score != 300\n            ]\n            for method in methods_order\n        ]\n    elif name == \"document_merging\":\n        scores_ordered = [\n            [score for score in results[method][\"scores\"]] for method in methods_order\n        ]\n    total_costs = [sum(results[method][\"costs\"]) for method in methods_order]\n    # Create figure and axis\n    if name == \"keyword_counting\" or name == \"document_merging\":",
         "type": "code",
         "location": "/paper/plots.py:124-153"
     },
-    "591": {
-        "file_id": 36,
+    "585": {
+        "file_id": 35,
         "content": "The code is filtering scores and costs based on specific conditions for different tasks (e.g., sorting, keyword counting, document merging) and creating a figure with axes. For each task, it generates a list of filtered scores and total costs.",
         "type": "comment"
     },
-    "592": {
-        "file_id": 36,
+    "586": {
+        "file_id": 35,
         "content": "        fig, ax = plt.subplots(dpi=150, figsize=(3.75, 5))\n    else:\n        fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))\n    # Create boxplots\n    positions = range(1, len(methods_order) + 1)\n    ax.boxplot(scores_ordered, positions=positions)\n    fig_fontsize = 12\n    # Set the ticks and labels\n    plt.yticks(fontsize=fig_fontsize)\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    if name == \"keyword_counting\":\n        ax.set_xticklabels(methods_labels, fontsize=10)\n    else:\n        ax.set_xticklabels(methods_labels, fontsize=fig_fontsize)\n    if name == \"document_merging\":\n        ax.set_ylim(y_lower, 12 if display_solved else 9.75)\n    else:\n        ax.set_ylim(y_lower, (y_upper + 2) if display_solved else y_upper + 1)\n    if name == \"sorting\" or name == \"set_intersection\":\n        ax1_yticks = range(\n            y_lower, y_upper + 1, 2 if length < 48 else (4 if length < 96 else 8)\n        )\n        ax.set_yticks(ax1_yticks)\n    if display_left_ylabel:",
         "type": "code",
         "location": "/paper/plots.py:154-184"
     },
-    "593": {
-        "file_id": 36,
+    "587": {
+        "file_id": 35,
         "content": "Creates boxplots for sorted scores based on methods order, sets x-tick labels and y-limits according to the current name (method), adjusts y-ticks depending on length and displays left ylabel if needed.",
         "type": "comment"
     },
-    "594": {
-        "file_id": 36,
+    "588": {
+        "file_id": 35,
         "content": "        if name == \"keyword_counting\":\n            ax.set_ylabel(\n                f\"Number of errors; the lower the better\", fontsize=fig_fontsize\n            )\n        elif name == \"document_merging\":\n            ax.set_ylabel(\n                f\"Score (out of 10); the higher the better\", fontsize=fig_fontsize\n            )\n        else:\n            ax.set_ylabel(\n                f\"#incorrect elements; the lower the better\", fontsize=fig_fontsize\n            )\n    if name == \"sorting\" or name == \"set_intersection\":\n        ax.set_title(f\"{length} elements\")\n    ax2 = ax.twinx()\n    ax2.bar(positions, total_costs, alpha=0.5, color=\"blue\", label=\"Total Cost ($)\")\n    ax2.yaxis.set_tick_params(colors=\"#1919ff\", labelsize=fig_fontsize)\n    ax2.set_ylim(0, cost_upper)\n    number_of_ticks = len(ax.get_yticks())\n    tick_interval = cost_upper / (number_of_ticks)\n    ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]\n    # Set custom tick positions for ax2\n    ax2.set_yticks(ax2_ticks)\n    if display_right_ylabel:",
         "type": "code",
         "location": "/paper/plots.py:185-212"
     },
-    "595": {
-        "file_id": 36,
+    "589": {
+        "file_id": 35,
         "content": "If \"keyword_counting\", set ylabel as \"Number of errors; the lower the better\". If \"document_merging\", set ylabel as \"Score (out of 10); the higher the better\". Otherwise, set ylabel as \"#incorrect elements; the lower the better\". If \"sorting\" or \"set_intersection\", set title as length of elements. Add a blue bar chart for total cost using ax2. Set tick colors and ylim on ax2. Customize ytick positions for ax2 using provided interval.",
         "type": "comment"
     },
-    "596": {
-        "file_id": 36,
+    "590": {
+        "file_id": 35,
         "content": "        ax2.set_ylabel(\n            \"Total Cost ($); the lower the better\",\n            color=\"#1919ff\",\n            fontsize=fig_fontsize,\n        )\n    if display_solved:\n        annotation_height = y_upper + annotation_offset\n        count = 1\n        for method in methods_order:\n            if method not in results:\n                continue\n            solved = results[method][\"solved\"]\n            ax.text(\n                count,\n                annotation_height,\n                f\"{solved}\",\n                ha=\"center\",\n                va=\"bottom\",\n                fontsize=fig_fontsize,\n            )\n            count += 1\n    model = model.replace(\".\", \"\").replace(\"-\", \"\").lower()\n    if name == \"keyword_counting\" or name == \"document_merging\":\n        fig.savefig(f\"{name}_{model}.pdf\", bbox_inches=\"tight\")\n    else:\n        fig.savefig(f\"{name}_{model}_{length}.pdf\", bbox_inches=\"tight\")\nplot_results(\n    \"set_intersection\",\n    get_plotting_data(\"set_intersection_gpt35_032\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"tog2\"],",
         "type": "code",
         "location": "/paper/plots.py:213-246"
     },
-    "597": {
-        "file_id": 36,
+    "591": {
+        "file_id": 35,
         "content": "Setting the y-label for a plot, displaying the number of solved methods, and saving the figure with appropriate filename based on the method name and model.",
         "type": "comment"
     },
-    "598": {
-        "file_id": 36,
+    "592": {
+        "file_id": 35,
         "content": "    length=32,\n    y_upper=19,\n    cost_upper=2,\n    display_solved=True,\n    annotation_offset=0.5,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"set_intersection\",\n    get_plotting_data(\"set_intersection_gpt35_064\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"tog2\"],\n    length=64,\n    y_upper=32,\n    cost_upper=5.4,\n    display_solved=True,\n    annotation_offset=0.2,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"set_intersection\",\n    get_plotting_data(\"set_intersection_gpt35_128\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"tog2\"],\n    length=128,\n    y_upper=94,\n    cost_upper=12,\n    display_solved=True,\n    annotation_offset=-3,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_032\", get_final_scores),\n    length=32,\n    display_solved=False,\n    annotation_offset=0.5,\n    display_left_ylabel=True,\n    display_right_ylabel=True,",
         "type": "code",
         "location": "/paper/plots.py:247-289"
     },
-    "599": {
-        "file_id": 36,
+    "593": {
+        "file_id": 35,
         "content": "The code snippet is defining functions and parameters for plotting data from various models. It uses the 'plot_results' function with different arguments to visualize the results of operations such as set intersection and sorting. The plots have various settings like length, upper limit, cost, display options, etc. to customize the visual representation of the data.",
         "type": "comment"
+    },
+    "594": {
+        "file_id": 35,
+        "content": ")\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_064\", get_final_scores),\n    length=64,\n    y_upper=64,\n    cost_upper=5.1,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_128\", get_final_scores),\n    length=128,\n    y_upper=128,\n    cost_upper=17,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"keyword_counting\",\n    get_plotting_data(\"keyword_counting_gpt35\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"gsp4\", \"gsp8\", \"gspx\"],\n    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT4\", \"GoT8\", \"GoTx\"],\n    y_upper=35,\n    cost_upper=9,\n    display_solved=True,\n    annotation_offset=-0.3,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"document_merging\",\n    get_plotting_data(\"document_merging_gpt35_16k\", get_final_scores_doc_merge),\n    methods_order=[\"io\", \"cot\", \"tot\", \"gsp\", \"gsp2\"],",
+        "type": "code",
+        "location": "/paper/plots.py:290-330"
+    },
+    "595": {
+        "file_id": 35,
+        "content": "Code snippet contains multiple function calls to plot results using different sets of data and parameters. It plots data for tasks \"sorting\" and \"keyword_counting\", and \"document_merging\". Each call specifies the task, data, methods order, labels, limits, display options, and other settings.",
+        "type": "comment"
+    },
+    "596": {
+        "file_id": 35,
+        "content": "    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"GoT\", \"GoT2\"],\n    y_upper=10,\n    cost_upper=15,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)",
+        "type": "code",
+        "location": "/paper/plots.py:331-337"
+    },
+    "597": {
+        "file_id": 35,
+        "content": "Parameters for plotting methods labels, upper limit of y-axis, cost threshold, and display options.",
+        "type": "comment"
+    },
+    "598": {
+        "file_id": 36,
+        "content": "/pyproject.toml",
+        "type": "filepath"
+    },
+    "599": {
+        "file_id": 36,
+        "content": "The code uses Hatchling to define project settings for the Python package \"graph_of_thoughts,\" including package details, dependencies, and URLs. It also includes a TOML configuration file setting up an entry point for executable scripts under the project's namespace within the \"scripts\" section of the \"project\" block.",
+        "type": "summary"
     }
 }

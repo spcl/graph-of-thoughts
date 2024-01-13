@@ -1,542 +1,542 @@
 {
     "300": {
         "file_id": 10,
-        "content": "## Plot Data\nChange the results directory in line 170 of `plot.py` and update the\nlength parameter in the subsequent line and run `python3 plot.py` to\nplot your data.",
-        "type": "code",
-        "location": "/examples/set_intersection/README.md:48-52"
-    },
-    "301": {
-        "file_id": 10,
-        "content": "This code snippet instructs the user to modify the results directory in line 170 of `plot.py` and adjust the length parameter accordingly before executing `python3 plot.py` to visualize their data.",
-        "type": "comment"
-    },
-    "302": {
-        "file_id": 11,
-        "content": "/examples/set_intersection/dataset_gen_intersection.py",
-        "type": "filepath"
-    },
-    "303": {
-        "file_id": 11,
-        "content": "The code defines a function \"scramble\" that shuffles array elements and generates random sets, calculating their intersection for specified samples. It uses numpy's default random generator with seed 42 to generate sets of size 32, writing the input, generated, and intersection sets in CSV format.",
-        "type": "summary"
-    },
-    "304": {
-        "file_id": 11,
-        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Robert Gerstenberger\nimport csv\nimport numpy as np\ndef scramble(array: np.ndarray, rng: np.random.Generator) -> None:\n    \"\"\"\n    Helper function to change the order of the elements in an array randomly.\n    :param array: Array to be scrambled.\n    :type: numpy.ndarray\n    :param rng: Random number generator.\n    :type rng: numpy.random.Generator\n    \"\"\"\n    size = array.shape[0]\n    index_array = rng.integers(0, size, size)\n    for i in range(size):\n        temp = array[i]\n        array[i] = array[index_array[i]]\n        array[index_array[i]] = temp\nif __name__ == \"__main__\":\n    \"\"\"\n    Input(u)  : Set size.\n    Input(v)  : Range of the integer numbers in the sets: 0..v (exclusive)\n    Input(w)  : Seed for the random number generator.\n    Input(x)  : Number of samples to be generated.\n    Input(y)  : Filename for the output CSV file.",
-        "type": "code",
-        "location": "/examples/set_intersection/dataset_gen_intersection.py:1-39"
-    },
-    "305": {
-        "file_id": 11,
-        "content": "The code snippet defines a function called \"scramble\" which shuffles the elements of an array randomly. It also contains main code block that specifies input parameters such as set size, range of integer numbers in sets, seed for random number generator, number of samples to be generated, and filename for output CSV file. The purpose is likely to generate a dataset by scrambling the order of elements within sets.",
-        "type": "comment"
-    },
-    "306": {
-        "file_id": 11,
         "content": "    Output(z) : Input sets and intersected set written a file in the CSV format.\n                File contains the sample ID, input set 1, input set 2,\n                intersection set.\n    \"\"\"\n    set_size = 32  # size of the generated sets\n    int_value_ubound = 64  # (exclusive) upper limit of generated numbers\n    seed = 42  # seed of the random number generator\n    num_sample = 100  # number of samples\n    filename = \"set_intersection_032.csv\"  # output filename\n    assert 2 * set_size <= int_value_ubound\n    rng = np.random.default_rng(seed)\n    intersection_sizes = rng.integers(set_size // 4, 3 * set_size // 4, num_sample)\n    np.set_printoptions(\n        linewidth=np.inf\n    )  # no wrapping in the array fields in the output file\n    with open(filename, \"w\") as f:\n        fieldnames = [\"ID\", \"SET1\", \"SET2\", \"INTERSECTION\"]\n        writer = csv.DictWriter(f, delimiter=\",\", fieldnames=fieldnames)\n        writer.writeheader()\n        for i in range(num_sample):\n            intersection_size = intersection_sizes[i]",
         "type": "code",
         "location": "/examples/set_intersection/dataset_gen_intersection.py:40-67"
     },
-    "307": {
-        "file_id": 11,
+    "301": {
+        "file_id": 10,
         "content": "Code generates random sets and calculates their intersection for a given number of samples. It uses numpy's default random generator, with seed 42, to generate sets of size 32. The intersected set sizes are also randomly determined (within certain bounds) for each sample. The code writes the input sets, generated sets, and intersection sets in CSV format.",
         "type": "comment"
     },
-    "308": {
-        "file_id": 11,
+    "302": {
+        "file_id": 10,
         "content": "            full_set = np.arange(0, int_value_ubound, dtype=np.int16)\n            scramble(full_set, rng)\n            intersection = full_set[:intersection_size].copy()\n            sorted_intersection = np.sort(intersection)\n            set1 = full_set[:set_size].copy()\n            set2 = np.concatenate(\n                [intersection, full_set[set_size : 2 * set_size - intersection_size]]\n            )\n            scramble(set1, rng)\n            scramble(set2, rng)\n            writer.writerow(\n                {\n                    \"ID\": i,\n                    \"SET1\": set1.tolist(),\n                    \"SET2\": set2.tolist(),\n                    \"INTERSECTION\": sorted_intersection.tolist(),\n                }\n            )",
         "type": "code",
         "location": "/examples/set_intersection/dataset_gen_intersection.py:69-92"
     },
-    "309": {
-        "file_id": 11,
+    "303": {
+        "file_id": 10,
         "content": "Code generates a full set of integers, scrambles it, takes an intersection of the set with a specified size, splits the full set into two sets, scramble each set, and writes a row to a CSV file containing ID, SET1, SET2, and sorted INTERSECTION.",
         "type": "comment"
     },
-    "310": {
-        "file_id": 12,
+    "304": {
+        "file_id": 11,
         "content": "/examples/set_intersection/plot.py",
         "type": "filepath"
     },
-    "311": {
-        "file_id": 12,
+    "305": {
+        "file_id": 11,
         "content": "The code collects and processes results from various AI methods, storing them in dictionaries for analysis or visualization. It generates boxplots to display the final scores of different methods with customizable y-axis settings and font size. The code also sets labels, plots a bar graph, adds annotations, adjustments, and text, saves as PDF, replaces characters in model names, and calls another function.",
         "type": "summary"
     },
-    "312": {
-        "file_id": 12,
+    "306": {
+        "file_id": 11,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\n# contributions: Robert Gerstenberger\nimport json\nimport os\nimport matplotlib.pyplot as plt\ndef get_complete_results(base_directory):\n    results_complete = {}\n    for folder_name in os.listdir(base_directory):\n        folder_path = os.path.join(base_directory, folder_name)\n        if os.path.isdir(folder_path):\n            results_complete[folder_name] = []\n            for file_name in os.listdir(folder_path):\n                if file_name.endswith(\".json\"):\n                    file_path = os.path.join(folder_path, file_name)\n                    with open(file_path, \"r\") as f:\n                        data = json.load(f)\n                        results_complete[folder_name].append(\n                            {\"key\": int(file_name.split(\".\")[0]), \"data\": data}\n                        )\n        for key in results_complete.keys():",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:1-29"
     },
-    "313": {
-        "file_id": 12,
+    "307": {
+        "file_id": 11,
         "content": "This code retrieves complete results from a given base directory. It iterates through each folder in the directory, loads JSON files within each folder, and stores the key-value pairs as dictionaries within lists under each folder's name in a results dictionary. The code also checks if directories are not empty folders.",
         "type": "comment"
     },
-    "314": {
-        "file_id": 12,
+    "308": {
+        "file_id": 11,
         "content": "            results_complete[key] = sorted(\n                results_complete[key], key=lambda x: x[\"key\"]\n            )\n    return results_complete\ndef get_final_scores(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 100\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in result[\"data\"]:\n                if \"operation\" in op and op[\"operation\"] == \"ground_truth_evaluator\":\n                    try:\n                        score = min(op[\"scores\"])\n                        solved = any(op[\"problem_solved\"])\n                    except:\n                        continue\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:30-58"
     },
-    "315": {
-        "file_id": 12,
+    "309": {
+        "file_id": 11,
         "content": "This code organizes and processes results from various AI methods, extracting scores, solved status, prompt/completion tokens, and cost for each method. It stores this information in a dictionary for further analysis or visualization.",
         "type": "comment"
     },
-    "316": {
-        "file_id": 12,
+    "310": {
+        "file_id": 11,
         "content": "            )\n        scores[method] = sorted(scores[method], key=lambda x: x[0])\n    return scores\ndef get_plotting_data(base_directory):\n    results_complete = get_complete_results(base_directory)\n    scores = get_final_scores(results_complete)\n    results_plotting = {\n        method: {\n            \"scores\": [x[1] for x in scores[method]],\n            \"solved\": sum([1 for x in scores[method] if x[2]]),\n            \"costs\": [x[5] for x in scores[method]],\n        }\n        for method in scores.keys()\n    }\n    return results_plotting\ndef plot_results(\n    results,\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"got\"],\n    model=\"GPT-3.5\",\n    length=32,\n    y_lower=0,\n    cost_upper=0.0,\n    display_solved=True,\n    annotation_offset=0,\n    display_left_ylabel=False,\n    display_right_ylabel=False,\n):\n    methods_order = [method for method in methods_order if method in results]\n    # Extract scores based on the order\n    scores_ordered = [\n        [score for score in results[method][\"scores\"] if score != 1000]\n        for method in methods_order",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:59-94"
     },
-    "317": {
-        "file_id": 12,
+    "311": {
+        "file_id": 11,
         "content": "The code retrieves final scores from complete results and organizes them into a dictionary for plotting. It then creates a new dictionary with scores, solved problems count, and costs for each method. This data is used to plot the results in a graph, considering options like method order, model, length, cost limits, and display settings.",
         "type": "comment"
     },
-    "318": {
-        "file_id": 12,
+    "312": {
+        "file_id": 11,
         "content": "    ]\n    total_costs = [sum(results[method][\"costs\"]) for method in methods_order]\n    # Create figure and axis\n    fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))\n    # Create boxplots\n    positions = range(1, len(methods_order) + 1)\n    ax.boxplot(scores_ordered, positions=positions)\n    fig_fontsize = 12\n    # Set the ticks and labels\n    methods_labels = [\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT\"]\n    plt.yticks(fontsize=fig_fontsize)\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticklabels(methods_labels, fontsize=fig_fontsize)\n    y_upper = length\n    range_increase = 1\n    if display_solved:\n        if length < 48:\n            range_increase = 2\n        elif length < 96:\n            range_increase = 4\n        else:\n            range_increase = 8\n    ax.set_ylim(y_lower, y_upper + range_increase)\n    ax1_yticks = range(\n        y_lower, y_upper + 1, 2 if length < 48 else (4 if length < 96 else 8)\n    )\n    ax.set_yticks(ax1_yticks)\n    if display_left_ylabel:",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:95-130"
     },
-    "319": {
-        "file_id": 12,
+    "313": {
+        "file_id": 11,
         "content": "This code creates a boxplot to visualize the results of different methods. It sets the y-axis limits and ticks based on the length of the data, and customizes the font size for better readability. The code also handles the display of additional information (solved count) by adjusting the range of y-axis ticks accordingly.",
         "type": "comment"
     },
-    "320": {
-        "file_id": 12,
+    "314": {
+        "file_id": 11,
         "content": "        ax.set_ylabel(\n            f\"#incorrect elements; the lower the better\", fontsize=fig_fontsize\n        )\n    ax.set_title(f\"{length} elements\")\n    ax2 = ax.twinx()\n    ax2.bar(positions, total_costs, alpha=0.5, color=\"blue\", label=\"Total Cost ($)\")\n    ax2.yaxis.set_tick_params(colors=\"#1919ff\", labelsize=fig_fontsize)\n    if cost_upper > 0:\n        ax2.set_ylim(0, cost_upper)\n        number_of_ticks = len(ax.get_yticks())\n        tick_interval = cost_upper / (number_of_ticks)\n        ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]\n        # Set custom tick positions for ax2\n        ax2.set_yticks(ax2_ticks)\n    if display_right_ylabel:\n        ax2.set_ylabel(\n            \"Total Cost ($); the lower the better\",\n            color=\"#1919ff\",\n            fontsize=fig_fontsize,\n        )\n    if display_solved:\n        annotation_height = y_upper + annotation_offset\n        count = 1\n        for method in methods_order:\n            if method not in results:\n                continue\n            solved = results[method][\"solved\"]",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:131-162"
     },
-    "321": {
-        "file_id": 12,
+    "315": {
+        "file_id": 11,
         "content": "This code sets y-axis label, title, and twin axis for plotting. It then plots a bar graph using the twin axis, setting the y-axis limits and ticks based on specified conditions. Finally, it checks if certain conditions are met and adds annotations or adjusts the graph accordingly.",
         "type": "comment"
     },
-    "322": {
-        "file_id": 12,
+    "316": {
+        "file_id": 11,
         "content": "            ax.text(\n                count,\n                annotation_height,\n                f\"{solved}\",\n                ha=\"center\",\n                va=\"bottom\",\n                fontsize=fig_fontsize,\n            )\n            count += 1\n    model = model.replace(\".\", \"\").replace(\"-\", \"\").lower()\n    fig.savefig(f\"set_intersection_{model}_{length}.pdf\", bbox_inches=\"tight\")\nplot_results(\n    get_plotting_data(\"results/\"),\n    length=32,\n    display_solved=True,\n    model=\"GPT-3.5\",\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)",
         "type": "code",
         "location": "/examples/set_intersection/plot.py:163-184"
     },
-    "323": {
-        "file_id": 12,
+    "317": {
+        "file_id": 11,
         "content": "This code is adding text annotations to a plot, incrementing a count variable, and saving the final plot as a PDF. It replaces certain characters in the model name and calls another function for more plotting results with specific parameters.",
         "type": "comment"
     },
-    "324": {
-        "file_id": 13,
+    "318": {
+        "file_id": 12,
         "content": "/examples/set_intersection/utils.py",
         "type": "filepath"
     },
-    "325": {
-        "file_id": 13,
+    "319": {
+        "file_id": 12,
         "content": "The code contains helper functions `string_to_list()` and `string_to_set()`, which convert a string-encoded list or set into Python integers. The `test_set_intersection` function compares the intersection of two sets with the sorted list from the input string, counting errors as a score, returning either total errors or 1000 for exceptions.",
         "type": "summary"
     },
-    "326": {
-        "file_id": 13,
+    "320": {
+        "file_id": 12,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# The source code is adapted from the sorting source code written by\n# Nils Blach.\n#\n# main author: Robert Gerstenberger\nfrom typing import Dict, List, Set\ndef string_to_list(string: str) -> List[int]:\n    \"\"\"\n    Helper function to convert a list encoded inside a string into a Python\n    list object of integer elements.\n    :param string: Input string containing a list.\n    :type string: str\n    :return: List of integer elements.\n    :rtype: List[int]\n    :raise AssertionError: If input string does not contain a list.\n    \"\"\"\n    assert string[0] == \"[\" and string[-1] == \"]\", \"String is not a list.\"\n    return [int(num) for num in string[1:-1].split(\",\")]\ndef string_to_set(string: str) -> Set[int]:\n    \"\"\"\n    Helper function to convert a list encoded inside a string into a Python\n    set object of integer elements.\n    :param string: Input string containing a list.",
         "type": "code",
         "location": "/examples/set_intersection/utils.py:1-36"
     },
-    "327": {
-        "file_id": 13,
+    "321": {
+        "file_id": 12,
         "content": "This code defines two helper functions: `string_to_list()` and `string_to_set()`. These functions are used to convert a list encoded in a string into a Python list or set object of integer elements. The `string_to_list()` function converts the input string into an integer list, while the `string_to_set()` function converts it into a set of integers. The assertion is raised if the input string does not contain a list.",
         "type": "comment"
     },
-    "328": {
-        "file_id": 13,
+    "322": {
+        "file_id": 12,
         "content": "    :type string: str\n    :return: Set of integer elements.\n    :rtype: Set[int]\n    :raise AssertionError: If input string does not contain a list.\n    \"\"\"\n    assert string[0] == \"[\" and string[-1] == \"]\", \"String is not a list.\"\n    return {int(num) for num in string[1:-1].split(\",\")}\ndef test_set_intersection(state: Dict) -> bool:\n    \"\"\"\n    Function to test whether the final solution matches ground truth.\n    :param state: Thought state that represents the final solution.\n    :type state: Dict\n    :return: Returns whether the solution matches the ground truth.\n    :rtype: bool\n    \"\"\"\n    # convert string to list\n    try:\n        correct_list = string_to_list(state[\"result\"])\n        sorted_list = sorted(string_to_list(state[\"current\"]))\n        return sorted_list == correct_list\n    except:\n        return False\ndef num_errors(state: Dict) -> float:\n    \"\"\"\n    Function to locally count the number of errors that serves as a score.\n    :param state: Thought state to be scored.\n    :type state: Dict\n    :return: Number of errors.",
         "type": "code",
         "location": "/examples/set_intersection/utils.py:37-72"
     },
-    "329": {
-        "file_id": 13,
+    "323": {
+        "file_id": 12,
         "content": "Function `string_to_list` converts a string input into an integer set. Function `test_set_intersection` checks if the final solution matches the ground truth by converting the result and current states to lists, sorting them, and comparing. Finally, `num_errors` function calculates the number of errors in the given state as a score.",
         "type": "comment"
     },
-    "330": {
-        "file_id": 13,
+    "324": {
+        "file_id": 12,
         "content": "    :rtype: float\n    \"\"\"\n    try:\n        set1 = string_to_set(state[\"set1\"])\n        set2 = string_to_set(state[\"set2\"])\n        if \"subset\" in state and state[\"subset\"] != \"\" and state[\"subset\"] is not None:\n            set2 = string_to_set(state[\"subset\"])\n        common = sorted(list(set1 & set2))\n        llm_solution = sorted(string_to_list(state[\"current\"]))\n        num_errors = 0\n        common_idx = 0\n        llm_idx = 0\n        while common_idx < len(common) and llm_idx < len(llm_solution):\n            if common[common_idx] == llm_solution[llm_idx]:\n                common_idx += 1\n                llm_idx += 1\n            elif common[common_idx] < llm_solution[llm_idx]:\n                common_idx += 1\n                num_errors += 1\n            elif common[common_idx] > llm_solution[llm_idx]:\n                llm_idx += 1\n                num_errors += 1\n        num_errors += len(common) - common_idx + len(llm_solution) - llm_idx\n        return num_errors\n    except:\n        return 1000",
         "type": "code",
         "location": "/examples/set_intersection/utils.py:73-99"
     },
-    "331": {
-        "file_id": 13,
+    "325": {
+        "file_id": 12,
         "content": "This function takes in two sets and a string, calculates the intersection of the sets and compares it with the sorted list from the string. If there is a mismatch between the common elements and the sorted list, it counts the number of errors. Returns the total number of errors found or 1000 if an exception occurs.",
         "type": "comment"
     },
-    "332": {
-        "file_id": 14,
+    "326": {
+        "file_id": 13,
         "content": "/examples/sorting/README.md",
         "type": "filepath"
     },
-    "333": {
-        "file_id": 14,
+    "327": {
+        "file_id": 13,
         "content": "The code directory contains various sorting algorithm examples for numbers 0-9 with implementations for IO, CoT, ToT, and GoT. It includes data files, Python scripts to execute use cases, and organizes results by name, approaches, day, and time. The plot.py file visualizes the results after modification.",
         "type": "summary"
     },
-    "334": {
-        "file_id": 14,
+    "328": {
+        "file_id": 13,
         "content": "# Sorting\nThe use case in this directory sorts the provided list of \nnumbers containing numbers from 0 to 9 (duplicates allowed). \nWe provide implementations of five different approaches for \n32, 64 and 128 elements:\n- IO\n- Chain-of-Thought (CoT)\n- Tree of Thought (ToT):\n  - ToT: wider tree, meaning more branches per level\n  - ToT2: tree with more levels, but fewer branches per level\n- Graph of Thoughts (GoT):\n  - GoT: split into subarrays / sort / merge\n## Data\nWe provide input files with 100 precomputed samples for each list\nlength: `sorting_<number of elements>.csv`.\n## Execution\nThe files to execute the use case are called\n`sorting_<number of elements>.py`. In the main body, one can select the\nspecific samples to be run (variable sample) and the approaches\n(variable approaches). It is also possible to set a budget in dollars\n(variable budget).\nThe input filename for the samples is currently hardcoded to\n`sorting_<number of elements>.csv`, but can be updated in the function\n`run`.\nThe Python scripts will create the directory `result`, if it is not",
         "type": "code",
         "location": "/examples/sorting/README.md:1-31"
     },
-    "335": {
-        "file_id": 14,
+    "329": {
+        "file_id": 13,
         "content": "This code directory contains examples of sorting algorithms for lists of numbers from 0 to 9. Implementations are provided for IO, Chain-of-Thought (CoT), Tree of Thought (ToT) with two variations, and Graph of Thoughts (GoT). Data includes input files with precomputed samples, and Python scripts execute the use case with options to select samples and approaches.",
         "type": "comment"
     },
-    "336": {
-        "file_id": 14,
+    "330": {
+        "file_id": 13,
         "content": "already present. In the 'result' directory, another directory is created\nfor each run: `{name of LLM}_{list of approaches}_{day}_{start time}`.\nInside each execution specific directory two files (`config.json`,\n`log.log`) and a separate directory for each selected approach are\ncreated. `config.json` contains the configuration of the run: input data,\nselected approaches, name of the LLM, and the budget. `log.log` contains\nthe prompts and responses of the LLM as well as additional debug data.\nThe approach directories contain a separate json file for every sample\nand the file contains the Graph Reasoning State (GRS) for that sample.\n## Plot Data\nChange the results directory in line 171 of `plot.py` and update the\nlength parameter in the subsequent line and run `python3 plot.py` to\nplot your data.",
         "type": "code",
         "location": "/examples/sorting/README.md:32-46"
     },
-    "337": {
-        "file_id": 14,
+    "331": {
+        "file_id": 13,
         "content": "Code organizes results into separate directories for each run based on the name of LLM, list of approaches, day and start time. Inside these execution-specific directories, config.json contains the configuration, log.log has prompts & responses, and approach directories store GRS files for every sample. Plot data can be visualized by modifying the results directory in plot.py and running python3 plot.py.",
         "type": "comment"
     },
-    "338": {
-        "file_id": 15,
+    "332": {
+        "file_id": 14,
         "content": "/examples/sorting/plot.py",
         "type": "filepath"
     },
-    "339": {
-        "file_id": 15,
+    "333": {
+        "file_id": 14,
         "content": "The code reads and sorts JSON data, calculates scores for sorting algorithm performances, plots boxplots, customizes options, adjusts y-axis limits, adds annotations, saves as PDF, and calls function with GPT-3.5 parameters.",
         "type": "summary"
     },
-    "340": {
-        "file_id": 15,
+    "334": {
+        "file_id": 14,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\n# contributions: Robert Gerstenberger\nimport json\nimport os\nimport matplotlib.pyplot as plt\ndef get_complete_results(base_directory):\n    results_complete = {}\n    for folder_name in os.listdir(base_directory):\n        folder_path = os.path.join(base_directory, folder_name)\n        if os.path.isdir(folder_path):\n            results_complete[folder_name] = []\n            for file_name in os.listdir(folder_path):\n                if file_name.endswith(\".json\"):\n                    file_path = os.path.join(folder_path, file_name)\n                    with open(file_path, \"r\") as f:\n                        data = json.load(f)\n                        results_complete[folder_name].append(\n                            {\"key\": int(file_name.split(\".\")[0]), \"data\": data}\n                        )\n        for key in results_complete.keys():",
         "type": "code",
         "location": "/examples/sorting/plot.py:1-29"
     },
-    "341": {
-        "file_id": 15,
+    "335": {
+        "file_id": 14,
         "content": "This code reads a directory of JSON files, extracts their key and data, and stores them in a dictionary. It handles directories recursively and does not include non-JSON files or folders without .json files. This function may be used to collect and organize data from multiple sources.",
         "type": "comment"
     },
-    "342": {
-        "file_id": 15,
+    "336": {
+        "file_id": 14,
         "content": "            results_complete[key] = sorted(\n                results_complete[key], key=lambda x: x[\"key\"]\n            )\n    return results_complete\ndef get_final_scores(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 100\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in result[\"data\"]:\n                if \"operation\" in op and op[\"operation\"] == \"ground_truth_evaluator\":\n                    try:\n                        score = min(op[\"scores\"])\n                        solved = any(op[\"problem_solved\"])\n                    except:\n                        continue\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]",
         "type": "code",
         "location": "/examples/sorting/plot.py:30-58"
     },
-    "343": {
-        "file_id": 15,
+    "337": {
+        "file_id": 14,
         "content": "Code sorts results by \"key\" and returns them in a new dictionary. The sorted results are then processed to calculate scores for each method, including score, solution status, prompt tokens, completion tokens, and cost.",
         "type": "comment"
     },
-    "344": {
-        "file_id": 15,
+    "338": {
+        "file_id": 14,
         "content": "            )\n        scores[method] = sorted(scores[method], key=lambda x: x[0])\n    return scores\ndef get_plotting_data(base_directory):\n    results_complete = get_complete_results(base_directory)\n    scores = get_final_scores(results_complete)\n    results_plotting = {\n        method: {\n            \"scores\": [x[1] for x in scores[method]],\n            \"solved\": sum([1 for x in scores[method] if x[2]]),\n            \"costs\": [x[5] for x in scores[method]],\n        }\n        for method in scores.keys()\n    }\n    return results_plotting\ndef plot_results(\n    results,\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"got\"],\n    model=\"GPT-3.5\",\n    length=32,\n    y_lower=0,\n    cost_upper=0.0,\n    display_solved=True,\n    annotation_offset=0,\n    display_left_ylabel=False,\n    display_right_ylabel=False,\n):\n    methods_order = [method for method in methods_order if method in results]\n    # Extract scores based on the order\n    scores_ordered = [\n        [\n            min(score, length)\n            for score in results[method][\"scores\"]",
         "type": "code",
         "location": "/examples/sorting/plot.py:59-95"
     },
-    "345": {
-        "file_id": 15,
+    "339": {
+        "file_id": 14,
         "content": "The code defines a function `get_plotting_data` that extracts and organizes data for plotting. It takes the base directory as input, retrieves complete results from it, then gets final scores. The final scores are organized into a dictionary called `results_plotting`, which contains scores, solved counts, and costs for each method. Another function, `plot_results`, is defined to handle the actual plotting of the data with customizable options. It extracts scores in the specified order, organizes them, and provides customizability such as display settings and annotations.",
         "type": "comment"
     },
-    "346": {
-        "file_id": 15,
+    "340": {
+        "file_id": 14,
         "content": "            if score != 100 and score != 300\n        ]\n        for method in methods_order\n    ]\n    total_costs = [sum(results[method][\"costs\"]) for method in methods_order]\n    # Create figure and axis\n    fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))\n    # Create boxplots\n    positions = range(1, len(methods_order) + 1)\n    ax.boxplot(scores_ordered, positions=positions)\n    fig_fontsize = 12\n    # Set the ticks and labels\n    method_labels = [\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT\"]\n    plt.yticks(fontsize=fig_fontsize)\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticklabels(method_labels, fontsize=fig_fontsize)\n    y_upper = length\n    range_increase = 1\n    if display_solved:\n        if length < 48:\n            range_increase = 2\n        elif length < 96:\n            range_increase = 4\n        else:\n            range_increase = 8\n    ax.set_ylim(y_lower, y_upper + range_increase)\n    ax1_yticks = range(\n        y_lower, y_upper + 1, 2 if length < 48 else (4 if length < 96 else 8)",
         "type": "code",
         "location": "/examples/sorting/plot.py:96-131"
     },
-    "347": {
-        "file_id": 15,
+    "341": {
+        "file_id": 14,
         "content": "This code creates a boxplot to visualize the scores of different methods, sets the ticks and labels, adjusts the y-axis limits based on length, and defines the y-lower limit as y_lower.",
         "type": "comment"
     },
-    "348": {
-        "file_id": 15,
+    "342": {
+        "file_id": 14,
         "content": "    )\n    ax.set_yticks(ax1_yticks)\n    if display_left_ylabel:\n        ax.set_ylabel(f\"#incorrectly sorted elements; the lower the better\")\n    ax.set_title(f\"{length} elements\")\n    ax2 = ax.twinx()\n    ax2.bar(positions, total_costs, alpha=0.5, color=\"blue\", label=\"Total Cost ($)\")\n    ax2.yaxis.set_tick_params(colors=\"#1919ff\", labelsize=fig_fontsize)\n    if cost_upper > 0:\n        ax2.set_ylim(0, cost_upper)\n        number_of_ticks = len(ax.get_yticks())\n        tick_interval = cost_upper / (number_of_ticks)\n        ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]\n        # Set custom tick positions for ax2\n        ax2.set_yticks(ax2_ticks)\n    if display_right_ylabel:\n        ax2.set_ylabel(\n            \"Total Cost ($); the lower the better\",\n            color=\"#1919ff\",\n            fontsize=fig_fontsize,\n        )\n    if display_solved:\n        annotation_height = y_upper + annotation_offset\n        count = 1\n        for method in methods_order:\n            if method not in results:\n                continue",
         "type": "code",
         "location": "/examples/sorting/plot.py:132-163"
     },
-    "349": {
-        "file_id": 15,
+    "343": {
+        "file_id": 14,
         "content": "Setting the y-tick positions and labels for ax2, setting the y-label for ax2 if display_right_ylabel is True, setting the title of the plot to length elements, setting the lower limit of the y-axis for ax2 if cost_upper > 0, adjusting the y-ticks' values for ax2 based on the number of ticks and the upper cost limit, and finally adding annotations for solved methods.",
         "type": "comment"
     },
-    "350": {
-        "file_id": 15,
+    "344": {
+        "file_id": 14,
         "content": "            solved = results[method][\"solved\"]\n            ax.text(\n                count,\n                annotation_height,\n                f\"{solved}\",\n                ha=\"center\",\n                va=\"bottom\",\n                fontsize=fig_fontsize,\n            )\n            count += 1\n    model = model.replace(\".\", \"\").replace(\"-\", \"\").lower()\n    fig.savefig(f\"sorting_{model}_{length}.pdf\", bbox_inches=\"tight\")\nplot_results(\n    get_plotting_data(\"results/\"),\n    length=32,\n    display_solved=True,\n    model=\"GPT-3.5\",\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)",
         "type": "code",
         "location": "/examples/sorting/plot.py:164-186"
     },
-    "351": {
-        "file_id": 15,
+    "345": {
+        "file_id": 14,
         "content": "The code plots sorting algorithm performance data and displays the solved count for each method. It saves the plot as a PDF with the model name and length appended to its filename. The function is then called again with specific parameters, including GPT-3.5 as the model.",
         "type": "comment"
     },
-    "352": {
-        "file_id": 16,
+    "346": {
+        "file_id": 15,
         "content": "/examples/sorting/utils.py",
         "type": "filepath"
     },
-    "353": {
-        "file_id": 16,
+    "347": {
+        "file_id": 15,
         "content": "The code defines a function that converts string-encoded lists to Python integer lists and tests if the solution matches ground truth. A helper function checks sorted lists by comparing adjacent elements, returning error count as score; defaults to 300 in case of exception.",
         "type": "summary"
     },
-    "354": {
-        "file_id": 16,
+    "348": {
+        "file_id": 15,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom typing import Dict, List\ndef string_to_list(string: str) -> List[int]:\n    \"\"\"\n    Helper function to convert a list encoded inside a string into a Python\n    list object of string elements.\n    :param string: Input string containing a list.\n    :type string: str\n    :return: List of string elements.\n    :rtype: List[str]\n    :raise AssertionError: If input string does not contain a list.\n    \"\"\"\n    assert string[0] == \"[\" and string[-1] == \"]\", \"String is not a list.\"\n    return [int(num) for num in string[1:-1].split(\",\")]\ndef test_sorting(state: Dict) -> bool:\n    \"\"\"\n    Function to test whether the final solution matches ground truth.\n    :param state: Thought state that represents the final solution.\n    :type state: Dict\n    :return: Returns whether the solution matches the ground truth.\n    :rtype: bool",
         "type": "code",
         "location": "/examples/sorting/utils.py:1-35"
     },
-    "355": {
-        "file_id": 16,
+    "349": {
+        "file_id": 15,
         "content": "This code defines a function to convert a list encoded inside a string into a Python list object of integer elements. It also contains a helper function that tests whether the final solution matches the ground truth, taking a thought state as input and returning a boolean result.",
         "type": "comment"
     },
-    "356": {
-        "file_id": 16,
+    "350": {
+        "file_id": 15,
         "content": "    \"\"\"\n    try:\n        correct_list = sorted(string_to_list(state[\"original\"]))\n        sorted_list = string_to_list(state[\"current\"])\n        return sorted_list == correct_list\n    except:\n        return False\ndef num_errors(state: Dict) -> float:\n    \"\"\"\n    Function to locally count the number of errors that serves as a score.\n    :param state: Thought state to be scored.\n    :type state: Dict\n    :return: Number of errors.\n    :rtype: float\n    \"\"\"\n    try:\n        unsorted_list = state[\"original\"]\n        if (\n            \"unsorted_sublist\" in state\n            and state[\"unsorted_sublist\"] != \"\"\n            and state[\"unsorted_sublist\"] is not None\n            and len(state[\"unsorted_sublist\"]) < len(unsorted_list) - 5\n        ):\n            unsorted_list = state[\"unsorted_sublist\"]\n        correct_list = sorted(string_to_list(unsorted_list))\n        current_list = string_to_list(state[\"current\"])\n        num_errors = 0\n        for i in range(10):\n            num_errors += abs(\n                sum([1 for num in current_list if num == i])",
         "type": "code",
         "location": "/examples/sorting/utils.py:36-70"
     },
-    "357": {
-        "file_id": 16,
+    "351": {
+        "file_id": 15,
         "content": "Function to check if a given list is correctly sorted. If not, returns the number of errors as score.",
         "type": "comment"
     },
-    "358": {
-        "file_id": 16,
+    "352": {
+        "file_id": 15,
         "content": "                - sum([1 for num in correct_list if num == i])\n            )\n        num_errors += sum(\n            [1 for num1, num2 in zip(current_list, current_list[1:]) if num1 > num2]\n        )\n        return num_errors\n    except:\n        return 300",
         "type": "code",
         "location": "/examples/sorting/utils.py:71-78"
     },
-    "359": {
-        "file_id": 16,
+    "353": {
+        "file_id": 15,
         "content": "This code calculates the number of errors in a sorted list by comparing adjacent elements. It uses list comprehensions and built-in Python functions like zip() and sum(). If an exception occurs, it returns 300 as a default value for num_errors.",
         "type": "comment"
     },
-    "360": {
-        "file_id": 17,
+    "354": {
+        "file_id": 16,
         "content": "/graph_of_thoughts/controller/README.md",
         "type": "filepath"
     },
-    "361": {
-        "file_id": 17,
+    "355": {
+        "file_id": 16,
         "content": "The Controller class manages the execution of a graph of operations using an LLM and requires custom prompter, parser, GoO, and AbstractLanguageModel. The code initializes an instance with these parameters, runs the executor, and outputs the generated graph to file.",
         "type": "summary"
     },
-    "362": {
-        "file_id": 17,
+    "356": {
+        "file_id": 16,
         "content": "# Controller\nThe Controller class is responsible for traversing the Graph of Operations (GoO), which is a static structure that is constructed once, before the execution starts.\nGoO prescribes the execution plan of thought operations and the Controller invokes their execution, generating the Graph Reasoning State (GRS). \nIn order for a GoO to be executed, an instance of Large Language Model (LLM) must be supplied to the controller (along with other required objects).\nPlease refer to the [Language Models](../language_models/README.md) section for more information about LLMs. \nThe following section describes how to instantiate the Controller to run a defined GoO. \n## Controller Instantiation\n- Requires custom `Prompter`, `Parser`, as well as instantiated `GraphOfOperations` and `AbstractLanguageModel` - creation of these is described separately.\n- Prepare initial state (thought) as dictionary - this can be used in the initial prompts by the operations.\n```\nlm = ...create\ngraph_of_operations = ...create",
         "type": "code",
         "location": "/graph_of_thoughts/controller/README.md:1-16"
     },
-    "363": {
-        "file_id": 17,
+    "357": {
+        "file_id": 16,
         "content": "The Controller class manages the execution of the Graph of Operations (GoO) using a Large Language Model (LLM). It requires custom Prompter and Parser, along with instantiated GraphOfOperations and AbstractLanguageModel. The initial state is represented as a dictionary for prompts in operations.",
         "type": "comment"
     },
-    "364": {
-        "file_id": 17,
+    "358": {
+        "file_id": 16,
         "content": "executor = controller.Controller(\n    lm,\n    graph_of_operations,\n    <CustomPrompter()>,\n    <CustomParser()>,\n    <initial state>,\n)\nexecutor.run()\nexecutor.output_graph(\"path/to/output.json\")\n```\n- After the run the graph is written to an output file, which contains individual operations, their thoughts, information about scores and validity and total amount of used tokens / cost.",
         "type": "code",
         "location": "/graph_of_thoughts/controller/README.md:18-28"
     },
-    "365": {
-        "file_id": 17,
+    "359": {
+        "file_id": 16,
         "content": "The code initializes an instance of the Controller class with necessary parameters, including a language model (lm), graph of operations, custom prompter and parser, and an initial state. It then runs the executor and writes the generated graph containing individual operations, thoughts, scores, validity, and token usage to an output file at the specified path.",
         "type": "comment"
     },
-    "366": {
-        "file_id": 18,
+    "360": {
+        "file_id": 17,
         "content": "/graph_of_thoughts/controller/__init__.py",
         "type": "filepath"
     },
-    "367": {
-        "file_id": 18,
+    "361": {
+        "file_id": 17,
         "content": "This line is importing the \"Controller\" class from the \"controller\" module, which is located in the same package directory. This likely means that this code is part of a larger application where different modules handle different aspects of the program's functionality, and the \"Controller\" class manages some specific part or feature of the app.",
         "type": "summary"
     },
-    "368": {
-        "file_id": 18,
+    "362": {
+        "file_id": 17,
         "content": "from .controller import Controller",
         "type": "code",
         "location": "/graph_of_thoughts/controller/__init__.py:1-1"
     },
-    "369": {
-        "file_id": 18,
+    "363": {
+        "file_id": 17,
         "content": "This line is importing the \"Controller\" class from the \"controller\" module, which is located in the same package directory. This likely means that this code is part of a larger application where different modules handle different aspects of the program's functionality, and the \"Controller\" class manages some specific part or feature of the app.",
         "type": "comment"
     },
-    "370": {
-        "file_id": 19,
+    "364": {
+        "file_id": 18,
         "content": "/graph_of_thoughts/controller/controller.py",
         "type": "filepath"
     },
-    "371": {
-        "file_id": 19,
+    "365": {
+        "file_id": 18,
         "content": "The code manages the execution flow of a graph's operations using language models and classes for processing, serialization, and debugging, resulting in an organized list written to a JSON file.",
         "type": "summary"
     },
-    "372": {
-        "file_id": 19,
+    "366": {
+        "file_id": 18,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nimport json\nimport logging\nfrom typing import List\nfrom graph_of_thoughts.language_models import AbstractLanguageModel\nfrom graph_of_thoughts.operations import GraphOfOperations, Thought\nfrom graph_of_thoughts.prompter import Prompter\nfrom graph_of_thoughts.parser import Parser\nclass Controller:\n    \"\"\"\n    Controller class to manage the execution flow of the Graph of Operations,\n    generating the Graph Reasoning State.\n    This involves language models, graph operations, prompting, and parsing.\n    \"\"\"\n    def __init__(\n        self,\n        lm: AbstractLanguageModel,\n        graph: GraphOfOperations,\n        prompter: Prompter,\n        parser: Parser,\n        problem_parameters: dict,\n    ) -> None:\n        \"\"\"\n        Initialize the Controller instance with the language model,\n        operations graph, prompter, parser, and problem parameters.",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:1-35"
     },
-    "373": {
-        "file_id": 19,
+    "367": {
+        "file_id": 18,
         "content": "This code defines a Controller class to manage the execution flow of the Graph of Operations, utilizing language models, graph operations, prompting, and parsing. The Controller is initialized with an AbstractLanguageModel, GraphOfOperations, Prompter, Parser, and problem parameters.",
         "type": "comment"
     },
-    "374": {
-        "file_id": 19,
+    "368": {
+        "file_id": 18,
         "content": "        :param lm: An instance of the AbstractLanguageModel.\n        :type lm: AbstractLanguageModel\n        :param graph: The Graph of Operations to be executed.\n        :type graph: OperationsGraph\n        :param prompter: An instance of the Prompter class, used to generate prompts.\n        :type prompter: Prompter\n        :param parser: An instance of the Parser class, used to parse responses.\n        :type parser: Parser\n        :param problem_parameters: Initial parameters/state of the problem.\n        :type problem_parameters: dict\n        \"\"\"\n        self.logger = logging.getLogger(self.__class__.__module__)\n        self.lm = lm\n        self.graph = graph\n        self.prompter = prompter\n        self.parser = parser\n        self.problem_parameters = problem_parameters\n        self.run_executed = False\n    def run(self) -> None:\n        \"\"\"\n        Run the controller and execute the operations from the Graph of\n        Operations based on their readiness.\n        Ensures the program is in a valid state before execution.",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:37-60"
     },
-    "375": {
-        "file_id": 19,
+    "369": {
+        "file_id": 18,
         "content": "This function initializes a controller object with provided language model, graph of operations, prompter, parser, and problem parameters. It also sets the run_executed flag to False. The run method executes the operations from the Graph of Operations based on their readiness, ensuring the program is in a valid state before execution.",
         "type": "comment"
     },
-    "376": {
-        "file_id": 19,
+    "370": {
+        "file_id": 18,
         "content": "        :raises AssertionError: If the Graph of Operation has no roots.\n        :raises AssertionError: If the successor of an operation is not in the Graph of Operations.\n        \"\"\"\n        self.logger.debug(\"Checking that the program is in a valid state\")\n        assert self.graph.roots is not None, \"The operations graph has no root\"\n        self.logger.debug(\"The program is in a valid state\")\n        execution_queue = [\n            operation\n            for operation in self.graph.operations\n            if operation.can_be_executed()\n        ]\n        while len(execution_queue) > 0:\n            current_operation = execution_queue.pop(0)\n            self.logger.info(\"Executing operation %s\", current_operation.operation_type)\n            current_operation.execute(\n                self.lm, self.prompter, self.parser, **self.problem_parameters\n            )\n            self.logger.info(\"Operation %s executed\", current_operation.operation_type)\n            for operation in current_operation.successors:\n                assert (",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:61-82"
     },
-    "377": {
-        "file_id": 19,
+    "371": {
+        "file_id": 18,
         "content": "This code snippet is checking the validity of the program state and executing operations in a queue. It raises AssertionError if the Graph of Operations has no roots or if a successor operation is not found in the graph. The code logs debug messages for state checks, information messages for executed operations, and asserts to ensure proper execution order.",
         "type": "comment"
     },
-    "378": {
-        "file_id": 19,
+    "372": {
+        "file_id": 18,
         "content": "                    operation in self.graph.operations\n                ), \"The successor of an operation is not in the operations graph\"\n                if operation.can_be_executed():\n                    execution_queue.append(operation)\n        self.logger.info(\"All operations executed\")\n        self.run_executed = True\n    def get_final_thoughts(self) -> List[List[Thought]]:\n        \"\"\"\n        Retrieve the final thoughts after all operations have been executed.\n        :return: List of thoughts for each operation in the graph's leaves.\n        :rtype: List[List[Thought]]\n        :raises AssertionError: If the `run` method hasn't been executed yet.\n        \"\"\"\n        assert self.run_executed, \"The run method has not been executed\"\n        return [operation.get_thoughts() for operation in self.graph.leaves]\n    def output_graph(self, path: str) -> None:\n        \"\"\"\n        Serialize the state and results of the operations graph to a JSON file.\n        :param path: The path to the output file.\n        :type path: str",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:83-106"
     },
-    "379": {
-        "file_id": 19,
+    "373": {
+        "file_id": 18,
         "content": "Code snippet defines a class with methods to execute operations in a graph, retrieve final thoughts after execution, and serialize the graph state and results. The `run` method executes operations in the graph, checks if operation is in graph's operations, appends executable operations to an execution queue, logs information when all operations are executed, and sets `run_executed` flag to True. `get_final_thoughts` method retrieves final thoughts after execution of all operations by iterating through graph's leaves and getting thoughts from each operation. It raises AssertionError if the run method has not been executed yet. `output_graph` method serializes state and results of operations graph to a JSON file at specified path.",
         "type": "comment"
     },
-    "380": {
-        "file_id": 19,
+    "374": {
+        "file_id": 18,
         "content": "        \"\"\"\n        output = []\n        for operation in self.graph.operations:\n            operation_serialized = {\n                \"operation\": operation.operation_type.name,\n                \"thoughts\": [thought.state for thought in operation.get_thoughts()],\n            }\n            if any([thought.scored for thought in operation.get_thoughts()]):\n                operation_serialized[\"scored\"] = [\n                    thought.scored for thought in operation.get_thoughts()\n                ]\n                operation_serialized[\"scores\"] = [\n                    thought.score for thought in operation.get_thoughts()\n                ]\n            if any([thought.validated for thought in operation.get_thoughts()]):\n                operation_serialized[\"validated\"] = [\n                    thought.validated for thought in operation.get_thoughts()\n                ]\n                operation_serialized[\"validity\"] = [\n                    thought.valid for thought in operation.get_thoughts()\n                ]\n            if any(",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:107-128"
     },
-    "381": {
-        "file_id": 19,
+    "375": {
+        "file_id": 18,
         "content": "This code iterates through the operations in a graph, serializes each operation with its thoughts, and adds extra information if any thoughts have been scored, validated, or are invalid. This is used for generating an output list of serialized operations and associated data.",
         "type": "comment"
     },
-    "382": {
-        "file_id": 19,
+    "376": {
+        "file_id": 18,
         "content": "                [\n                    thought.compared_to_ground_truth\n                    for thought in operation.get_thoughts()\n                ]\n            ):\n                operation_serialized[\"compared_to_ground_truth\"] = [\n                    thought.compared_to_ground_truth\n                    for thought in operation.get_thoughts()\n                ]\n                operation_serialized[\"problem_solved\"] = [\n                    thought.solved for thought in operation.get_thoughts()\n                ]\n            output.append(operation_serialized)\n        output.append(\n            {\n                \"prompt_tokens\": self.lm.prompt_tokens,\n                \"completion_tokens\": self.lm.completion_tokens,\n                \"cost\": self.lm.cost,\n            }\n        )\n        with open(path, \"w\") as file:\n            file.write(json.dumps(output, indent=2))",
         "type": "code",
         "location": "/graph_of_thoughts/controller/controller.py:129-152"
     },
-    "383": {
-        "file_id": 19,
+    "377": {
+        "file_id": 18,
         "content": "This code iterates over the thoughts in each operation, compares them to ground truth, and determines if they were solved. The data is serialized and appended to a list, which is then written to a JSON file along with prompt, completion tokens, and cost information.",
         "type": "comment"
     },
-    "384": {
-        "file_id": 20,
+    "378": {
+        "file_id": 19,
         "content": "/graph_of_thoughts/language_models/README.md",
         "type": "filepath"
     },
-    "385": {
-        "file_id": 20,
+    "379": {
+        "file_id": 19,
         "content": "The Language Models module supports GPT-4/GPT-3.5 and Llama-2, with functionality for instantiating LLMs, adding new ones, and using OpenAI API features like pricing and response_token_cost. It is implemented in a base class for building language models that allows for querying and retrieving response texts.",
         "type": "summary"
     },
-    "386": {
-        "file_id": 20,
+    "380": {
+        "file_id": 19,
         "content": "# Language Models\nThe Language Models module is responsible for managing the large language models (LLMs) used by the Controller.\nCurrently, the framework supports the following LLMs:\n- GPT-4 / GPT-3.5 (Remote - OpenAI API)\n- Llama-2 (Local - HuggingFace Transformers) \nThe following sections describe how to instantiate individual LLMs and how to add new LLMs to the framework.\n## LLM Instantiation\n- Create a copy of `config_template.json` named `config.json`.\n- Fill configuration details based on the used model (below).\n### GPT-4 / GPT-3.5\n- Adjust predefined `chatgpt`,  `chatgpt4` or create new configuration with an unique key.\n| Key                 | Value                                                                                                                                                                                                                                                                                                                                                               |",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:1-18"
     },
-    "387": {
-        "file_id": 20,
+    "381": {
+        "file_id": 19,
         "content": "This code introduces the Language Models module and explains its purpose. It currently supports GPT-4/GPT-3.5 (Remote - OpenAI API) and Llama-2 (Local - HuggingFace Transformers). The following sections describe how to instantiate individual LLMs and add new ones to the framework. The LLM instantiation process involves creating a copy of `config_template.json`, filling in configuration details based on the used model, and adjusting predefined configurations or creating a new one with an unique key for GPT-4/GPT-3.5.",
         "type": "comment"
     },
-    "388": {
-        "file_id": 20,
+    "382": {
+        "file_id": 19,
         "content": "|---------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| model_id            | Model name based on [OpenAI model overview](https://platform.openai.com/docs/models/overview).                                                                                                                                                                                                                                                                      |\n| prompt_token_cost   | Price per 1000 prompt tokens based on [OpenAI pricing](https://openai.com/pricing), used for calculating cumulative price per LLM instance.                                                                           ",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:19-21"
     },
-    "389": {
-        "file_id": 20,
+    "383": {
+        "file_id": 19,
         "content": "This table maps model IDs to their respective OpenAI names and calculates prompt token costs based on OpenAI pricing, which is used for determining cumulative prices per language modeling (LLM) instance.",
         "type": "comment"
     },
-    "390": {
-        "file_id": 20,
+    "384": {
+        "file_id": 19,
         "content": "                                                                                                                                              |\n| response_token_cost | Price per 1000 response tokens based on [OpenAI pricing](https://openai.com/pricing), used for calculating cumulative price per LLM instance.                                                                                                                                                                                                                       |\n| temperature         | Parameter of OpenAI models that controls randomness and the creativity of the responses (higher temperature = more diverse and unexpected responses). Value between 0.0 and 2.0, default is 1.0. More information can be found in the [OpenAI API reference](https://platform.openai.com/docs/api-reference/completions/create#completions/create-temperature).     |\n| max_tokens          | The maximum number of tokens to generate in the chat completion. Value ",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:21-24"
     },
-    "391": {
-        "file_id": 20,
+    "385": {
+        "file_id": 19,
         "content": "The code defines 'response_token_cost', a variable representing the price per 1000 response tokens, which follows OpenAI's pricing. It also includes 'temperature', a parameter controlling randomness and creativity in responses. The value is between 0.0 and 2.0, defaulting to 1.0, with further details available in the OpenAI API reference. Lastly, 'max_tokens' sets the maximum number of tokens generated in chat completions.",
         "type": "comment"
     },
-    "392": {
-        "file_id": 20,
+    "386": {
+        "file_id": 19,
         "content": "depends on the maximum context size of the model specified in the [OpenAI model overview](https://platform.openai.com/docs/models/overview). More information can be found in the [OpenAI API reference](https://platform.openai.com/docs/api-reference/chat/create#chat/create-max_tokens). |\n| stop                | String or array of strings specifying sequence of characters which if detected, stops further generation of tokens. More information can be found in the [OpenAI API reference](https://platform.openai.com/docs/api-reference/chat/create#chat/create-stop).                                                                                                       |\n| organization        | Organization to use for the API requests (may be empty).                                                                                                                                                                                                                                                                                                            |",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:24-26"
     },
-    "393": {
-        "file_id": 20,
+    "387": {
+        "file_id": 19,
         "content": "This code defines three input parameters for the OpenAI API's chat creation endpoint: \"model\", \"stop\", and \"organization\". The model parameter specifies the language model to use, with its maximum context size determined by the OpenAI model overview. The stop parameter identifies a sequence of characters that halt further token generation, referencing the OpenAI API reference for more information. Lastly, organization is an optional field used for API requests, which can be left empty.",
         "type": "comment"
     },
-    "394": {
-        "file_id": 20,
+    "388": {
+        "file_id": 19,
         "content": "| api_key             | Personal API key that will be used to access OpenAI API.                                                                                                                                                                                                                                                                                                            |\n- Instantiate the language model based on the selected configuration key (predefined / custom).\n```\nlm = controller.ChatGPT(\n    \"path/to/config.json\", \n    model_name=<configuration key>\n)\n```\n### Llama-2\n- Requires local hardware to run inference and a HuggingFace account.\n- Adjust predefined `llama7b-hf`, `llama13b-hf`, `llama70b-hf` or create a new configuration with an unique key.\n| Key                 | Value                                                                                                                                                                           |\n|---------------------|----------------",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:27-42"
     },
-    "395": {
-        "file_id": 20,
+    "389": {
+        "file_id": 19,
         "content": "The code snippet is initializing a language model controller using the ChatGPT class. It takes in the path to a configuration file and a model name corresponding to the selected configuration key. The model can be predefined (llama7b-hf, llama13b-hf, llama70b-hf) or custom with a unique key.",
         "type": "comment"
     },
-    "396": {
-        "file_id": 20,
+    "390": {
+        "file_id": 19,
         "content": "-----------------------------------------------------------------------------------------------------------------------------------------------------------------|\n| model_id            | Specifies HuggingFace Llama 2 model identifier (`meta-llama/<model_id>`).                                                                                                       |\n| cache_dir           | Local directory where model will be downloaded and accessed.                                                                                                                    |\n| prompt_token_cost   | Price per 1000 prompt tokens (currently not used - local model = no cost).                                                                                                      |\n| response_token_cost | Price per 1000 response tokens (currently not used - local model = no cost).                                                                                                    |\n| temperature         | Parameter ",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:42-47"
     },
-    "397": {
-        "file_id": 20,
+    "391": {
+        "file_id": 19,
         "content": "This code block is defining the parameters for a language model, including the Llama 2 model identifier (`model_id`), the local directory where the model will be stored and accessed (`cache_dir`), the price per 1000 prompt tokens (`prompt_token_cost`), the price per 1000 response tokens (`response_token_cost`), and a parameter for temperature control. Note that currently, these costs are not used due to the local model being cost-free.",
         "type": "comment"
     },
-    "398": {
-        "file_id": 20,
+    "392": {
+        "file_id": 19,
         "content": "that controls randomness and the creativity of the responses (higher temperature = more diverse and unexpected responses). Value between 0.0 and 1.0, default is 0.6. |\n| top_k               | Top-K sampling method described in [Transformers tutorial](https://huggingface.co/blog/how-to-generate). Default value is set to 10.                                            |\n| max_tokens          | The maximum number of tokens to generate in the chat completion. More tokens require more memory.                                                                               |\n- Instantiate the language model based on the selected configuration key (predefined / custom).\n```\nlm = controller.Llama2HF(\n    \"path/to/config.json\", \n    model_name=<configuration key>\n)\n```\n- Request access to Llama-2 via the [Meta form](https://ai.meta.com/resources/models-and-libraries/llama-downloads/) using the same email address as for the HuggingFace account.\n- After the access is granted, go to [HuggingFace Llama-2 model ca",
         "type": "code",
         "location": "/graph_of_thoughts/language_models/README.md:47-59"
     },
-    "399": {
-        "file_id": 20,
+    "393": {
+        "file_id": 19,
         "content": "The code initializes a language model (Llama2HF) with a specified configuration key, which determines the randomness and creativity of responses. It also sets top-K sampling method from Transformers tutorial and maximum tokens to generate in chat completion. Access to Llama-2 is requested via Meta form using the same email as HuggingFace account, then access HuggingFace Llama-2 model page.",
         "type": "comment"
+    },
+    "394": {
+        "file_id": 19,
+        "content": "rd](https://huggingface.co/meta-llama/Llama-2-7b-chat-hf), log in and accept the license (_\"You have been granted access to this model\"_ message should appear).\n- Generate HuggingFace access token.\n- Log in from CLI with: `huggingface-cli login --token <your token>`.\nNote: 4-bit quantization is used to reduce the model size for inference. During instantiation, the model is downloaded from HuggingFace into the cache directory specified in the `config.json`. Running queries using larger models will require multiple GPUs (splitting across many GPUs is done automatically by the Transformers library).\n## Adding LLMs\nMore LLMs can be added by following these steps:\n- Create new class as a subclass of `AbstractLanguageModel`.\n- Use the constructor for loading configuration and instantiating the language model (if needed). \n```\nclass CustomLanguageModel(AbstractLanguageModel):\n    def __init__(\n        self,\n        config_path: str = \"\",\n        model_name: str = \"llama7b-hf\",\n        cache: bool = False\n    ) -> None:",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/README.md:59-76"
+    },
+    "395": {
+        "file_id": 19,
+        "content": "This code provides instructions for adding a new LLM (Language Language Model) to the existing model. To do so, create a subclass of `AbstractLanguageModel` and use the constructor to load configuration and instantiate the language model if needed. The model is downloaded from HuggingFace into the cache directory specified in the config.json. Running queries with larger models may require multiple GPUs, which will be automatically split by the Transformers library.",
+        "type": "comment"
+    },
+    "396": {
+        "file_id": 19,
+        "content": "        super().__init__(config_path, model_name, cache)\n        self.config: Dict = self.config[model_name]\n        # Load data from configuration into variables if needed\n        # Instantiate LLM if needed\n```\n- Implement `query` abstract method that is used to get a list of responses from the LLM (call to remote API or local model inference).\n```\ndef query(self, query: str, num_responses: int = 1) -> Any:\n    # Support caching \n    # Call LLM and retrieve list of responses - based on num_responses    \n    # Return LLM response structure (not only raw strings)    \n```\n- Implement `get_response_texts` abstract method that is used to get a list of raw texts from the LLM response structure produced by `query`.\n```\ndef get_response_texts(self, query_response: Union[List[Dict], Dict]) -> List[str]:\n    # Retrieve list of raw strings from the LLM response structure    \n```",
+        "type": "code",
+        "location": "/graph_of_thoughts/language_models/README.md:77-95"
+    },
+    "397": {
+        "file_id": 19,
+        "content": "The code is a part of a class that serves as a base for building language models. It loads configuration and initializes the model. The `query` method calls the LLM to get responses based on a query, while `get_response_texts` retrieves raw texts from the response structure produced by `query`. These methods are abstract and need to be implemented in child classes.",
+        "type": "comment"
+    },
+    "398": {
+        "file_id": 20,
+        "content": "/graph_of_thoughts/language_models/__init__.py",
+        "type": "filepath"
+    },
+    "399": {
+        "file_id": 20,
+        "content": "This code imports the necessary classes (AbstractLanguageModel, ChatGPT, and Llama2HF) from their respective submodules in the language_models package.",
+        "type": "summary"
     }
 }

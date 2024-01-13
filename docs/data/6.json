@@ -1,24 +1,24 @@
 {
     "600": {
         "file_id": 36,
-        "content": ")\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_064\", get_final_scores),\n    length=64,\n    y_upper=64,\n    cost_upper=5.1,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"sorting\",\n    get_plotting_data(\"sorting_gpt35_128\", get_final_scores),\n    length=128,\n    y_upper=128,\n    cost_upper=17,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"keyword_counting\",\n    get_plotting_data(\"keyword_counting_gpt35\", get_final_scores),\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"gsp4\", \"gsp8\", \"gspx\"],\n    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT4\", \"GoT8\", \"GoTx\"],\n    y_upper=35,\n    cost_upper=9,\n    display_solved=True,\n    annotation_offset=-0.3,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)\nplot_results(\n    \"document_merging\",\n    get_plotting_data(\"document_merging_gpt35_16k\", get_final_scores_doc_merge),\n    methods_order=[\"io\", \"cot\", \"tot\", \"gsp\", \"gsp2\"],",
+        "content": "[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n[project]\nname = \"graph_of_thoughts\"\nversion = \"0.0.3\"\nauthors = [\n  { name=\"Maciej Besta\", email=\"maciej.besta@inf.ethz.ch\" },\n  { name=\"Nils Blach\", email=\"nils.blach@inf.ethz.ch\" },\n  { name=\"Ales Kubicek\", email=\"akubicek@student.ethz.ch\" },\n  { name=\"Robert Gerstenberger\", email=\"gerstenberger.robert@gmail.com\" },\n]\ndescription = \"Python package for Graph of Thoughts that enables solving elaborate problems with Large Language Models\"\nreadme = \"README.md\"\nlicense = {file = \"LICENSE\"}\nrequires-python = \">=3.8\"\nclassifiers = [\n  \"Programming Language :: Python :: 3\",\n  \"Operating System :: OS Independent\",\n]\ndependencies = [\n  \"backoff>=2.2.1,<3.0.0\",\n  \"openai>=1.0.0,<2.0.0\",\n  \"matplotlib>=3.7.1,<4.0.0\",\n  \"numpy>=1.24.3,<2.0.0\",\n  \"pandas>=2.0.3,<3.0.0\",\n  \"sympy>=1.12,<2.0\",\n  \"torch>=2.0.1,<3.0.0\",\n  \"transformers>=4.31.0,<5.0.0\",\n  \"accelerate>=0.21.0,<1.0.0\",\n  \"bitsandbytes>=0.41.0,<1.0.0\",\n  \"scipy>=1.10.1,<2.0.0\",\n]\n[project.urls]\nHomepage = \"https://github.com/spcl/graph-of-thoughts\"",
         "type": "code",
-        "location": "/paper/plots.py:290-330"
+        "location": "/pyproject.toml:1-37"
     },
     "601": {
         "file_id": 36,
-        "content": "Code snippet contains multiple function calls to plot results using different sets of data and parameters. It plots data for tasks \"sorting\" and \"keyword_counting\", and \"document_merging\". Each call specifies the task, data, methods order, labels, limits, display options, and other settings.",
+        "content": "This code defines the project settings for a Python package called \"graph_of_thoughts\" using Hatchling as the build system. It specifies the package name, version, authors, description, dependencies, and URLs for further information.",
         "type": "comment"
     },
     "602": {
         "file_id": 36,
-        "content": "    methods_labels=[\"IO\", \"CoT\", \"ToT\", \"GoT\", \"GoT2\"],\n    y_upper=10,\n    cost_upper=15,\n    display_solved=False,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n)",
+        "content": "[project.scripts]",
         "type": "code",
-        "location": "/paper/plots.py:331-337"
+        "location": "/pyproject.toml:39-39"
     },
     "603": {
         "file_id": 36,
-        "content": "Parameters for plotting methods labels, upper limit of y-axis, cost threshold, and display options.",
+        "content": "The code snippet is a part of a TOML configuration file, specifically defining the \"scripts\" section within the \"project\" block. It sets up an entry point for executable scripts under the project's namespace.",
         "type": "comment"
     }
 }

@@ -77,470 +77,470 @@
     },
     "14": {
         "file_id": 1,
-        "content": "/pyproject.toml",
+        "content": "/examples/README.md",
         "type": "filepath"
     },
     "15": {
         "file_id": 1,
-        "content": "The code uses Hatchling to define project settings for the Python package \"graph_of_thoughts,\" including package details, dependencies, and URLs. It also includes a TOML configuration file setting up an entry point for executable scripts under the project's namespace within the \"scripts\" section of the \"project\" block.",
+        "content": "This directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example, with prompt files available to test prompts manually in a console. Individual example directories provide more information on specific examples.",
         "type": "summary"
     },
     "16": {
         "file_id": 1,
-        "content": "[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n[project]\nname = \"graph_of_thoughts\"\nversion = \"0.0.3\"\nauthors = [\n  { name=\"Maciej Besta\", email=\"maciej.besta@inf.ethz.ch\" },\n  { name=\"Nils Blach\", email=\"nils.blach@inf.ethz.ch\" },\n  { name=\"Ales Kubicek\", email=\"akubicek@student.ethz.ch\" },\n  { name=\"Robert Gerstenberger\", email=\"gerstenberger.robert@gmail.com\" },\n]\ndescription = \"Python package for Graph of Thoughts that enables solving elaborate problems with Large Language Models\"\nreadme = \"README.md\"\nlicense = {file = \"LICENSE\"}\nrequires-python = \">=3.8\"\nclassifiers = [\n  \"Programming Language :: Python :: 3\",\n  \"Operating System :: OS Independent\",\n]\ndependencies = [\n  \"backoff>=2.2.1,<3.0.0\",\n  \"openai>=1.0.0,<2.0.0\",\n  \"matplotlib>=3.7.1,<4.0.0\",\n  \"numpy>=1.24.3,<2.0.0\",\n  \"pandas>=2.0.3,<3.0.0\",\n  \"sympy>=1.12,<2.0\",\n  \"torch>=2.0.1,<3.0.0\",\n  \"transformers>=4.31.0,<5.0.0\",\n  \"accelerate>=0.21.0,<1.0.0\",\n  \"bitsandbytes>=0.41.0,<1.0.0\",\n  \"scipy>=1.10.1,<2.0.0\",\n]\n[project.urls]\nHomepage = \"https://github.com/spcl/graph-of-thoughts\"",
-        "type": "code",
-        "location": "/pyproject.toml:1-37"
-    },
-    "17": {
-        "file_id": 1,
-        "content": "This code defines the project settings for a Python package called \"graph_of_thoughts\" using Hatchling as the build system. It specifies the package name, version, authors, description, dependencies, and URLs for further information.",
-        "type": "comment"
-    },
-    "18": {
-        "file_id": 1,
-        "content": "[project.scripts]",
-        "type": "code",
-        "location": "/pyproject.toml:39-39"
-    },
-    "19": {
-        "file_id": 1,
-        "content": "The code snippet is a part of a TOML configuration file, specifically defining the \"scripts\" section within the \"project\" block. It sets up an entry point for executable scripts under the project's namespace.",
-        "type": "comment"
-    },
-    "20": {
-        "file_id": 2,
-        "content": "/examples/README.md",
-        "type": "filepath"
-    },
-    "21": {
-        "file_id": 2,
-        "content": "This directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example, with prompt files available to test prompts manually in a console. Individual example directories provide more information on specific examples.",
-        "type": "summary"
-    },
-    "22": {
-        "file_id": 2,
         "content": "# Examples\nThis directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example.\nWe further include prompt files for each example that can be used to test prompts manually in a console.\nPlease refer to the individual example directories for more information on the specific example.",
         "type": "code",
         "location": "/examples/README.md:1-7"
     },
-    "23": {
-        "file_id": 2,
+    "17": {
+        "file_id": 1,
         "content": "This directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example, with prompt files available to test prompts manually in a console. Individual example directories provide more information on specific examples.",
         "type": "comment"
     },
-    "24": {
-        "file_id": 3,
+    "18": {
+        "file_id": 2,
         "content": "/examples/doc_merge/README.md",
         "type": "filepath"
     },
-    "25": {
-        "file_id": 3,
+    "19": {
+        "file_id": 2,
         "content": "The code showcases a document merging approach using various methods like IO, CoT, ToT, and GoT. It takes 50 sample documents from `documents.csv`, applies chosen techniques, and outputs results in an LLM-named directory with debug logs and separate JSON files for each approach.",
         "type": "summary"
     },
-    "26": {
-        "file_id": 3,
+    "20": {
+        "file_id": 2,
         "content": "# Document Merging\nThe use case in this directory generates new Non-Disclosure Agreement (NDA) based on several input ones that partially overlap in terms of their contents. \nWe provide implementations of five different approaches:\n- IO\n- Chain-of-Thought (CoT)\n- Tree of Thought (ToT)\n- Graph of Thoughts (GoT):\n  - GoT: aggregation of fully merged NDAs\n  - GoT2: aggregation of partially merged NDAs\n## Data\nWe provide an input file with 50 samples: `documents.csv`.\n## Execution\nThe file to execute the use case is called\n`doc_merge.py`. In the main body, one can\nselect the specific samples to be run (variable samples) and the\napproaches (variable approaches). It is also possible to set a budget in\ndollars (variable budget).\nThe Python scripts will create the directory `result`, if it is not\nalready present. In the `result` directory, another directory is created\nfor each run: `{name of LLM}_{list of approaches}_{day}_{start time}`.\nInside each execution specific directory two files (`config.json`,\n`log.log`) and a separate directory for each selected approach are",
         "type": "code",
         "location": "/examples/doc_merge/README.md:1-28"
     },
-    "27": {
-        "file_id": 3,
+    "21": {
+        "file_id": 2,
         "content": "This code demonstrates a document merging use case using different approaches, including IO, Chain-of-Thought (CoT), Tree of Thought (ToT), and Graph of Thoughts (GoT). It uses 50 sample documents from `documents.csv`, executes the selected samples with chosen approaches, and saves results in a directory named by the LLM, approaches, day, and start time.",
         "type": "comment"
     },
-    "28": {
-        "file_id": 3,
+    "22": {
+        "file_id": 2,
         "content": "created. `config.json` contains the configuration of the run: input data,\nselected approaches, name of the LLM, and the budget. `log.log` contains\nthe prompts and responses of the LLM as well as additional debug data.\nThe approach directories contain a separate json file for every sample\nand the file contains the Graph Reasoning State (GRS) for that sample.\n## Plot Data\nChange the results directory in line 158 of `plot.py` and run `python3\nplot.py` to plot your data.",
         "type": "code",
         "location": "/examples/doc_merge/README.md:29-38"
     },
-    "29": {
-        "file_id": 3,
+    "23": {
+        "file_id": 2,
         "content": "This code generates a configuration file named `config.json` that contains input data, selected approaches, LLM name, and budget information. Additionally, it logs prompts, responses, and debug data in `log.log`. Each approach directory holds separate JSON files for every sample with the Graph Reasoning State (GRS) included. To plot the data, change the results directory at line 158 of `plot.py` and run `python3 plot.py`.",
         "type": "comment"
     },
-    "30": {
-        "file_id": 4,
+    "24": {
+        "file_id": 3,
         "content": "/examples/doc_merge/doc_merge.py",
         "type": "filepath"
     },
-    "31": {
-        "file_id": 4,
+    "25": {
+        "file_id": 3,
         "content": "The code develops an efficient NDA merging class with language model prompts and redundancy handling, generating a graph for document merge and language model inference within budget limits. It utilizes input data from \"documents.csv\", manages exceptions, and scores output based on coverage.",
         "type": "summary"
     },
-    "32": {
-        "file_id": 4,
+    "26": {
+        "file_id": 3,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nimport os\nimport re\nimport logging\nimport datetime\nimport json\nimport csv\nfrom statistics import fmean\nfrom typing import Dict, List, Callable, Set, Union\nfrom graph_of_thoughts import controller, language_models, operations, prompter, parser\nclass DocMergePrompter(prompter.Prompter):\n    \"\"\"\n    DocMergePrompter provides the generation of prompts specific to the document\n    merge example for the language models.\n    Inherits from the Prompter class and implements its abstract methods.\n    \"\"\"\n    merge_doc_prompt_start = \"\"\"Merge the following {num} NDA documents <Doc1> - <Doc{num}> into a single NDA, maximizing retained information and minimizing redundancy. Output only the created NDA between the tags <Merged> and </Merged>, without any additional text.\nHere are NDAs <Doc1> - <Doc{num}>\n\"\"\"\n    merge_doc_prompt_block = \"\"\"",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:1-31"
     },
-    "33": {
-        "file_id": 4,
+    "27": {
+        "file_id": 3,
         "content": "This code defines a class DocMergePrompter that inherits from Prompter and provides prompts for merging NDA documents. It includes a merge_doc_prompt_start string for generating the prompt and a merge_doc_prompt_block string for displaying NDAs to be merged. The goal is to create a single NDA by maximizing information retention and minimizing redundancy, with the output between <Merged> and </Merged>.",
         "type": "comment"
     },
-    "34": {
-        "file_id": 4,
+    "28": {
+        "file_id": 3,
         "content": "<Doc{num}>\n{document}\n</Doc{num}>\n\"\"\"\n    merge_doc_prompt_cot_start = \"\"\"Merge the following {num} NDA documents <Doc1> - <Doc{num}> into a single NDA, maximizing retained information and minimizing redundancy.\nYou can generate any intermediate thoughts and documents you want, but the final output should be the merged NDA, placed between the two tags <Merged> and </Merged>.\nFor instance you might want to follow this approach:\n1. Split each NDA into their logical subparts.\n2. Merge the subparts of the {num} NDAs.\n3. Combine the merged subparts into a single NDA.\n4. Place the merged NDA between the tags <Merged> and </Merged>.\nHere are NDAs <Doc1> - <Doc{num}>:\n\"\"\"\n    improve_summary_prompt_start = \"\"\"The following NDA <S> merges initial NDAs <Doc1> - <Doc{num}>.\nPlease improve the summary NDA <S> by adding more information and removing redundancy. Output only the improved NDA, placed between the two tags <Merged> and </Merged>, without any additional text.\nHere are NDAs <Doc1> - <Doc{num}>:\n\"\"\"\n    improve_summary_prompt_block = \"\"\"",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:32-54"
     },
-    "35": {
-        "file_id": 4,
+    "29": {
+        "file_id": 3,
         "content": "The code defines two prompts for merging and improving NDA documents. The first prompt instructs to merge the provided NDAs into a single one, preserving information and minimizing redundancy. It also provides an example approach. The second prompt asks to improve the merged document by adding more information and removing redundancies, with output placed between specific tags. Both prompts include the input NDAs as \"Doc1\" to \"Doc{num}\".",
         "type": "comment"
     },
-    "36": {
-        "file_id": 4,
+    "30": {
+        "file_id": 3,
         "content": "<Doc{num}>\n{document}\n</Doc{num}>\n\"\"\"\n    improve_summary_prompt_end = \"\"\"\nHere is the summary NDA <S>:\n<S>\n{summary}\n</S>\n\"\"\"\n    score_prompt_base = \"\"\"The following NDA <S> merges NDAs <Doc1> - <Doc{num}>.\nPlease score the merged NDA <S> in terms of how much redundant information is contained, independent of the original NDAs, as well as how much information is retained from the original NDAs.\nA score of 10 for redundancy implies that absolutely no information is redundant, while a score of 0 implies that at least half of the information is redundant (so everything is at least mentioned twice).\nA score of 10 for retained information implies that all information from the original NDAs is retained, while a score of 0 implies that no information is retained.\nYou may provide reasoning for your scoring, but the final score for redundancy should be between the tags <Redundancy> and </Redundancy>, and the final score for retained information should be between the tags <Retained> and </Retained>, without any additional text within any of those tags.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:55-71"
     },
-    "37": {
-        "file_id": 4,
+    "31": {
+        "file_id": 3,
         "content": "This code contains various prompts for different tasks, such as improving summaries and scoring merged documents. The prompts are designed to assist in the task of merging NDAs while considering redundancy and retained information scores, with specific tags provided for clarity.",
         "type": "comment"
     },
-    "38": {
-        "file_id": 4,
+    "32": {
+        "file_id": 3,
         "content": "Here are NDAs <Doc1> - <Doc{num}>:\n\"\"\"\n    score_prompt_block = \"\"\"\n<Doc{num}>\n{document}\n</Doc{num}>\n\"\"\"\n    score_prompt_end = \"\"\"\nHere is the summary NDA <S>:\n<S>\n{summary}\n</S>\n\"\"\"\n    aggregate_full_prompt_base = \"\"\"The following NDAs <S1> - <S{num_ndas_summary}> each merge the initial NDAs <Doc1> - <Doc{num_ndas}>.\nCombine the merged NDAs <S1> - <S{num_ndas_summary}> into a new one, maximizing their advantages and overall information retention, while minimizing redundancy.\nOutput only the new NDA between the tags <Merged> and </Merged>, without any additional text.   \nHere are the original NDAs <Doc1> - <Doc{num_ndas}>:\n\"\"\"\n    aggregate_full_prompt_block1 = \"\"\"\n<Doc{num}>\n{document}\n</Doc{num}>\n\"\"\"\n    aggregate_full_prompt_mid = \"\"\"\nHere are the summary NDAs <S1> - <S{num_ndas_summary}>:\n\"\"\"\n    aggregate_full_prompt_block2 = \"\"\"\n<S{num}>\n{summary}\n</S{num}>\n\"\"\"\n    aggregate_sub_prompt_base = \"\"\"The following NDAs <S1> - <S{num_ndas}> are summaries of some other NDAs.\nCombine them into a new one, make sure to maximize their advantages and overall information retention, while minimizing redundancy.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:73-112"
     },
-    "39": {
-        "file_id": 4,
+    "33": {
+        "file_id": 3,
         "content": "This code appears to be part of a larger program that deals with merging and summarizing Non-Disclosure Agreements (NDAs). It uses string formatting to generate prompts for the user, asking them to provide NDAs in a specific format. The code snippet includes various placeholders (<Doc>, <S>) for incorporating the user's provided information.",
         "type": "comment"
     },
-    "40": {
-        "file_id": 4,
+    "34": {
+        "file_id": 3,
         "content": "Output only the new NDA between the tags <Merged> and </Merged>, without any additional text.\nHere are NDAs <S1> - <S{num_ndas}>:\n\"\"\"\n    aggregate_sub_prompt_generate = \"\"\"\nNDA <S{num}>:\n{nda}\n</S{num}>\n\"\"\"\n    def aggregation_prompt(self, state_dicts: List[Dict], **kwargs) -> str:\n        \"\"\"\n        Generate an aggregation prompt for the language model.\n        :param state_dicts: The thought states that should be aggregated.\n        :type state_dicts: List[Dict]\n        :param kwargs: Additional keyword arguments.\n        :return: The aggregation prompt.\n        :rtype: str\n        \"\"\"\n        if len(state_dicts[0][\"parts\"]) > 0 and len(state_dicts[0][\"parts\"]) < len(\n            state_dicts[0][\"documents\"]\n        ):\n            prompt = self.aggregate_sub_prompt_base.format(\n                num_ndas=len(state_dicts),\n            )\n            for i, state_dict in enumerate(state_dicts):\n                prompt += self.aggregate_sub_prompt_generate.format(\n                    nda=state_dict[\"current\"], num=i + 1",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:113-143"
     },
-    "41": {
-        "file_id": 4,
+    "35": {
+        "file_id": 3,
         "content": "This code generates an aggregation prompt for a language model, using the provided state_dicts. It concatenates NDAs from each state_dict and formats them into a final prompt. The output is a string containing the merged NDAs between \"<Merged>\" and \"</Merged>\".",
         "type": "comment"
     },
-    "42": {
-        "file_id": 4,
+    "36": {
+        "file_id": 3,
         "content": "                )\n            return prompt\n        else:\n            prompt = self.aggregate_full_prompt_base.format(\n                num_ndas=len(state_dicts[0][\"documents\"]),\n                num_ndas_summary=len(state_dicts),\n            )\n            for i, document in enumerate(state_dicts[0][\"documents\"]):\n                prompt += self.aggregate_full_prompt_block1.format(\n                    document=document, num=i + 1\n                )\n            prompt += self.aggregate_full_prompt_mid.format(\n                num_ndas_summary=len(state_dicts),\n            )\n            for i, state_dict in enumerate(state_dicts):\n                prompt += self.aggregate_full_prompt_block2.format(\n                    summary=state_dict[\"current\"], num=i + 1\n                )\n            return prompt\n    def generate_prompt(\n        self,\n        num_branches: int,\n        documents: List[str],\n        method: str,\n        parts: Set[str],\n        current: str,\n        **kwargs,\n    ) -> str:\n        \"\"\"\n        Generate a generate prompt for the language model.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:144-174"
     },
-    "43": {
-        "file_id": 4,
+    "37": {
+        "file_id": 3,
         "content": "This code defines a class with methods for generating prompts. The `generate_prompt` method takes in parameters like number of branches, documents, and current state. It returns a prompt for the language model using string formatting based on input parameters.",
         "type": "comment"
     },
-    "44": {
-        "file_id": 4,
+    "38": {
+        "file_id": 3,
         "content": "        :param num_branches: The number of responses the prompt should ask the LM to generate.\n        :type num_branches: int\n        :param documents: The list of documents to be merged.\n        :type documents: List[str]\n        :param method: Method for which the generate prompt is generated.\n        :type method: str\n        :param parts: Indices of the already processed document parts.\n        :type parts: Set[str]\n        :param current: The intermediate solution.\n        :type current: str\n        :param kwargs: Additional keyword arguments.\n        :return: The generate prompt.\n        :rtype: str\n        :raise AssertionError: If method is not implemented yet.\n        \"\"\"\n        prompt = \"\"\n        if method.startswith(\"io\") or method.startswith(\"cot\"):\n            if method.startswith(\"io\"):\n                prompt += self.merge_doc_prompt_start.format(num=len(documents))\n            else:\n                prompt += self.merge_doc_prompt_cot_start.format(num=len(documents))\n            for i, document in enumerate(documents):",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:176-198"
     },
-    "45": {
-        "file_id": 4,
+    "39": {
+        "file_id": 3,
         "content": "This function takes in the number of responses, a list of documents to merge, method for generating the prompt, indices of already processed document parts, an intermediate solution, and additional keyword arguments. It returns the generate prompt used for merging the documents. If the method is not implemented yet, it raises AssertionError.",
         "type": "comment"
     },
-    "46": {
-        "file_id": 4,
+    "40": {
+        "file_id": 3,
         "content": "                prompt += self.merge_doc_prompt_block.format(\n                    document=document, num=i + 1\n                )\n            return prompt\n        elif method.startswith(\"tot\"):\n            if current is None or current == \"\":\n                prompt += self.merge_doc_prompt_start.format(num=len(documents))\n                for i, document in enumerate(documents):\n                    prompt += self.merge_doc_prompt_block.format(\n                        document=document, num=i + 1\n                    )\n                return prompt\n            else:\n                prompt += self.improve_summary_prompt_start.format(\n                    num=len(documents),\n                )\n                for i, document in enumerate(documents):\n                    prompt += self.improve_summary_prompt_block.format(\n                        document=document, num=i + 1\n                    )\n                prompt += self.improve_summary_prompt_end.format(summary=current)\n                return prompt\n        elif method.startswith(\"got\"):",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:199-221"
     },
-    "47": {
-        "file_id": 4,
+    "41": {
+        "file_id": 3,
         "content": "The code provides a prompt for merging multiple documents or improving a given summary based on the specified method. It dynamically generates the prompt by concatenating predefined blocks of text with placeholders for document numbers and the original summary. If no current summary is provided, it creates a prompt to merge documents, otherwise, it improves the given summary using those documents.",
         "type": "comment"
     },
-    "48": {
-        "file_id": 4,
+    "42": {
+        "file_id": 3,
         "content": "            parts = (\n                sorted(list(parts)) if len(parts) > 0 else list(range(len(documents)))\n            )\n            if current is None or current == \"\":\n                prompt += self.merge_doc_prompt_start.format(num=len(parts))\n                for i, part in enumerate(sorted(list(parts))):\n                    prompt += self.merge_doc_prompt_block.format(\n                        document=documents[part], num=i + 1\n                    )\n                return prompt\n            else:\n                prompt += self.improve_summary_prompt_start.format(\n                    num=len(parts),\n                )\n                for i, part in enumerate(sorted(list(parts))):\n                    prompt += self.improve_summary_prompt_block.format(\n                        document=documents[part], num=i + 1\n                    )\n                prompt += self.improve_summary_prompt_end.format(summary=current)\n                return prompt\n        else:\n            assert False, \"Not implemented yet.\"\n    def score_prompt(self, state_dicts: List[Dict], **kwargs) -> str:",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:222-245"
     },
-    "49": {
-        "file_id": 4,
+    "43": {
+        "file_id": 3,
         "content": "The code checks if the current summary is provided. If not, it generates a prompt for merging documents into one coherent summary. If the current summary is provided, it generates a prompt for improving an existing summary by incorporating information from multiple documents. The code also sorts the parts of the document and formats them in a specific way for the prompts.",
         "type": "comment"
     },
-    "50": {
-        "file_id": 4,
+    "44": {
+        "file_id": 3,
         "content": "        \"\"\"\n        Generate a score prompt for the language model.\n        :param state_dicts: The thought states that should be scored,\n                            if more than one, they should be scored together.\n        :type state_dicts: List[Dict]\n        :param kwargs: Additional keyword arguments.\n        :return: The score prompt.\n        :rtype: str\n        :raise AssertionError: If more than one thought state is supplied.\n        \"\"\"\n        if len(state_dicts) > 1:\n            assert False, \"Not implemented yet.\"\n        else:\n            # perform individual scoring\n            parts = (\n                [\n                    state_dicts[0][\"documents\"][part]\n                    for part in sorted(list(state_dicts[0][\"parts\"]))\n                ]\n                if len(state_dicts[0][\"parts\"]) > 0\n                else state_dicts[0][\"documents\"]\n            )\n            prompt = self.score_prompt_base.format(\n                num=len(parts),\n            )\n            for i, part in enumerate(parts):\n                prompt += self.score_prompt_block.format(document=part, num=i + 1)",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:246-274"
     },
-    "51": {
-        "file_id": 4,
+    "45": {
+        "file_id": 3,
         "content": "This function generates a score prompt for the language model using a single thought state provided as an argument. It checks if only one thought state is supplied and handles the case where more than one is given. The prompt is created by formatting the base and block prompts with the number of documents.",
         "type": "comment"
     },
-    "52": {
-        "file_id": 4,
+    "46": {
+        "file_id": 3,
         "content": "            prompt += self.score_prompt_end.format(\n                summary=state_dicts[0][\"current\"],\n            )\n            return prompt\n    def improve_prompt(self, **kwargs) -> str:\n        \"\"\"\n        Generate an improve prompt for the language model.\n        :param kwargs: Additional keyword arguments.\n        :return: The improve prompt.\n        :rtype: str\n        \"\"\"\n        pass\n    def validation_prompt(self, **kwargs) -> str:\n        \"\"\"\n        Generate a validation prompt for the language model.\n        :param kwargs: Additional keyword arguments.\n        :return: The validation prompt.\n        :rtype: str\n        \"\"\"\n        pass\nclass DocMergeParser(parser.Parser):\n    \"\"\"\n    DocMergeParser provides the parsing of language model reponses specific to the\n    document merge example.\n    Inherits from the Parser class and implements its abstract methods.\n    \"\"\"\n    def __init__(self) -> None:\n        \"\"\"\n        Inits the response cache.\n        \"\"\"\n        self.cache = {}\n    def strip_answer_helper(self, text: str, tag: str = \"\") -> str:",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:275-315"
     },
-    "53": {
-        "file_id": 4,
+    "47": {
+        "file_id": 3,
         "content": "This code defines a class DocMergeParser that extends the Parser class and provides specific functionality for parsing language model responses in the document merge example. It includes methods to generate improve prompt, validation prompt, and handles answer stripping with optional tags. The response cache is initialized in the constructor.",
         "type": "comment"
     },
-    "54": {
-        "file_id": 4,
+    "48": {
+        "file_id": 3,
         "content": "        \"\"\"\n        Helper function to remove tags from a text.\n        :param text: The input text.\n        :type text: str\n        :param tag: The tag to be stripped. Defaults to \"\".\n        :type tag: str\n        :return: The stripped text.\n        :rtype: str\n        \"\"\"\n        text = text.strip()\n        if \"Output:\" in text:\n            text = text[text.index(\"Output:\") + len(\"Output:\") :].strip()\n        if tag != \"\":\n            start = text.rfind(f\"<{tag}>\")\n            end = text.rfind(f\"</{tag}>\")\n            if start != -1 and end != -1:\n                text = text[start + len(f\"<{tag}>\") : end].strip()\n            elif start != -1:\n                logging.warning(\n                    f\"Only found the start tag <{tag}> in answer: {text}. Returning everything after the tag.\"\n                )\n                text = text[start + len(f\"<{tag}>\") :].strip()\n            elif end != -1:\n                logging.warning(\n                    f\"Only found the end tag </{tag}> in answer: {text}. Returning everything before the tag.\"",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:316-342"
     },
-    "55": {
-        "file_id": 4,
+    "49": {
+        "file_id": 3,
         "content": "This function removes specified tags from a text. It first strips whitespace and checks if \"Output:\" is in the text. Then, it searches for start and end tags to remove the enclosed content while handling cases of only one tag found. If no matching tags are found, it logs a warning and returns everything after or before the found tag.",
         "type": "comment"
     },
-    "56": {
-        "file_id": 4,
+    "50": {
+        "file_id": 3,
         "content": "                )\n                text = text[:end].strip()\n            else:\n                logging.warning(\n                    f\"Could not find any tag {tag} in answer: {text}. Returning the full answer.\"\n                )\n        return text\n    def parse_aggregation_answer(\n        self, states: List[Dict], texts: List[str]\n    ) -> Union[Dict, List[Dict]]:\n        \"\"\"\n        Parse the response from the language model for an aggregation prompt.\n        :param states: The thought states used to generate the prompt.\n        :type states: List[Dict]\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The new thought states after parsing the respones from the language model.\n        :rtype: Union[Dict, List[Dict]]\n        \"\"\"\n        new_states = []\n        for text in texts:\n            if len(states[0][\"parts\"]) < len(states[0][\"documents\"]):\n                # subpart aggregation\n                text = self.strip_answer_helper(text, \"Merged\")",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:343-369"
     },
-    "57": {
-        "file_id": 4,
+    "51": {
+        "file_id": 3,
         "content": "The code is parsing the response from a language model for an aggregation prompt. It checks if there are enough thought states and performs subpart aggregation by stripping the answer to a single text using a helper function.",
         "type": "comment"
     },
-    "58": {
-        "file_id": 4,
+    "52": {
+        "file_id": 3,
         "content": "                new_state = states[0].copy()\n                new_state[\"current\"] = text\n                new_state[\"parts\"] = set()\n                for state in states:\n                    new_state[\"parts\"] = new_state[\"parts\"] | state[\"parts\"]\n                new_states.append(new_state)\n            else:\n                # full NDA aggregation\n                text = self.strip_answer_helper(text, \"Merged\")\n                new_state = states[0].copy()\n                new_state[\"current\"] = text\n                new_states.append(new_state)\n        return new_states\n    def parse_generate_answer(self, state: Dict, texts: List[str]) -> List[Dict]:\n        \"\"\"\n        Parse the response from the language model for a generate prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The new thought states after parsing the respones from the language model.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:370-393"
     },
-    "59": {
-        "file_id": 4,
+    "53": {
+        "file_id": 3,
         "content": "The code appears to be a part of a larger function that generates new thought states by aggregating inputs from multiple sources. It seems to handle both partial and full non-disclosure agreement (NDA) cases, stripping the answer text and creating new states accordingly. The `parse_generate_answer` function processes response from the language model for generate prompts and returns new thought states after parsing the responses.",
         "type": "comment"
     },
-    "60": {
-        "file_id": 4,
+    "54": {
+        "file_id": 3,
         "content": "        :rtype: List[Dict]\n        \"\"\"\n        new_states = []\n        for text in texts:\n            text = self.strip_answer_helper(text, \"Merged\")\n            new_state = state.copy()\n            new_state[\"current\"] = text\n            new_states.append(new_state)\n        return new_states\n    def parse_score_answer(self, states: List[Dict], texts: List[str]) -> List[float]:\n        \"\"\"\n        Parse the response from the language model for a score prompt.\n        :param states: The thought states used to generate the prompt.\n        :type states: List[Dict]\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: The scores for the thought states.\n        :rtype: List[float]\n        :raise AssertionError: If the number of thought states is not one.\n        \"\"\"\n        assert len(states) == 1, \"Only one state is allowed for scoring.\"\n        if len(states) == 1:\n            # individual scoring\n            redundancy_scores = []\n            retain_scores = []",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:394-420"
     },
-    "61": {
-        "file_id": 4,
+    "55": {
+        "file_id": 3,
         "content": "The function `get_new_states()` takes a list of texts and returns a list of dictionaries, where each dictionary represents a thought state with the current text as its value.\n\nThe function `parse_score_answer()` takes a list of thought states and responses from the language model, asserts that only one thought state is allowed for scoring, and then initializes lists for redundancy and retain scores.",
         "type": "comment"
     },
-    "62": {
-        "file_id": 4,
+    "56": {
+        "file_id": 3,
         "content": "            for text in texts:\n                answer = self.strip_answer_helper(text, \"Redundancy\")\n                res = re.findall(r\"\\d+\\.?\\d*\", answer)\n                if len(res) == 1:\n                    redundancy_scores.append(float(res[0]))\n                elif len(res) > 1:\n                    logging.warning(\n                        f\"Found multiple redundancy scores in answer: {text}. Returning the last one.\"\n                    )\n                    redundancy_scores.append(float(res[-1]))\n                else:\n                    logging.warning(\n                        f\"Could not find any redundancy score in answer: {text}. Ignoring this answer.\"\n                    )\n                answer = self.strip_answer_helper(text, \"Retained\")\n                res = re.findall(r\"\\d+\\.?\\d*\", answer)\n                if len(res) == 1:\n                    retain_scores.append(float(res[0]))\n                elif len(res) > 1:\n                    logging.warning(\n                        f\"Found multiple retained scores in answer: {text}. Returning the last one.\"",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:421-441"
     },
-    "63": {
-        "file_id": 4,
+    "57": {
+        "file_id": 3,
         "content": "This code iterates through text inputs, extracts redundancy and retained scores using regex, handles multiple score cases by logging a warning and selecting the last one or ignoring if no scores found.",
         "type": "comment"
     },
-    "64": {
-        "file_id": 4,
+    "58": {
+        "file_id": 3,
         "content": "                    )\n                    retain_scores.append(float(res[-1]))\n                else:\n                    logging.warning(\n                        f\"Could not find any retained score in answer: {text}. Ignoring this answer.\"\n                    )\n            if len(redundancy_scores) == 0 or len(retain_scores) == 0:\n                logging.warning(\n                    f\"Could not find any valid score in any answer. Returning 0.0.\"\n                )\n                return [0.0]\n            mean_redundancy = fmean(redundancy_scores)\n            mean_retain = fmean(retain_scores)\n            f1 = 2 * mean_redundancy * mean_retain / (mean_redundancy + mean_retain)\n            return [f1]\n    def parse_improve_answer(self, state: Dict, texts: List[str]) -> Dict:\n        \"\"\"\n        Parse the response from the language model for an improve prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:442-464"
     },
-    "65": {
-        "file_id": 4,
+    "59": {
+        "file_id": 3,
         "content": "This code snippet is a part of a function responsible for parsing the responses from a language model for an 'improve' prompt. It calculates redundancy and retain scores for each answer, then returns the F1 score based on these scores. If no valid scores are found in any answer, it returns 0.0.",
         "type": "comment"
     },
-    "66": {
-        "file_id": 4,
+    "60": {
+        "file_id": 3,
         "content": "        :type texts: List[str]\n        :return: The new thought state after parsing the responses from the language model.\n        :rtype: Dict\n        \"\"\"\n        pass\n    def parse_validation_answer(self, state: Dict, texts: List[str]) -> bool:\n        \"\"\"\n        Parse the response from the language model for a validation prompt.\n        :param state: The thought state used to generate the prompt.\n        :type state: Dict\n        :param texts: The responses to the prompt from the language model.\n        :type texts: List[str]\n        :return: Whether the thought state is valid or not.\n        :rtype: bool\n        \"\"\"\n        pass\ndef io() -> operations.GraphOfOperations:\n    \"\"\"\n    Generates the Graph of Operations for the IO method.\n    :return: Graph of Operations\n    :rtype: GraphOfOperations\n    \"\"\"\n    operations_graph = operations.GraphOfOperations()\n    operations_graph.append_operation(operations.Generate(1, 1))\n    operations_graph.append_operation(operations.Score(3, False))\n    return operations_graph",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:465-497"
     },
-    "67": {
-        "file_id": 4,
+    "61": {
+        "file_id": 3,
         "content": "This code contains functions for thought state management, parsing responses from a language model, and generating the Graph of Operations for IO method. It uses Dict and List[str] as inputs and returns bool or Dict outputs. The code block defines three functions: update_thought_state, parse_validation_answer, and io. The last function generates the Graph of Operations by appending Generate and Score operations to an instance of operations.GraphOfOperations().",
         "type": "comment"
     },
-    "68": {
-        "file_id": 4,
+    "62": {
+        "file_id": 3,
         "content": "def cot() -> operations.GraphOfOperations:\n    \"\"\"\n    Generates the Graph of Operations for the CoT method.\n    :return: Graph of Operations\n    :rtype: GraphOfOperations\n    \"\"\"\n    operations_graph = operations.GraphOfOperations()\n    operations_graph.append_operation(operations.Generate(1, 1))\n    operations_graph.append_operation(operations.Score(3, False))\n    return operations_graph\ndef tot() -> operations.GraphOfOperations:\n    \"\"\"\n    Generates the Graph of Operations for the ToT method.\n    :return: Graph of Operations\n    :rtype: GraphOfOperations\n    \"\"\"\n    operations_graph = operations.GraphOfOperations()\n    branch_factor = 10\n    operations_graph.append_operation(operations.Generate(1, branch_factor))\n    operations_graph.append_operation(operations.Score(3, False))\n    keep_best_1 = operations.KeepBestN(1, True)\n    operations_graph.append_operation(keep_best_1)\n    for _ in range(2):\n        operations_graph.append_operation(operations.Generate(1, branch_factor))\n        operations_graph.append_operation(operations.Score(3, False))",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:500-533"
     },
-    "69": {
-        "file_id": 4,
+    "63": {
+        "file_id": 3,
         "content": "The code defines two functions, `cot()` and `tot()`, which generate the Graph of Operations for CoT and ToT methods respectively. The CoT method involves generating one child node, scoring it, while the ToT method generates 10 children nodes initially, keeps the best one, then generates two additional children per iteration.",
         "type": "comment"
     },
-    "70": {
-        "file_id": 4,
+    "64": {
+        "file_id": 3,
         "content": "        keep_best_2 = operations.KeepBestN(1, True)\n        keep_best_2.add_predecessor(keep_best_1)\n        operations_graph.append_operation(keep_best_2)\n        keep_best_1 = keep_best_2\n    return operations_graph\ndef got() -> operations.GraphOfOperations:\n    \"\"\"\n    Generates the Graph of Operations for the GoT method, where full documents\n    are merged.\n    :return: Graph of Operations\n    :rtype: GraphOfOperations\n    \"\"\"\n    operations_graph = operations.GraphOfOperations()\n    operations_graph.append_operation(operations.Generate(1, 5))\n    operations_graph.append_operation(operations.Score(3, False))\n    keep_best = operations.KeepBestN(3, True)\n    operations_graph.append_operation(keep_best)\n    operations_graph.append_operation(operations.Aggregate(5))\n    operations_graph.append_operation(operations.Score(3, False))\n    keep_best2 = operations.KeepBestN(1, True)\n    keep_best2.add_predecessor(keep_best)\n    operations_graph.append_operation(keep_best2)\n    operations_graph.append_operation(operations.Generate(1, 10))",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:534-561"
     },
-    "71": {
-        "file_id": 4,
+    "65": {
+        "file_id": 3,
         "content": "This code generates a Graph of Operations for merging full documents. It first appends operations to generate, score, aggregate, and keep the best scores. The last two operations add a predecessor to keep_best and append an additional generate operation with parameters 1 and 10.",
         "type": "comment"
     },
-    "72": {
-        "file_id": 4,
+    "66": {
+        "file_id": 3,
         "content": "    operations_graph.append_operation(operations.Score(3, False))\n    keep_best3 = operations.KeepBestN(1, True)\n    keep_best3.add_predecessor(keep_best2)\n    operations_graph.append_operation(keep_best3)\n    return operations_graph\ndef got2() -> operations.GraphOfOperations:\n    \"\"\"\n    Generates the Graph of Operations for the GoT2 method, where partial\n    documents are merged.\n    :return: Graph of Operations\n    :rtype: GraphOfOperations\n    \"\"\"\n    operations_graph = operations.GraphOfOperations()\n    sub_parts = []\n    for i in range(0, 4, 2):  # should be at most 16 parts\n        sub_text = operations.Selector(\n            lambda thoughts, list_id=i: [\n                operations.Thought(\n                    state={**thoughts[0].state, \"parts\": {list_id, list_id + 1}}\n                )\n            ]\n        )\n        operations_graph.add_operation(sub_text)\n        gen_nda = operations.Generate(1, 5)\n        gen_nda.add_predecessor(sub_text)\n        operations_graph.add_operation(gen_nda)\n        score_nda = operations.Score(3, False)",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:562-593"
     },
-    "73": {
-        "file_id": 4,
+    "67": {
+        "file_id": 3,
         "content": "This code generates a Graph of Operations for the GoT2 method, which merges partial documents. It creates an initial GraphOfOperations object and iteratively adds operations such as Selectors, Generators, and Scorers to the graph. Each iteration consists of selecting specific thoughts, generating new documents, and scoring them. The resulting graph is returned.",
         "type": "comment"
     },
-    "74": {
-        "file_id": 4,
+    "68": {
+        "file_id": 3,
         "content": "        score_nda.add_predecessor(gen_nda)\n        operations_graph.add_operation(score_nda)\n        keep_best_nda = operations.KeepBestN(1, True)\n        keep_best_nda.add_predecessor(score_nda)\n        operations_graph.add_operation(keep_best_nda)\n        sub_parts.append(keep_best_nda)\n    while len(sub_parts) > 1:\n        new_sub_parts = []\n        for i in range(0, len(sub_parts), 2):\n            if i + 1 == len(sub_parts):\n                new_sub_parts.append(sub_parts[i])\n                continue\n            aggregate = operations.Aggregate(5)\n            aggregate.add_predecessor(sub_parts[i])\n            aggregate.add_predecessor(sub_parts[i + 1])\n            operations_graph.add_operation(aggregate)\n            score = operations.Score(3, False)\n            score.add_predecessor(aggregate)\n            operations_graph.add_operation(score)\n            keep_best = operations.KeepBestN(1, True)\n            keep_best.add_predecessor(score)\n            operations_graph.add_operation(keep_best)\n            gen_nda = operations.Generate(1, 5)",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:594-619"
     },
-    "75": {
-        "file_id": 4,
+    "69": {
+        "file_id": 3,
         "content": "This code is creating an operations graph for a document merge process. It starts with adding Score and Generate nodes, then iteratively adds Aggregate, Score, and KeepBestN nodes until there's only one node left in the sub_parts list. The Score nodes are used to calculate similarity scores, while the KeepBestN nodes keep the best result from the previous operation. The operations graph is then built with these operations added in sequence.",
         "type": "comment"
     },
-    "76": {
-        "file_id": 4,
+    "70": {
+        "file_id": 3,
         "content": "            gen_nda.add_predecessor(keep_best)\n            operations_graph.add_operation(gen_nda)\n            score_nda = operations.Score(3, False)\n            score_nda.add_predecessor(gen_nda)\n            operations_graph.add_operation(score_nda)\n            keep_best_nda = operations.KeepBestN(1, True)\n            keep_best_nda.add_predecessor(score_nda)\n            keep_best_nda.add_predecessor(keep_best)\n            operations_graph.add_operation(keep_best_nda)\n            new_sub_parts.append(keep_best_nda)\n        sub_parts = new_sub_parts\n    return operations_graph\ndef run(\n    data_ids: List[int],\n    methods: List[Callable[[], operations.GraphOfOperations]],\n    budget: float,\n    lm_name: str,\n) -> float:\n    \"\"\"\n    Controller function that executes each specified method for each specified\n    sample while the budget is not exhausted.\n    :param data_ids: Indices of the sample to be run.\n    :type data_ids: List[int]\n    :param methods: List of functions to generate Graphs of Operations.\n    :type methods: Each function generates a Graph of Operation.",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:620-649"
     },
-    "77": {
-        "file_id": 4,
+    "71": {
+        "file_id": 3,
         "content": "This code is creating a graph of operations for language model inference. It defines several nodes and adds them to the operations graph, including generation, scoring, and keeping the best node. The function run() executes methods for each specified sample within the budget limit.",
         "type": "comment"
     },
-    "78": {
-        "file_id": 4,
+    "72": {
+        "file_id": 3,
         "content": "    :param budget: Language model budget for the execution in dollars.\n    :type budget: float\n    :param lm_name: Name of the language model to be used.\n    :type lm_name: str\n    :return: Spent budget in dollars.\n    :rtype: float\n    \"\"\"\n    orig_budget = budget\n    data_path = os.path.join(os.path.dirname(__file__), \"documents.csv\")\n    data = []\n    with open(data_path, \"r\", encoding=\"utf8\") as f:\n        reader = csv.reader(f)\n        next(reader)\n        for row in reader:\n            row[0] = int(row[0])\n            data.append(row)\n    if data_ids is None or len(data_ids) == 0:\n        data_ids = list(range(len(data)))\n    selected_data = [data[i] for i in data_ids]\n    results_dir = os.path.join(os.path.dirname(__file__), \"results\")\n    if not os.path.exists(results_dir):\n        os.makedirs(results_dir)\n    timestamp = datetime.datetime.now().strftime(\"%Y-%m-%d_%H-%M-%S\")\n    extra_info = f\"{lm_name}_{'-'.join([method.__name__ for method in methods])}\"\n    folder_name = f\"{extra_info}_{timestamp}\"\n    results_folder = os.path.join(results_dir, folder_name)",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:650-679"
     },
-    "79": {
-        "file_id": 4,
+    "73": {
+        "file_id": 3,
         "content": "This function takes a budget, language model name, and optional data IDs as input. It reads the \"documents.csv\" file, filters the data based on provided data IDs, and then creates folders to save results for different methods using the specified language model. The function returns the spent budget in dollars.",
         "type": "comment"
     },
-    "80": {
-        "file_id": 4,
+    "74": {
+        "file_id": 3,
         "content": "    os.makedirs(results_folder)\n    config = {\n        \"data\": selected_data,\n        \"methods\": [method.__name__ for method in methods],\n        \"lm\": lm_name,\n        \"budget\": budget,\n    }\n    with open(os.path.join(results_folder, \"config.json\"), \"w\") as f:\n        json.dump(config, f)\n    logging.basicConfig(\n        filename=os.path.join(results_folder, \"log.log\"),\n        filemode=\"w\",\n        format=\"%(name)s - %(levelname)s - %(message)s\",\n        level=logging.DEBUG,\n    )\n    for method in methods:\n        os.makedirs(os.path.join(results_folder, method.__name__))\n    for data in selected_data:\n        logging.info(f\"Running data {data[0]}: {data[1]}\")\n        if budget <= 0.0:\n            logging.error(\n                f\"Budget has been depleted, stopping. Data {data[0]} has not been run.\"\n            )\n            break\n        for method in methods:\n            logging.info(f\"Running method {method.__name__}\")\n            logging.info(f\"Budget left: {budget}\")\n            if budget <= 0.0:\n                logging.error(",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:680-712"
     },
-    "81": {
-        "file_id": 4,
+    "75": {
+        "file_id": 3,
         "content": "This code sets up a results folder, saves the configuration file in JSON format, and initializes logging. It then iterates over selected data and methods, keeping track of remaining budget. If the budget becomes zero, it stops execution and logs an error message.",
         "type": "comment"
     },
-    "82": {
-        "file_id": 4,
+    "76": {
+        "file_id": 3,
         "content": "                    f\"Budget has been depleted, stopping. Method {method.__name__} has not been run.\"\n                )\n                break\n            lm = language_models.ChatGPT(\n                os.path.join(\n                    os.path.dirname(__file__),\n                    \"../../graph_of_thoughts/language_models/config.json\",\n                ),\n                model_name=lm_name,\n                cache=True,\n            )\n            operations_graph = method()\n            executor = controller.Controller(\n                lm,\n                operations_graph,\n                DocMergePrompter(),\n                DocMergeParser(),\n                {\n                    \"documents\": [data[2], data[3], data[4], data[5]],\n                    \"parts\": set(),\n                    \"current\": \"\",\n                    \"method\": method.__name__,\n                },\n            )\n            try:\n                executor.run()\n            except Exception as e:\n                logging.error(f\"Exception: {e}\")\n            path = os.path.join(",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:713-741"
     },
-    "83": {
-        "file_id": 4,
+    "77": {
+        "file_id": 3,
         "content": "This code chunk initializes a language model, creates an operations graph, and sets up an executor for running the method. If the budget is depleted, it will stop execution. The code then attempts to run the executor and logs any exceptions that occur during execution.",
         "type": "comment"
     },
-    "84": {
-        "file_id": 4,
+    "78": {
+        "file_id": 3,
         "content": "                results_folder,\n                method.__name__,\n                f\"{data[0]}.json\",\n            )\n            for operation in operations_graph.operations:\n                for thought in operation.thoughts:\n                    thought.state[\"parts\"] = list(thought.state[\"parts\"])\n            executor.output_graph(path)\n            budget -= lm.cost\n    return orig_budget - budget\nif __name__ == \"__main__\":\n    \"\"\"\n    Input (x1, x2, x3, x4): Four NDAs\n    Output (y): A new combined NDA\n    Evaluation: According to information coverage without repetition (scored by the LLM)\n    \"\"\"\n    budget = 30\n    samples = [item for item in range(0, 50)]\n    approaches = [io, cot, tot, got, got2]\n    spent = run(samples, approaches, budget, \"chatgpt\")\n    logging.info(f\"Spent {spent} out of {budget} budget.\")",
         "type": "code",
         "location": "/examples/doc_merge/doc_merge.py:742-767"
     },
-    "85": {
-        "file_id": 4,
+    "79": {
+        "file_id": 3,
         "content": "This code takes input NDAs, combines them, and evaluates the combined result using an LLM (Language Model). The output is scored based on information coverage without repetition. A budget of 30 is set, with sampling from range(0, 50), and approaches io, cot, tot, got, and got2 are used. The code logs the spent budget after running the function \"run\".",
         "type": "comment"
     },
-    "86": {
-        "file_id": 5,
+    "80": {
+        "file_id": 4,
         "content": "/examples/doc_merge/plot.py",
         "type": "filepath"
     },
-    "87": {
-        "file_id": 5,
+    "81": {
+        "file_id": 4,
         "content": "The code imports libraries, defines a get_complete_results() function, reads JSON data and stores it in a dictionary, sorts the keys, retrieves final scores for each method using results_complete dictionary, and includes functions to retrieve plotting data and plot boxplots for scores with total cost bar plots on a secondary y-axis. It also sets custom y-axis positions and labels for plotting the solved status of various methods, saving it as a PDF, and generates data from given results while initializing an instance of the DocMerge class with a cost_upper limit of 15.",
         "type": "summary"
     },
-    "88": {
-        "file_id": 5,
+    "82": {
+        "file_id": 4,
         "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nimport json\nimport os\nimport matplotlib.pyplot as plt\ndef get_complete_results(base_directory):\n    results_complete = {}\n    for folder_name in os.listdir(base_directory):\n        folder_path = os.path.join(base_directory, folder_name)\n        if os.path.isdir(folder_path):\n            results_complete[folder_name] = []\n            for file_name in os.listdir(folder_path):\n                if file_name.endswith(\".json\"):\n                    file_path = os.path.join(folder_path, file_name)\n                    with open(file_path, \"r\") as f:\n                        data = json.load(f)\n                        results_complete[folder_name].append(\n                            {\"key\": int(file_name.split(\".\")[0]), \"data\": data}\n                        )\n        for key in results_complete.keys():\n            results_complete[key] = sorted(",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:1-29"
     },
-    "89": {
-        "file_id": 5,
+    "83": {
+        "file_id": 4,
         "content": "The code imports necessary libraries, defines a function get_complete_results(), and reads data from JSON files in specified directories. It collects this information into a dictionary, sorts the keys, and returns the complete results for further processing.",
         "type": "comment"
     },
-    "90": {
-        "file_id": 5,
+    "84": {
+        "file_id": 4,
         "content": "                results_complete[key], key=lambda x: x[\"key\"]\n            )\n    return results_complete\ndef get_final_scores(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 0\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in reversed(result[\"data\"]):\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n                if \"operation\" in op and op[\"operation\"] == \"score\":\n                    try:\n                        score = max(op[\"scores\"])\n                        break\n                    except:\n                        continue\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]\n            )\n        scores[method] = sorted(scores[method], key=lambda x: x[0])",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:30-59"
     },
-    "91": {
-        "file_id": 5,
+    "85": {
+        "file_id": 4,
         "content": "This code retrieves and sorts final scores for each method in the results_complete dictionary. It loops through each method, then through each result for that method, calculating the score, solved status, prompt/completion tokens, and cost from the reversed data list. Finally, it appends these values to the corresponding method's scores list, then sorts those scores by key.",
         "type": "comment"
     },
-    "92": {
-        "file_id": 5,
+    "86": {
+        "file_id": 4,
         "content": "    return scores\ndef get_plotting_data(base_directory):\n    results_complete = get_complete_results(base_directory)\n    scores = get_final_scores(results_complete)\n    results_plotting = {\n        method: {\n            \"scores\": [x[1] for x in scores[method]],\n            \"solved\": sum([1 for x in scores[method] if x[2]]),\n            \"costs\": [x[5] for x in scores[method]],\n        }\n        for method in scores.keys()\n    }\n    return results_plotting\ndef plot_results(\n    results,\n    methods_order=[\"io\", \"cot\", \"tot\", \"got\", \"got2\"],\n    model=\"GPT-3.5\",\n    num_ndas=4,\n    y_lower=0,\n    y_upper=10,\n    cost_upper=1.8,\n    display_solved=True,\n    annotation_offset=1,\n    display_left_ylabel=False,\n    display_right_ylabel=False,\n):\n    methods_order = [method for method in methods_order if method in results]\n    scores_ordered = [\n        [score for score in results[method][\"scores\"]] for method in methods_order\n    ]\n    total_costs = [sum(results[method][\"costs\"]) for method in methods_order]\n    # Create figure and axis",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:60-96"
     },
-    "93": {
-        "file_id": 5,
+    "87": {
+        "file_id": 4,
         "content": "Function get_plotting_data returns a dictionary of plotting data for different methods, which includes scores, number of solved problems, and costs. Function plot_results plots the results using given parameters like methods order, model, number of nodes, y-axis limits, cost upper limit, etc. The function first ensures that the specified methods are in the result dictionary and then extracts ordered scores and total costs for each method from the results dictionary.",
         "type": "comment"
     },
-    "94": {
-        "file_id": 5,
+    "88": {
+        "file_id": 4,
         "content": "    fig, ax = plt.subplots(dpi=150, figsize=(3.75, 5))\n    # Create boxplots\n    positions = range(1, len(methods_order) + 1)\n    ax.boxplot(scores_ordered, positions=positions)\n    fig_fontsize = 12\n    # Set the ticks and labels\n    methods_labels = [\"IO\", \"CoT\", \"ToT\", \"GoT\", \"GoT2\"]\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticklabels(methods_labels)\n    # ax.set_xlabel(\"Approach\")\n    ax.set_ylim(y_lower, 12 if display_solved else 9.75)\n    plt.yticks(fontsize=fig_fontsize)\n    if display_left_ylabel:\n        ax.set_ylabel(\n            f\"Score (out of 10); the higher the better\", fontsize=fig_fontsize\n        )\n    # ax.set_title(f\"Document Merging\")\n    ax2 = ax.twinx()\n    ax2.bar(\n        positions,\n        total_costs,\n        alpha=0.5,\n        color=\"blue\",\n        label=\"Total Cost ($); the lower the better\",\n    )\n    ax2.yaxis.set_tick_params(colors=\"#1919ff\", labelsize=fig_fontsize)\n    ax2.set_ylim(0, cost_upper)\n    number_of_ticks = len(ax.get_yticks())",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:97-132"
     },
-    "95": {
-        "file_id": 5,
+    "89": {
+        "file_id": 4,
         "content": "Creates a boxplot for scores, sets ticks and labels for x-axis, adjusts y-limits, adds a blue bar plot with total costs on the right y-axis, and sets corresponding tick colors and limits.",
         "type": "comment"
     },
-    "96": {
-        "file_id": 5,
+    "90": {
+        "file_id": 4,
         "content": "    tick_interval = cost_upper / (number_of_ticks)\n    ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]\n    # Set custom tick positions for ax2\n    ax2.set_yticks(ax2_ticks)\n    if display_right_ylabel:\n        ax2.set_ylabel(\n            \"Total Cost ($); the lower the better\",\n            color=\"#1919ff\",\n            fontsize=fig_fontsize,\n        )\n    if display_solved:\n        annotation_height = y_upper + annotation_offset\n        count = 1\n        for method in methods_order:\n            if method not in results:\n                continue\n            solved = results[method][\"solved\"]\n            ax.text(\n                count, annotation_height, f\"Solved: {solved}\", ha=\"center\", va=\"bottom\"\n            )\n            count += 1\n    model = model.replace(\".\", \"\").replace(\"-\", \"\").lower()\n    fig.savefig(f\"doc_merge_{model}_{num_ndas}.pdf\", bbox_inches=\"tight\")\nplot_results(\n    get_plotting_data(\"results/\"),\n    num_ndas=4,\n    display_solved=False,\n    model=\"GPT-3.5\",\n    y_upper=10,\n    display_left_ylabel=True,",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:133-168"
     },
-    "97": {
-        "file_id": 5,
+    "91": {
+        "file_id": 4,
         "content": "This code is setting custom tick positions and labels for the y-axis of a plot, displaying the solved status of various methods, saving the plot as a PDF, and generating plotting data from given results.",
         "type": "comment"
     },
-    "98": {
-        "file_id": 5,
+    "92": {
+        "file_id": 4,
         "content": "    cost_upper=15,\n)",
         "type": "code",
         "location": "/examples/doc_merge/plot.py:169-170"
     },
+    "93": {
+        "file_id": 4,
+        "content": "This code snippet is initializing a function, specifically an instance of the class \"DocMerge\", with the parameter 'cost_upper' set to 15. The purpose of this function might be to perform document merging or some similar operation with a specified upper cost limit.",
+        "type": "comment"
+    },
+    "94": {
+        "file_id": 5,
+        "content": "/examples/doc_merge/pure_documents.json",
+        "type": "filepath"
+    },
+    "95": {
+        "file_id": 5,
+        "content": "Both comments discuss company-supplier agreements, covering aspects such as NDAs, IT system maintenance, late delivery penalties, termination provisions, confidentiality clauses, and governing laws.",
+        "type": "summary"
+    },
+    "96": {
+        "file_id": 5,
+        "content": "[\n    \"NON-DISCLOSURE AGREEMENT (NDA)\\n\\n1. Agreement between [Your Company Name] and [Recipient Name] on [Date].\\n2. Information sharing for the purpose of [specific project or purpose].\\n3. \\\"Confidential Information\\\" includes all potentially commercially valuable information, specifically software development tactics, processes, and in-house research results.\\n4. Receiving party is obligated to protect the Confidential Information, use it solely for the disclosed purpose, and not disclose it without consent.\\n5. Breach penalties include injunctive relief, other remedies, and a $200,000 fee per breach.\\n6. The Agreement applies to the Parties and their successors and assigns. It contains all related agreements and lack of enforcement doesn't imply waiver.\\n7. The Agreement is under the laws of [State].\\n8. Signed by [Your Company Name] and [Recipient Name] at the above date.\",\n    \"NON-DISCLOSURE AGREEMENT (NDA)\\n\\nEffective from [Effective Date], this NDA involves [Your Company Name]",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:1-3"
+    },
+    "97": {
+        "file_id": 5,
+        "content": "This code appears to contain two example Non-Disclosure Agreements (NDA) in JSON format, with fields such as parties involved, purpose of information sharing, definition of Confidential Information, obligations and penalties for breaching the agreement, applicable laws, and signatures.",
+        "type": "comment"
+    },
+    "98": {
+        "file_id": 5,
+        "content": " (\\\"Disclosing Party\\\"), and [Recipient Name] (\\\"Receiving Party\\\").\\n\\n1. Purpose: The Disclosing Party will disclose confidential information related to [Topic of Research] to the Receiving Party for [Purpose].\\n\\n2. Confidential Information: Defined as all non-public reports, data, designs, and other materials provided by the Disclosing Party to the Receiving Party.\\n\\n3. Receiving Party's Obligations:\\n   a. Use, reproduce, or distribute the confidential information only for the agreed purpose.\\n   b. Restrict access to the information to necessary parties, ensuring they abide by strict confidentiality.\\n   c. Return or destroy all confidential information upon request or at the end of the agreement.\\n\\n4. Exclusions: Information will not be classified as confidential if it is already known to the Receiving Party, publicly known, or independently developed by the Receiving Party.\\n\\n5. Non-Competition: The Receiving Party will not engage in any competing business against the Disclo",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:3-3"
+    },
     "99": {
         "file_id": 5,
-        "content": "This code snippet is initializing a function, specifically an instance of the class \"DocMerge\", with the parameter 'cost_upper' set to 15. The purpose of this function might be to perform document merging or some similar operation with a specified upper cost limit.",
+        "content": "The code is a confidentiality agreement between a Disclosing Party and a Recipient (Receiving Party) involving the exchange of confidential information related to a specific topic for a stated purpose. It outlines obligations for the Receiving Party, exclusions, and non-competition clauses.",
         "type": "comment"
     }
 }
