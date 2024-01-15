@@ -12,7 +12,7 @@
         "1": {
             "filepath": "/examples/README.md",
             "entry_id": 14,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "2": {
             "filepath": "/examples/doc_merge/README.md",
@@ -52,7 +52,7 @@
         "9": {
             "filepath": "/examples/set_intersection/README.md",
             "entry_id": 288,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "10": {
             "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
