@@ -7,17 +7,17 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "1": {
             "filepath": "/examples/README.md",
             "entry_id": 14,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "2": {
             "filepath": "/examples/doc_merge/README.md",
             "entry_id": 18,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "3": {
             "filepath": "/examples/doc_merge/doc_merge.py",
@@ -72,7 +72,7 @@
         "13": {
             "filepath": "/examples/sorting/README.md",
             "entry_id": 326,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "14": {
             "filepath": "/examples/sorting/plot.py",
@@ -102,7 +102,7 @@
         "19": {
             "filepath": "/graph_of_thoughts/language_models/README.md",
             "entry_id": 378,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "20": {
             "filepath": "/graph_of_thoughts/language_models/__init__.py",
@@ -132,7 +132,7 @@
         "25": {
             "filepath": "/graph_of_thoughts/operations/README.md",
             "entry_id": 444,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "26": {
             "filepath": "/graph_of_thoughts/operations/__init__.py",
