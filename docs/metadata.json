@@ -7,7 +7,7 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "1": {
             "filepath": "/examples/README.md",
@@ -17,7 +17,7 @@
         "2": {
             "filepath": "/examples/doc_merge/README.md",
             "entry_id": 18,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "3": {
             "filepath": "/examples/doc_merge/doc_merge.py",
@@ -52,7 +52,7 @@
         "9": {
             "filepath": "/examples/set_intersection/README.md",
             "entry_id": 288,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "10": {
             "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
@@ -87,7 +87,7 @@
         "16": {
             "filepath": "/graph_of_thoughts/controller/README.md",
             "entry_id": 354,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "17": {
             "filepath": "/graph_of_thoughts/controller/__init__.py",
@@ -102,7 +102,7 @@
         "19": {
             "filepath": "/graph_of_thoughts/language_models/README.md",
             "entry_id": 378,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "20": {
             "filepath": "/graph_of_thoughts/language_models/__init__.py",
@@ -177,7 +177,7 @@
         "34": {
             "filepath": "/paper/README.md",
             "entry_id": 570,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "35": {
             "filepath": "/paper/plots.py",
