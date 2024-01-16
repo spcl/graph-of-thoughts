@@ -12,7 +12,7 @@
         "1": {
             "filepath": "/examples/README.md",
             "entry_id": 14,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "2": {
             "filepath": "/examples/doc_merge/README.md",
@@ -37,7 +37,7 @@
         "6": {
             "filepath": "/examples/keyword_counting/README.md",
             "entry_id": 238,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "7": {
             "filepath": "/examples/keyword_counting/dataset_gen_countries.py",
@@ -72,7 +72,7 @@
         "13": {
             "filepath": "/examples/sorting/README.md",
             "entry_id": 326,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "14": {
             "filepath": "/examples/sorting/plot.py",
@@ -87,7 +87,7 @@
         "16": {
             "filepath": "/graph_of_thoughts/controller/README.md",
             "entry_id": 354,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "17": {
             "filepath": "/graph_of_thoughts/controller/__init__.py",
@@ -132,7 +132,7 @@
         "25": {
             "filepath": "/graph_of_thoughts/operations/README.md",
             "entry_id": 444,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "26": {
             "filepath": "/graph_of_thoughts/operations/__init__.py",
