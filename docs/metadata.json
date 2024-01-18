@@ -7,7 +7,7 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "1": {
             "filepath": "/examples/README.md",
@@ -72,7 +72,7 @@
         "13": {
             "filepath": "/examples/sorting/README.md",
             "entry_id": 326,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "14": {
             "filepath": "/examples/sorting/plot.py",
@@ -177,7 +177,7 @@
         "34": {
             "filepath": "/paper/README.md",
             "entry_id": 570,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "35": {
             "filepath": "/paper/plots.py",
