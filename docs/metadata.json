@@ -7,12 +7,12 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "1": {
             "filepath": "/examples/README.md",
             "entry_id": 14,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "2": {
             "filepath": "/examples/doc_merge/README.md",
@@ -37,7 +37,7 @@
         "6": {
             "filepath": "/examples/keyword_counting/README.md",
             "entry_id": 238,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "7": {
             "filepath": "/examples/keyword_counting/dataset_gen_countries.py",
@@ -52,7 +52,7 @@
         "9": {
             "filepath": "/examples/set_intersection/README.md",
             "entry_id": 288,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "10": {
             "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
@@ -72,7 +72,7 @@
         "13": {
             "filepath": "/examples/sorting/README.md",
             "entry_id": 326,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "14": {
             "filepath": "/examples/sorting/plot.py",
@@ -177,7 +177,7 @@
         "34": {
             "filepath": "/paper/README.md",
             "entry_id": 570,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "35": {
             "filepath": "/paper/plots.py",
