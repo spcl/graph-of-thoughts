@@ -7,7 +7,7 @@
         "0": {
             "filepath": "/README.md",
             "entry_id": 0,
-            "language_id": "markdown"
+            "language_id": "plain-text"
         },
         "1": {
             "filepath": "/examples/README.md",
@@ -52,7 +52,7 @@
         "9": {
             "filepath": "/examples/set_intersection/README.md",
             "entry_id": 288,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "10": {
             "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
@@ -102,7 +102,7 @@
         "19": {
             "filepath": "/graph_of_thoughts/language_models/README.md",
             "entry_id": 378,
-            "language_id": "plain-text"
+            "language_id": "markdown"
         },
         "20": {
             "filepath": "/graph_of_thoughts/language_models/__init__.py",
