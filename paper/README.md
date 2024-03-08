@@ -1,5 +1,5 @@
 ## Poster
-The poster presented at the 2024 Association for the Advancement of Artificial Intelligence (AAAI'24) conference is available as [PDF: poster.pdf](poster.pdf).
+The poster presented at the 2024 Association for the Advancement of Artificial Intelligence (AAAI'24) conference is available as PDF: [poster.pdf](poster.pdf).
 
 ## Plot Data
 
