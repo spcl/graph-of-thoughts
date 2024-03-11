@@ -1,8 +1,9 @@
-## Poster
 <p align="center">
-  <img src="poster.png" width="60%">
+  <img src="poster.png" width="40%">
 </p>
-The poster presented at the 2024 Association for the Advancement of Artificial Intelligence (AAAI'24) conference is available as [PDF](poster.pdf) and [PNG](poster.png)
+
+## Poster
+The poster presented at the 2024 Association for the Advancement of Artificial Intelligence (AAAI'24) conference is available as [PDF](poster.pdf) and [PNG](poster.png).
 
 ## Plot Data
 
