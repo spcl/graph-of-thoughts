@@ -1,0 +1,20 @@
+{
+    "summary": "The code snippet provides license terms for redistributing \"graph-of-thoughts\" project, mentions authors of the research paper \"Graph of Thoughts,\" and gives its arXiv preprint identifier.",
+    "details": [
+        {
+            "comment": "This code snippet is a license agreement for the \"graph-of-thoughts\" project. It outlines the terms and conditions for redistribution of source and binary forms, ensuring proper copyright notices and prohibiting unauthorized endorsements or promotions.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/LICENSE\":0-22",
+            "content": "Copyright (c) 2023 ETH Zurich.\n                   All rights reserved.\nRedistribution and use in source and binary forms, with or without\nmodification, are permitted provided that the following conditions are\nmet:\n- Redistributions of source code must retain the above copyright\n  notice, this list of conditions and the following disclaimer.\n- Redistributions in binary form must reproduce the above copyright\n  notice, this list of conditions and the following disclaimer listed\n  in this license in the documentation and/or other materials\n  provided with the distribution.\n- Neither the name of the copyright holders nor the names of its\n  contributors may be used to endorse or promote products derived from\n  this software without specific prior written permission.\nThe copyright holders provide no reassurances that the source code\nprovided does not infringe any patent, copyright, or any other\nintellectual property rights of third parties.  The copyright holders\ndisclaim any liability to any recipient for claims brought against"
+        },
+        {
+            "comment": "This code snippet contains the license terms for a software, specifying that it is provided \"as is\" without warranties and disclaiming liability for any damages arising from its use. Additionally, the code includes instructions to cite the software in any published work that uses it.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/LICENSE\":23-45",
+            "content": "recipient by any third party for infringement of that parties\nintellectual property rights.\nTHIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS\n\"AS IS\" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT\nLIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR\nA PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT\nOWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,\nSPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT\nLIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,\nDATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY\nTHEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT\n(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE\nOF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.\nCitation\n========\nAny published work which uses this software should include the\nfollowing citation:\n----------------------------------------------------------------------"
+        },
+        {
+            "comment": "This code snippet lists the authors of a research paper titled \"Graph of Thoughts: Solving Elaborate Problems with Large Language Models\" and provides its arXiv preprint identifier, which is arXiv:2308.09687.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/LICENSE\":46-51",
+            "content": "Maciej Besta, Nils Blach, Ales Kubicek, Robert Gerstenberger, Lukas\nGianinazzi, Joanna Gajda, Tomasz Lehmann, Micha\u0142 Podstawski, Hubert\nNiewiadomski, Piotr Nyczyk, Torsten Hoefler: Graph of Thoughts: Solving\nElaborate Problems with Large Language Models. In: arXiv preprint\narXiv:2308.09687\n----------------------------------------------------------------------"
+        }
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "summary": "This line is importing the \"Controller\" class from the \"controller\" module, which is located in the same package directory. This likely means that this code is part of a larger application where different modules handle different aspects of the program's functionality, and the \"Controller\" class manages some specific part or feature of the app.",
+    "details": [
+        {
+            "comment": "This line is importing the \"Controller\" class from the \"controller\" module, which is located in the same package directory. This likely means that this code is part of a larger application where different modules handle different aspects of the program's functionality, and the \"Controller\" class manages some specific part or feature of the app.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/controller/__init__.py\":0-0",
+            "content": "from .controller import Controller"
+        }
+    ]
+}

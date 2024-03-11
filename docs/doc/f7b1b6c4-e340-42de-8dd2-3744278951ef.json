@@ -1,0 +1,15 @@
+{
+    "summary": "The Controller class manages the execution of a graph of operations using an LLM and requires custom prompter, parser, GoO, and AbstractLanguageModel. The code initializes an instance with these parameters, runs the executor, and outputs the generated graph to file.",
+    "details": [
+        {
+            "comment": "The Controller class manages the execution of the Graph of Operations (GoO) using a Large Language Model (LLM). It requires custom Prompter and Parser, along with instantiated GraphOfOperations and AbstractLanguageModel. The initial state is represented as a dictionary for prompts in operations.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/controller/README.md\":0-15",
+            "content": "# Controller\nThe Controller class is responsible for traversing the Graph of Operations (GoO), which is a static structure that is constructed once, before the execution starts.\nGoO prescribes the execution plan of thought operations and the Controller invokes their execution, generating the Graph Reasoning State (GRS). \nIn order for a GoO to be executed, an instance of Large Language Model (LLM) must be supplied to the controller (along with other required objects).\nPlease refer to the [Language Models](../language_models/README.md) section for more information about LLMs. \nThe following section describes how to instantiate the Controller to run a defined GoO. \n## Controller Instantiation\n- Requires custom `Prompter`, `Parser`, as well as instantiated `GraphOfOperations` and `AbstractLanguageModel` - creation of these is described separately.\n- Prepare initial state (thought) as dictionary - this can be used in the initial prompts by the operations.\n```\nlm = ...create\ngraph_of_operations = ...create"
+        },
+        {
+            "comment": "The code initializes an instance of the Controller class with necessary parameters, including a language model (lm), graph of operations, custom prompter and parser, and an initial state. It then runs the executor and writes the generated graph containing individual operations, thoughts, scores, validity, and token usage to an output file at the specified path.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/controller/README.md\":17-27",
+            "content": "executor = controller.Controller(\n    lm,\n    graph_of_operations,\n    <CustomPrompter()>,\n    <CustomParser()>,\n    <initial state>,\n)\nexecutor.run()\nexecutor.output_graph(\"path/to/output.json\")\n```\n- After the run the graph is written to an output file, which contains individual operations, their thoughts, information about scores and validity and total amount of used tokens / cost."
+        }
+    ]
+}

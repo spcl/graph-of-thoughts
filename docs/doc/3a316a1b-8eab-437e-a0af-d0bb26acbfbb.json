@@ -1,0 +1,20 @@
+{
+    "summary": "The Graph of Operations class manages operation execution plans, initializing with empty lists and providing a method to append operations. It iterates through predecessors, removing leaves and appending operations without successors.",
+    "details": [
+        {
+            "comment": "This code represents the Graph of Operations class, which is responsible for managing the execution plan of thought operations. It initializes with empty lists for operations, roots, and leaves, and provides a method to append an operation to all leaves in the graph while updating relationships.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/operations/graph_of_operations.py\":0-31",
+            "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom __future__ import annotations\nfrom typing import List\nfrom graph_of_thoughts.operations.operations import Operation\nclass GraphOfOperations:\n    \"\"\"\n    Represents the Graph of Operations, which prescribes the execution plan of thought operations.\n    \"\"\"\n    def __init__(self) -> None:\n        \"\"\"\n        Initializes a new Graph of Operations instance with empty operations, roots, and leaves.\n        The roots are the entry points in the graph with no predecessors.\n        The leaves are the exit points in the graph with no successors.\n        \"\"\"\n        self.operations: List[Operation] = []\n        self.roots: List[Operation] = []\n        self.leaves: List[Operation] = []\n    def append_operation(self, operation: Operation) -> None:\n        \"\"\"\n        Appends an operation to all leaves in the graph and updates the relationships."
+        },
+        {
+            "comment": "This code appends an operation to the graph and adjusts roots and leaves accordingly. If there are no roots, it sets the added operation as both root and leaf with no predecessors. If the added operation has no predecessors, it adds it as a new root.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/operations/graph_of_operations.py\":33-63",
+            "content": "        :param operation: The operation to append.\n        :type operation: Operation\n        \"\"\"\n        self.operations.append(operation)\n        if len(self.roots) == 0:\n            self.roots = [operation]\n        else:\n            for leave in self.leaves:\n                leave.add_successor(operation)\n        self.leaves = [operation]\n    def add_operation(self, operation: Operation) -> None:\n        \"\"\"\n        Add an operation to the graph considering its predecessors and successors.\n        Adjust roots and leaves based on the added operation's position within the graph.\n        :param operation: The operation to add.\n        :type operation: Operation\n        \"\"\"\n        self.operations.append(operation)\n        if len(self.roots) == 0:\n            self.roots = [operation]\n            self.leaves = [operation]\n            assert (\n                len(operation.predecessors) == 0\n            ), \"First operation should have no predecessors\"\n        else:\n            if len(operation.predecessors) == 0:\n                self.roots.append(operation)"
+        },
+        {
+            "comment": "Iterates through predecessors of an operation, removes leaves if they are also operation's predecessors, appends the operation to the leaves list if it has no successors.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/operations/graph_of_operations.py\":64-68",
+            "content": "            for predecessor in operation.predecessors:\n                if predecessor in self.leaves:\n                    self.leaves.remove(predecessor)\n            if len(operation.successors) == 0:\n                self.leaves.append(operation)"
+        }
+    ]
+}

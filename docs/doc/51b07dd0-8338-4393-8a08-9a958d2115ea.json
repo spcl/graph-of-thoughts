@@ -1,0 +1,10 @@
+{
+    "summary": "This line imports the Prompter class from the \"prompter\" module within the current package, allowing its functionality to be accessed by other parts of the codebase.",
+    "details": [
+        {
+            "comment": "This line imports the Prompter class from the \"prompter\" module within the current package, allowing its functionality to be accessed by other parts of the codebase.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/prompter/__init__.py\":0-0",
+            "content": "from .prompter import Prompter"
+        }
+    ]
+}

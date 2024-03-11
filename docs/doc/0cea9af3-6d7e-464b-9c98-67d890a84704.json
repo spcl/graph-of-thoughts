@@ -1,0 +1,10 @@
+{
+    "summary": "This directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example, with prompt files available to test prompts manually in a console. Individual example directories provide more information on specific examples.",
+    "details": [
+        {
+            "comment": "This directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example, with prompt files available to test prompts manually in a console. Individual example directories provide more information on specific examples.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/README.md\":0-6",
+            "content": "# Examples\nThis directory contains scripts for running various examples using the Graph of Thoughts package. Each script is a standalone Python program that sets up and runs a particular example.\nWe further include prompt files for each example that can be used to test prompts manually in a console.\nPlease refer to the individual example directories for more information on the specific example."
+        }
+    ]
+}

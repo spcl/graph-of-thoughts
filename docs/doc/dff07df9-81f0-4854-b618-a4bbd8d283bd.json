@@ -1,0 +1,10 @@
+{
+    "summary": "The code imports the Parser class from the \"parser\" module in the current package, allowing for easier usage and organization of related functions and classes.",
+    "details": [
+        {
+            "comment": "The code imports the Parser class from the \"parser\" module in the current package, allowing for easier usage and organization of related functions and classes.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/parser/__init__.py\":0-0",
+            "content": "from .parser import Parser"
+        }
+    ]
+}

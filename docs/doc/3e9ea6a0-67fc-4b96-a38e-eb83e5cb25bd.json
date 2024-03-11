@@ -1,0 +1,15 @@
+{
+    "summary": "The code showcases a document merging approach using various methods like IO, CoT, ToT, and GoT. It takes 50 sample documents from `documents.csv`, applies chosen techniques, and outputs results in an LLM-named directory with debug logs and separate JSON files for each approach.",
+    "details": [
+        {
+            "comment": "This code demonstrates a document merging use case using different approaches, including IO, Chain-of-Thought (CoT), Tree of Thought (ToT), and Graph of Thoughts (GoT). It uses 50 sample documents from `documents.csv`, executes the selected samples with chosen approaches, and saves results in a directory named by the LLM, approaches, day, and start time.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/doc_merge/README.md\":0-27",
+            "content": "# Document Merging\nThe use case in this directory generates new Non-Disclosure Agreement (NDA) based on several input ones that partially overlap in terms of their contents. \nWe provide implementations of five different approaches:\n- IO\n- Chain-of-Thought (CoT)\n- Tree of Thought (ToT)\n- Graph of Thoughts (GoT):\n  - GoT: aggregation of fully merged NDAs\n  - GoT2: aggregation of partially merged NDAs\n## Data\nWe provide an input file with 50 samples: `documents.csv`.\n## Execution\nThe file to execute the use case is called\n`doc_merge.py`. In the main body, one can\nselect the specific samples to be run (variable samples) and the\napproaches (variable approaches). It is also possible to set a budget in\ndollars (variable budget).\nThe Python scripts will create the directory `result`, if it is not\nalready present. In the `result` directory, another directory is created\nfor each run: `{name of LLM}_{list of approaches}_{day}_{start time}`.\nInside each execution specific directory two files (`config.json`,\n`log.log`) and a separate directory for each selected approach are"
+        },
+        {
+            "comment": "This code generates a configuration file named `config.json` that contains input data, selected approaches, LLM name, and budget information. Additionally, it logs prompts, responses, and debug data in `log.log`. Each approach directory holds separate JSON files for every sample with the Graph Reasoning State (GRS) included. To plot the data, change the results directory at line 158 of `plot.py` and run `python3 plot.py`.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/doc_merge/README.md\":28-37",
+            "content": "created. `config.json` contains the configuration of the run: input data,\nselected approaches, name of the LLM, and the budget. `log.log` contains\nthe prompts and responses of the LLM as well as additional debug data.\nThe approach directories contain a separate json file for every sample\nand the file contains the Graph Reasoning State (GRS) for that sample.\n## Plot Data\nChange the results directory in line 158 of `plot.py` and run `python3\nplot.py` to plot your data."
+        }
+    ]
+}
