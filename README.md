@@ -140,11 +140,17 @@ Got any questions or feedback? Feel free to reach out to [nils.blach@inf.ethz.ch
 Using this in your work? Please reference us using the provided citation:
 
 ```bibtex
-@misc{besta2023got,
+@article{besta2024got,
   title = {{Graph of Thoughts: Solving Elaborate Problems with Large Language Models}},
   author = {Besta, Maciej and Blach, Nils and Kubicek, Ales and Gerstenberger, Robert and Gianinazzi, Lukas and Gajda, Joanna and Lehmann, Tomasz and Podstawski, Micha{\l} and Niewiadomski, Hubert and Nyczyk, Piotr and Hoefler, Torsten},
-  year = 2023,
-  eprinttype = {arXiv},
-  eprint = {2308.09687}
+  year = 2024,
+  month = {Mar},
+  journal = {Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume = 38,
+  number = 16,
+  pages = {17682-17690},
+  publisher = {AAAI Press},
+  doi = {10.1609/aaai.v38i16.29720},
+  url = {https://ojs.aaai.org/index.php/AAAI/article/view/29720}
 }
 ```
