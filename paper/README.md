@@ -7,6 +7,6 @@ The poster presented at the 2024 Association for the Advancement of Artificial I
 
 ## Plot Data
 
-The data used to create the figure of the arXiv preprint article can be
+The data used to create the figures of the paper can be
 found in the `final_results_gpt35.tar.bz2` archive.  Unpack the archive
 and run the file `plots.py`.
