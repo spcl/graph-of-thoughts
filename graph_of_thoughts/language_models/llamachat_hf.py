@@ -84,8 +84,8 @@ class Llama2HF(AbstractLanguageModel):
         :return: Response(s) from the LLaMA 2 model.
         :rtype: List[Dict]
         """
-        if self.cache and query in self.respone_cache:
-            return self.respone_cache[query]
+        if self.cache and query in self.response_cache:
+            return self.response_cache[query]
         sequences = []
         query = f"<s><<SYS>>You are a helpful assistant. Always follow the intstructions precisely and output the response exactly in the requested format.<</SYS>>\n\n[INST] {query} [/INST]"
         for _ in range(num_responses):
@@ -104,7 +104,7 @@ class Llama2HF(AbstractLanguageModel):
             for sequence in sequences
         ]
         if self.cache:
-            self.respone_cache[query] = response
+            self.response_cache[query] = response
         return response
 
     def get_response_texts(self, query_responses: List[Dict]) -> List[str]:

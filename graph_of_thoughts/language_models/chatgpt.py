@@ -73,8 +73,8 @@ class ChatGPT(AbstractLanguageModel):
         :return: Response(s) from the OpenAI model.
         :rtype: Dict
         """
-        if self.cache and query in self.respone_cache:
-            return self.respone_cache[query]
+        if self.cache and query in self.response_cache:
+            return self.response_cache[query]
 
         if num_responses == 1:
             response = self.chat([{"role": "user", "content": query}], num_responses)
@@ -98,7 +98,7 @@ class ChatGPT(AbstractLanguageModel):
                     total_num_attempts -= 1
 
         if self.cache:
-            self.respone_cache[query] = response
+            self.response_cache[query] = response
         return response
 
     @backoff.on_exception(backoff.expo, OpenAIError, max_time=10, max_tries=6)
