@@ -560,7 +560,7 @@ def got() -> operations.GraphOfOperations:
     """
     operations_graph = operations.GraphOfOperations()
 
-    plans = operations.Generate(2, 1)
+    plans = operations.Generate(1, 1)
     operations_graph.append_operation(plans)  # generate the sublists
     for i in range(1, 3):
         list_id = f"List {i}"
