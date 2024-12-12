@@ -1,0 +1,547 @@
+{
+    "200": {
+        "file_id": 5,
+        "content": "ecomes public knowledge without breach of this clause;\\n    was known by the receiving party before receipt from the disclosing party;\\n    is received from a third party without breach of any obligation of confidentiality.\\n\\n1.3 The receiving party shall:\\n\\n    use the Confidential Information only for performing under the Agreement;\\n    take all reasonable precautions to prevent any unauthorized disclosure of the Confidential Information;\\n    not disclose, reproduce, or distribute Confidential Information without the written consent of the disclosing party.\\n\\n2. Duration:\\n\\nThe obligations set forth in this Appendix shall continue for a period of [e.g., \\\"two years\\\"] from the date of termination or expiration of the Agreement.\\n\\n3. Return or Destruction:\\n\\nUpon the expiration or termination of the Agreement, or upon the disclosing party's request, the receiving party shall return or, if directed by the disclosing party, destroy all copies of the Confidential Information.\\n\\n",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:37-37"
+    },
+    "201": {
+        "file_id": 5,
+        "content": "This code snippet contains a confidentiality agreement clause, which outlines the rules for handling and protecting sensitive information. The receiving party is required to use the Confidential Information only for performing under the Agreement, take precautions to prevent unauthorized disclosure, and obtain written consent before reproducing or distributing it. The obligations of this clause continue for a specified duration (e.g., two years) after the expiration or termination of the Agreement, and the receiving party must return or destroy all copies upon request or termination.",
+        "type": "comment"
+    },
+    "202": {
+        "file_id": 5,
+        "content": "4. Governing Law:\\n\\nThis Appendix shall be governed by the laws of [State/Country, e.g., \\\"California\\\"], consistent with the Agreement.\",\n    \"APPENDIX: CONFIDENTIALITY CLAUSE\\n\\nThis Appendix is part of the Agreement dated [Original Agreement Date, e.g., \\\"August 15, 2023\\\"] between [Company Name] (\\\"Company\\\") and [Contractor Name] (\\\"Contractor\\\").\\n\\n1. Confidential Information:\\nBoth parties may access or receive the other's confidential information (\\\"Confidential Information\\\") during the Agreement term. Confidential Information excludes publicly known details, data known prior, or information obtained from third parties without confidentiality obligations.\\n\\n2. Obligations:\\nThe recipient shall:\\n\\n    Use the Confidential Information solely for the Agreement's purpose.\\n    Prevent unauthorized disclosures.\\n    Not disclose without prior written consent.\\n\\n3. Duration:\\nObligations persist for [e.g., \\\"two years\\\"] post Agreement termination or expiration.\\n\\n4. Return/Des",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:37-38"
+    },
+    "203": {
+        "file_id": 5,
+        "content": "This code snippet represents a Confidentiality Agreement between two parties, defining the scope of confidential information, obligations to protect it, and its duration post-agreement termination or expiration.",
+        "type": "comment"
+    },
+    "204": {
+        "file_id": 5,
+        "content": "truction:\\nUpon Agreement conclusion, or on request, all Confidential Information copies should be returned or destroyed.\\n\\n5. Governing Law:\\nGoverned by [State/Country, e.g., \\\"California\\\"] laws.\",\n    \"NON-DISCLOSURE AGREEMENT (NDA)\\n\\nEffective [Effective Date, e.g., \\\"August 15, 2023\\\"], between [Tech Company Name], located at [Tech Company Address], (\\\"Company\\\") and [Contractor's Full Name], located at [Contractor Address], (\\\"Contractor\\\").\\n\\nPurpose:\\nContractor will access Company's confidential information during their engagement.\\n\\n1. Definition:\\n\\\"Confidential Information\\\" means proprietary data related to the Company\\u2019s business, excluding publicly known details, prior known information, or data from third parties without confidentiality bounds.\\n\\n2. Obligation:\\nContractor shall:\\n\\n    Use Confidential Information solely for engagement purposes.\\n    Prevent unauthorized disclosure.\\n\\n3. Duration:\\nObligations persist for [e.g., \\\"two years\\\"] from disclosure",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:38-39"
+    },
+    "205": {
+        "file_id": 5,
+        "content": "Non-Disclosure Agreement (NDA) between a tech company and a contractor, effective on [Effective Date], defining Confidential Information, its use, protection, and obligation duration.",
+        "type": "comment"
+    },
+    "206": {
+        "file_id": 5,
+        "content": " date.\\n\\n4. Return:\\nContractor shall return all Confidential Information items upon engagement completion or Company's request, retaining no copies.\\n\\n5. Remedies:\\nBreach may result in legal actions, damages, and costs.\\n\\n6. Governing Law:\\nGoverned by [State/Country, e.g., \\\"California\\\"] laws.\",\n    \"APPENDIX: EXTENSION OF CONTRACT DURATION\\n\\nThis Appendix is a part of the Agreement initially dated [Original Agreement Date, e.g., \\\"August 15, 2021\\\"], between [Party A Name], located at [Party A Address] (\\\"Party A\\\") and [Party B Name], located at [Party B Address] (\\\"Party B\\\").\\n\\n1. Duration Extension:\\nThe duration of the Agreement referenced above is hereby extended for an additional two (2) years from the original expiration date. With this extension, the new expiration date of the Agreement will be [New Expiration Date, e.g., \\\"August 15, 2025\\\"].\\n\\n2. All Other Terms Remain Unchanged:\\nExcept for the extension of the contract duration as described herein, all other term",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:39-40"
+    },
+    "207": {
+        "file_id": 5,
+        "content": "Section describes terms for confidential information handling, remedies for breach, and governing law. Appendix extends contract duration by two years while keeping other terms unchanged.",
+        "type": "comment"
+    },
+    "208": {
+        "file_id": 5,
+        "content": "s and conditions of the Agreement remain unchanged and in full effect.\\n\\n3. Entire Agreement:\\nThis Appendix, in conjunction with the original Agreement, constitutes the entire agreement between Party A and Party B. Any previous understandings, written or oral, relating to the subject of this Appendix are superseded by the terms herein.\\n\\n4. Governing Law:\\nThis Appendix shall be governed by the laws of [State/Country, e.g., \\\"California\\\"], consistent with the original Agreement.\",\n    \"CONFIDENTIALITY AGREEMENT\\n\\nEffective [Effective Date, e.g., \\\"August 15, 2023\\\"], between [Company Name], located at [Company Address] (\\\"Company\\\"), and [Supplier Name], located at [Supplier Address] (\\\"Supplier\\\").\\n\\n1. Definition:\\n\\\"Confidential Information\\\" means proprietary data of the Company, excluding:\\n\\n    Pre-disclosed or publicly known data.\\n    Info from third parties without confidentiality bounds.\\n\\n2. Obligations:\\nSupplier will:\\n\\n    Use Confidential Information solely for b",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:40-41"
+    },
+    "209": {
+        "file_id": 5,
+        "content": "This code snippet represents a confidentiality agreement between Company and Supplier, with details such as governing law, effective date, obligations of the Supplier regarding Confidential Information, and superseding previous understandings.",
+        "type": "comment"
+    },
+    "210": {
+        "file_id": 5,
+        "content": "usiness purposes with the Company.\\n    Protect its secrecy and prevent unauthorized disclosure.\\n    Return or destroy all Confidential Information upon request or business completion.\\n\\n3. Duration:\\nObligations last for [e.g., \\\"two years\\\"] from disclosure date.\\n\\n4. Remedies:\\nBreaches may result in legal actions, damages, and costs by the Company.\\n\\n5. Governing Law:\\nGoverned by [State/Country, e.g., \\\"California\\\"] laws.\",\n    \"APPENDIX: BREACH CONSEQUENCES\\n\\nRelated to the Agreement on [Original Agreement Date, e.g., \\\"August 15, 2023\\\"], between [Party A Name] (\\\"Party A\\\") and [Party B Name] (\\\"Party B\\\").\\n\\n1. Notification:\\nSuspected breaches must be reported in writing by the non-breaching party.\\n\\n2. Rectification:\\nThe breaching party has [e.g., \\\"14 days\\\"] from notification to rectify, unless irreparable.\\n\\n3. Fees:\\nBreaches incur a penalty of [e.g., \\\"$10,000\\\"], aside from claimed damages.\\n\\n4. Legal Actions:\\nUnresolved or damaging breaches may lead to lega",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:41-42"
+    },
+    "211": {
+        "file_id": 5,
+        "content": "This code is part of a legal document agreement. It specifies the obligations, duration, remedies for breaches, and governing law in case of any violations. It also includes details about notifying suspected breaches, rectification timelines, fees for breaches, and potential legal actions if necessary.",
+        "type": "comment"
+    },
+    "212": {
+        "file_id": 5,
+        "content": "l actions, including injunctive relief, damages, and legal fees.\\n\\n5. Termination:\\nRepeated or severe breaches can cause Agreement termination by the non-breaching party.\\n\\n6. Law:\\nGoverned by [State/Country, e.g., \\\"California\\\"] laws.\",\n    \"APPENDIX: TERMS OF CONTRACT TERMINATION\\n\\nRelated to the Agreement on [Original Agreement Date, e.g., \\\"August 15, 2023\\\"], between [Party A Name] (\\\"Party A\\\") and [Party B Name] (\\\"Party B\\\").\\n\\n1. Termination for Breach:\\nIf either party breaches any conditions of the Agreement, the non-breaching party may terminate the Agreement immediately upon written notice to the breaching party.\\n\\n2. Termination by Notice:\\nEither party may terminate the Agreement for any reason by providing a written notice to the other party. The termination will become effective 30 days after the receipt of such notice.\\n\\n3. Obligations Upon Termination:\\nUpon termination, all rights and obligations under the Agreement will cease, except for those which by thei",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:42-43"
+    },
+    "213": {
+        "file_id": 5,
+        "content": "This code defines contract termination clauses, including termination for breach, termination by notice, and obligations upon termination. It also specifies that the Agreement is governed by specific state or country laws.",
+        "type": "comment"
+    },
+    "214": {
+        "file_id": 5,
+        "content": "r nature should survive termination (e.g., confidentiality, liability for prior breaches, etc.).\\n\\n4. Governing Law:\\nThis Appendix, and any disputes arising from it, will be governed by the laws of [State/Country, e.g., \\\"California\\\"], consistent with the original Agreement.\",\n    \"APPENDIX: OBLIGATIONS UPON TERMINATION\\n\\nPertaining to the Agreement dated [Original Agreement Date, e.g., \\\"August 15, 2023\\\"], between [Party A Name] (\\\"Party A\\\") and [Party B Name] (\\\"Party B\\\").\\n\\n1. Return of Property:\\nUpon termination, each party shall promptly return to the other all property, materials, and assets belonging to the other party, unless otherwise specified in the Agreement.\\n\\n2. Confidential Information:\\nBoth parties shall continue to abide by any confidentiality obligations set forth in the Agreement. Any confidential information must be returned or destroyed, as instructed by the owning party.\\n\\n3. Outstanding Payments:\\nAll due payments must be settled within [e.g., \\\"14 day",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:43-44"
+    },
+    "215": {
+        "file_id": 5,
+        "content": "This code represents an Appendix titled \"Obligations Upon Termination\" in a legal agreement between Party A and Party B. It outlines the responsibilities of both parties, such as returning property, maintaining confidentiality, and settling outstanding payments upon termination of the agreement.",
+        "type": "comment"
+    },
+    "216": {
+        "file_id": 5,
+        "content": "s\\\"] of termination, as per the terms of the original Agreement.\\n\\n4. Non-Disparagement:\\nBoth parties agree not to make any derogatory or disparaging statements about the other party post-termination.\\n\\n5. Survival of Provisions:\\nAny provisions in the Agreement that, by their nature, should persist beyond termination (e.g., indemnity, liability, confidentiality) will continue to be in effect.\\n\\n6. Notifications:\\nEach party must inform their respective stakeholders, if necessary, about the termination in a manner that maintains the goodwill and reputation of both parties.\\n\\n7. Transition Assistance:\\nTo ensure a smooth transition, both parties agree to cooperate, as reasonably requested by the other, for a period of [e.g., \\\"30 days\\\"] after termination.\\n\\n8. Governing Law:\\nThis Appendix is governed by the laws of [State/Country, e.g., \\\"California\\\"], consistent with the original Agreement.\",\n    \"NON-DISCLOSURE AGREEMENT (NDA)\\n\\nEffective [Date, e.g., \\\"August 15, 2023\\\"], be",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:44-45"
+    },
+    "217": {
+        "file_id": 5,
+        "content": "Non-Disclosure Agreement (NDA) with termination, non-disparagement, survival of provisions, notifications, transition assistance, and governing law clauses.",
+        "type": "comment"
+    },
+    "218": {
+        "file_id": 5,
+        "content": "tween [Client Name], (\\\"Client\\\") and [Business Name], (\\\"Business\\\").\\n\\nPurpose:\\nProtection of confidential information exchanged due to potential collaboration.\\n\\n1. Confidentiality:\\nBusiness agrees to keep secret all Confidential Information shared by Client.\\n\\n2. Definition:\\n\\\"Confidential Information\\\" is non-public data shared by either party, excluding info that's publicly available, already known, or received without confidentiality constraints.\\n\\n3. Duration:\\nObligations last [e.g., \\\"two years\\\"] from the date of disclosure.\\n\\n4. Return/Destruction:\\nUpon Client's request, Business will return or destroy all Confidential Information.\\n\\n5. Remedies:\\nUnauthorized disclosures may lead to legal action by Client, including damages.\\n\\n6. Law:\\nGoverned by [State/Country, e.g., \\\"California\\\"] laws.\",\n    \"IT SERVICES AGREEMENT\\n\\nEffective Date: [Date, e.g., \\\"August 15, 2023\\\"]\\n\\nParties:\\n\\n    [Client Name], located at [Client Address] (\\\"Client\\\")\\n    [Service Prov",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:45-46"
+    },
+    "219": {
+        "file_id": 5,
+        "content": "The code is for a confidentiality agreement between a client and a business. It outlines the purpose, terms of confidentiality, definition of confidential information, duration of obligations, return/destruction process, legal remedies, and governing laws.",
+        "type": "comment"
+    },
+    "220": {
+        "file_id": 5,
+        "content": "ider Name], located at [Service Provider Address] (\\\"Provider\\\")\\n\\nScope of Work:\\nProvider agrees to offer IT services, including [e.g., \\\"network setup, software installation, and routine maintenance\\\"], as detailed in Attachment A.\\n\\nPayment:\\nClient shall pay Provider [e.g., \\\"$1,000\\\"] per month. Invoices will be sent monthly and are due within [e.g., \\\"30 days\\\"].\\n\\nDuration:\\nThis Agreement starts on [Start Date] and ends on [End Date], unless terminated earlier.\\n\\nTermination:\\nEither party may terminate with [e.g., \\\"30 days\\\"] written notice. Upon termination, any unpaid fees for services rendered become immediately due.\\n\\nConfidentiality:\\nBoth parties agree to keep all business and technical information confidential.\\n\\nLimitation of Liability:\\nProvider's liability is limited to the amount paid by the Client for the specific service causing damage.\\n\\nGoverning Law:\\nThis Agreement is governed by the laws of [State/Country, e.g., \\\"California\\\"].\\n\\nEntire Agreement:\\nThis constitutes the full agreement between both parties.\",",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:46-46"
+    },
+    "221": {
+        "file_id": 5,
+        "content": "This code is defining the basic structure and content of a service agreement between a client and a service provider, including scope of work, payment terms, duration, termination clauses, confidentiality, limitation of liability, governing law, and stating that this constitutes the full agreement between both parties.",
+        "type": "comment"
+    },
+    "222": {
+        "file_id": 5,
+        "content": "    \"CONFIDENTIALITY AMENDMENT TO NDA\\n\\nThis Amendment, effective [Date, e.g., \\\"August 15, 2023\\\"], modifies the NDA dated [Original Agreement Date] between [Party A Name] (\\\"Party A\\\") and [Party B Name] (\\\"Party B\\\").\\n\\n1. Responsibilities:\\n\\na) Protection: Parties must safeguard Confidential Information at least as they do their own.\\n\\nb) Access: Access is limited to those needing it who are also bound by confidentiality.\\n\\nc) Breach Notification: Parties must immediately inform the other of any breaches.\\n\\nd) Return/Destruction: Upon request or agreement end, parties must return or certify the destruction of Confidential Information.\\n\\ne) No Reverse Engineering: Receiving party shall not reverse engineer any provided items.\\n\\n2. Remedies:\\nUnauthorized disclosures permit injunctive relief and other legal remedies.\\n\\n3. Original Agreement:\\nExcept for this Amendment, the NDA remains unchanged.\\n\\nGoverning Law:\\nAs per the NDA.\",\n    \"LOYALTY AGREEMENT\\n\\nThis Agreement (\\\"",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:47-48"
+    },
+    "223": {
+        "file_id": 5,
+        "content": "This code contains different types of legal documents including a Confidentiality Amendment to NDA and a Loyalty Agreement, which outline the terms between two parties.",
+        "type": "comment"
+    },
+    "224": {
+        "file_id": 5,
+        "content": "Agreement\\\") is made as of [Date, e.g., \\\"August 15, 2023\\\"], between:\\n\\n    [Party A Name], with its principal office at [Party A Address] (\\\"Party A\\\"),\\n    [Party B Name], with its principal office at [Party B Address] (\\\"Party B\\\").\\n\\nPurpose:\\nThe parties wish to collaborate and establish a loyal relationship in their joint business endeavors.\\n\\n1. Loyalty Commitment:\\n\\na) Both parties commit to act in good faith and refrain from engaging in any activity or partnership that might conflict with the interests of the other party during the term of this Agreement.\\n\\nb) Neither party shall assist, collaborate, or engage with third parties that may cause harm or disrepute to the other party.\\n\\nc) Each party shall prioritize the other's interests in situations where opportunities arise from their collaboration.\\n\\n2. Non-Solicitation:\\nDuring the term of this Agreement, and for [e.g., \\\"one year\\\"] thereafter, neither party shall solicit or attempt to entice away any clients, cust",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:48-48"
+    },
+    "225": {
+        "file_id": 5,
+        "content": "This code defines a contractual agreement between two parties (Party A and Party B) for collaboration, loyalty commitment, and non-solicitation. The agreement is made as of a specific date and aims to establish a loyal relationship in their joint business endeavors.",
+        "type": "comment"
+    },
+    "226": {
+        "file_id": 5,
+        "content": "omers, or employees of the other party.\\n\\n3. Duration:\\nThis Agreement will begin on the Effective Date and remain in effect for [e.g., \\\"two years\\\"] unless terminated earlier by mutual consent.\\n\\n4. Termination:\\nEither party may terminate this Agreement with [e.g., \\\"30 days\\\"] written notice if the other party breaches any term herein.\\n\\n5. Confidentiality:\\nBoth parties agree to maintain the confidentiality of all proprietary or non-public information obtained during the collaboration.\\n\\n6. Governing Law:\\nThis Agreement is governed by the laws of [State/Country, e.g., \\\"California\\\"].\\n\\n7. Entire Agreement:\\nThis document constitutes the full understanding between both parties, superseding all prior discussions, agreements, or understandings.\",\n    \"BUSINESS CONSULTING CONTRACT\\n\\nThis Consulting Contract (\\\"Contract\\\") is made as of [Date, e.g., \\\"August 15, 2023\\\"], between:\\n\\n    [Client Name], with its principal office at [Client Address] (\\\"Client\\\"),\\n    [Consultant N",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:48-49"
+    },
+    "227": {
+        "file_id": 5,
+        "content": "This is a business consulting contract between Client and Consultant. It includes clauses for scope of work, payment terms, duration, termination, confidentiality, governing law, and entire agreement.",
+        "type": "comment"
+    },
+    "228": {
+        "file_id": 5,
+        "content": "ame], with its principal office at [Consultant Address] (\\\"Consultant\\\").\\n\\nPurpose:\\nThe Consultant will provide professional consulting services to the Client as described below.\\n\\n1. Scope of Services:\\nConsultant agrees to offer services including, but not limited to:\\na) Business strategy development\\nb) Market analysis\\nc) [Other services as needed]\\nAny additional services will require an amendment to this Contract.\\n\\n2. Compensation:\\nFor services rendered, the Client shall pay the Consultant [e.g., \\\"$100\\\"] per hour. Invoices will be issued [e.g., \\\"monthly\\\"] and are due within [e.g., \\\"30 days\\\"] of receipt.\\n\\n3. Duration:\\nThis Contract begins on [Start Date] and ends on [End Date], unless extended by mutual agreement or terminated earlier.\\n\\n4. Termination:\\nEither party can terminate this Contract with [e.g., \\\"30 days\\\"] written notice. In case of termination, the Client will pay for services rendered up to the notice date.\\n\\n5. Confidentiality:\\nThe Consultant sh",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:49-49"
+    },
+    "229": {
+        "file_id": 5,
+        "content": "Consulting contract between Client and Consultant, outlines services provided, compensation terms, duration, termination conditions, and confidentiality agreement.",
+        "type": "comment"
+    },
+    "230": {
+        "file_id": 5,
+        "content": "all maintain the confidentiality of all proprietary information received during the engagement, unless obligated by law to disclose.\\n\\n6. Non-compete:\\nFor [e.g., \\\"six months\\\"] after Contract termination, the Consultant agrees not to provide similar services to any direct competitor of the Client within [e.g., \\\"50 miles\\\"] of the Client's primary location.\\n\\n7. Independent Contractor:\\nThe Consultant is an independent contractor and not an employee of the Client.\\n\\n8. Governing Law:\\nThis Contract shall be governed by and interpreted under the laws of [State/Country, e.g., \\\"California\\\"].\\n\\n9. Entire Agreement:\\nThis Contract represents the entire understanding between both parties, superseding all prior negotiations, discussions, or agreements.\",\n    \"APPENDIX A: CONFIDENTIALITY BREACH FEES\\n\\nThis Appendix is attached to and made part of the Contract (\\\"Original Contract\\\") dated [Original Contract Date], between [Party A Name] (\\\"Party A\\\") and [Party B Name] (\\\"Party B\\\").\\n",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:49-50"
+    },
+    "231": {
+        "file_id": 5,
+        "content": "This code snippet represents an agreement between two parties, Party A and Party B, with sections covering confidentiality, non-compete clauses, independent contractor status, governing law, and entire agreement. It also references Appendix A regarding confidentiality breach fees.",
+        "type": "comment"
+    },
+    "232": {
+        "file_id": 5,
+        "content": "\\n1. Purpose:\\nThis Appendix defines the fees and penalties associated with any breach of confidentiality as stipulated in the Original Contract.\\n\\n2. Confidentiality Breach Fee:\\nIn the event of a breach of the confidentiality provisions in the Original Contract by either party:\\n\\na) The breaching party will be liable for an immediate penalty of [specific amount, e.g., \\\"$10,000\\\"].\\n\\nb) If the breach results in any direct financial loss to the non-breaching party, the breaching party shall additionally reimburse the non-breaching party for the full amount of such loss.\\n\\nc) The breaching party will also bear all costs, including legal fees, that the non-breaching party incurs while addressing or remedying the breach.\\n\\n3. Payment Terms:\\nPayment of any penalty or reimbursement as defined above shall be made within [e.g., \\\"30 days\\\"] of written notification of the breach.\\n\\n4. Disputes:\\nAny disputes related to this Appendix shall be resolved as stipulated in the dispute resolu",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:50-50"
+    },
+    "233": {
+        "file_id": 5,
+        "content": "This code defines the fees and penalties for breaching confidentiality in the Original Contract, including immediate penalty amounts, reimbursement for direct financial losses, and coverage of legal fees and costs. Payment terms are outlined as well, with disputes to be resolved according to the dispute resolution stipulations in the contract.",
+        "type": "comment"
+    },
+    "234": {
+        "file_id": 5,
+        "content": "tion clause of the Original Contract.\\n\\n5. Continuation of Original Contract:\\nExcept as modified by this Appendix, the Original Contract remains in full force and effect.\\n\\n6. Governing Law:\\nThis Appendix, consistent with the Original Contract, is governed by the laws of [State/Country, e.g., \\\"California\\\"].\",\n    \"APPENDIX A: STRICT CONFIDENTIALITY BREACH PENALTIES\\n\\nThis Appendix is annexed to the Contract dated [Original Contract Date] between [Party A Name] and [Party B Name].\\n\\n1. Breach Fees:\\nIf a party breaches confidentiality:\\n\\na) Immediate penalty: [e.g., \\\"$50,000\\\"].\\n\\nb) For reputational harm or business loss: Additional [e.g., \\\"$100,000\\\"].\\n\\nc) Full reimbursement for direct financial losses caused by the breach.\\n\\nd) All associated legal and remedy costs borne by the breaching party.\\n\\n2. Remedial Actions:\\nThe breaching party must swiftly rectify the breach, potentially including public apologies or recalling disclosed information.\\n\\n3. Payment:\\nDue withi",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:50-51"
+    },
+    "235": {
+        "file_id": 5,
+        "content": "This code represents a legal document, specifically an appendix to a contract, which outlines strict confidentiality breach penalties. The appendix is attached to the Contract dated [Original Contract Date] between [Party A Name] and [Party B Name]. It states the immediate penalty upon breaching confidentiality, potential additional fees for reputational harm or business loss, full reimbursement for direct financial losses caused by the breach, all associated legal and remedy costs to be borne by the breaching party, and that the breaching party must swiftly rectify the breach. Payment is due within a certain period.",
+        "type": "comment"
+    },
+    "236": {
+        "file_id": 5,
+        "content": "n [e.g., \\\"15 days\\\"] of breach notification.\\n\\n4. Termination:\\nNon-breaching party can immediately terminate the main contract upon a breach.\\n\\n5. Governing Law:\\nThis Appendix adheres to [State/Country, e.g., \\\"California\\\"] laws.\"\n]",
+        "type": "code",
+        "location": "/examples/doc_merge/pure_documents.json:51-52"
+    },
+    "237": {
+        "file_id": 5,
+        "content": "Code snippet outlines contractual terms for a breach notification, termination clause, and governing law.",
+        "type": "comment"
+    },
+    "238": {
+        "file_id": 6,
+        "content": "/examples/keyword_counting/README.md",
+        "type": "filepath"
+    },
+    "239": {
+        "file_id": 6,
+        "content": "The code offers a frequency computation method for countries in text using seven approaches, utilizing 'countries.csv' as input, and allows for custom samples, budgets, and directory creation with log files.",
+        "type": "summary"
+    },
+    "240": {
+        "file_id": 6,
+        "content": "# Keyword Counting\nThe use case in this directory computes the frequencies of occurring countries \nin a long passage of text. We provide implementations of seven different approaches:\n- IO\n- Chain-of-Thought (CoT)\n- Tree of Thought (ToT):\n  - ToT: wider tree, meaning more branches per level\n  - ToT2: tree with more levels, but fewer branches per level\n- Graph of Thoughts (GoT):\n  - GoT4: split passage into 4 sub-passages\n  - GoT8: split passage into 8 sub-passages\n  - GoTx: split by sentences\n## Data\nWe provide an input file with 100 samples: `countries.csv`. It is also possible to use\nthe data generator `dataset_gen_countries.py` to generate additional or\ndifferent samples (using GPT-4). The parameters can be updated on line 54 (number of samples to be generated). \nNote that not every generated sample will be included in the dataset, as each sample is \nadditionally tested for validity (observe script output for details).\n## Execution\nThe file to execute the use case is called\n`keyword_counting.py`. In the main body, one can",
+        "type": "code",
+        "location": "/examples/keyword_counting/README.md:1-26"
+    },
+    "241": {
+        "file_id": 6,
+        "content": "This code provides a use case for computing the frequencies of occurring countries in a long passage of text using seven different approaches including IO, Chain-of-Thought (CoT), Tree of Thought (ToT) with variations, and Graph of Thoughts (GoT) with variations. It uses an input file named 'countries.csv' and provides a data generator for additional or different samples. The code to execute the use case is called 'keyword_counting.py'.",
+        "type": "comment"
+    },
+    "242": {
+        "file_id": 6,
+        "content": "select the specific samples to be run (variable samples) and the\napproaches (variable approaches). It is also possible to set a budget in\ndollars (variable budget).\nThe Python scripts will create the directory `result`, if it is not\nalready present. In the `result` directory, another directory is created\nfor each run: `{name of LLM}_{list of approaches}_{day}_{start time}`.\nInside each execution specific directory two files (`config.json`,\n`log.log`) and a separate directory for each selected approach are\ncreated. `config.json` contains the configuration of the run: input data,\nselected approaches, name of the LLM, and the budget. `log.log` contains\nthe prompts and responses of the LLM as well as additional debug data.\nThe approach directories contain a separate json file for every sample\nand the file contains the Graph Reasoning State (GRS) for that sample.\n## Plot Data\nChange the results directory in line 150 of `plot.py` and run `python3\nplot.py` to plot your data.",
+        "type": "code",
+        "location": "/examples/keyword_counting/README.md:27-45"
+    },
+    "243": {
+        "file_id": 6,
+        "content": "The code selects specific samples, approaches, and sets a budget for running Python scripts. It creates directories for each run with `config.json` and `log.log` files containing LLM prompts/responses and GRS data for samples. Change the results directory in line 150 of `plot.py` to plot data by running `python3 plot.py`.",
+        "type": "comment"
+    },
+    "244": {
+        "file_id": 7,
+        "content": "/examples/keyword_counting/dataset_gen_countries.py",
+        "type": "filepath"
+    },
+    "245": {
+        "file_id": 7,
+        "content": "The code generates a language model dataset by organizing country occurrences into popular and rest categories, cleaning paragraphs, checking for invalid elements, and storing the result in CSV format.",
+        "type": "summary"
+    },
+    "246": {
+        "file_id": 7,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Ales Kubicek\nimport csv\nfrom typing import List, Tuple\nfrom graph_of_thoughts import controller\ndef find_country_indices(text: str, country: str) -> List[Tuple[int, str]]:\n    \"\"\"\n    Finds the indices of the occurences of a given country in the input text.\n    :param text: Input text.\n    :type text: str\n    :param country: Country to search for.\n    :type country: str\n    :return: List of tuples, where each tuple consists of index and country.\n    :rtype: List[Tuple[int, str]]\n    \"\"\"\n    indices = []\n    index = text.find(country)\n    while index != -1:\n        indices.append(index)\n        index = text.find(country, index + 1)\n    return [(index, country) for index in indices]\nprimary_countries = [\n    \"Afghanistan\",\n    \"Argentina\",\n    \"Australia\",\n    \"Brazil\",\n    \"Canada\",\n    \"China\",\n    \"Colombia\",\n    \"Cuba\",\n    \"Egypt\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:1-43"
+    },
+    "247": {
+        "file_id": 7,
+        "content": "This function finds the indices of occurrences of a given country in an input text and returns them as a list of tuples containing index and country. The primary_countries variable is a list of countries used in the dataset.",
+        "type": "comment"
+    },
+    "248": {
+        "file_id": 7,
+        "content": "    \"France\",\n    \"Germany\",\n    \"Greece\",\n    \"India\",\n    \"Indonesia\",\n    \"Iran\",\n    \"Iraq\",\n    \"Ireland\",\n    \"Israel\",\n    \"Italy\",\n    \"Japan\",\n    \"Kenya\",\n    \"Mexico\",\n    \"Netherlands\",\n    \"New Zealand\",\n    \"Nigeria\",\n    \"North Korea\",\n    \"Pakistan\",\n    \"Peru\",\n    \"Philippines\",\n    \"Poland\",\n    \"Portugal\",\n    \"Russia\",\n    \"Saudi Arabia\",\n    \"South Africa\",\n    \"South Korea\",\n    \"Spain\",\n    \"Sweden\",\n    \"Switzerland\",\n    \"Thailand\",\n    \"Turkey\",\n    \"Ukraine\",\n    \"United Arab Emirates\",\n    \"United Kingdom\",\n    \"United States\",\n    \"Venezuela\",\n    \"Vietnam\",\n    \"Yemen\",\n    \"Zimbabwe\",\n    \"Belgium\",\n    \"Norway\",\n]\nprimary_adjectives = [\n    \"Afghan\",\n    \"Argentine \",\n    \"Argentinean\",\n    \"Australian\",\n    \"Brazilian\",\n    \"Canadian\",\n    \"Chinese\",\n    \"Colombian\",\n    \"Cuban\",\n    \"Egyptian\",\n    \"French\",\n    \"German\",\n    \"Greek\",\n    \"Indian\",\n    \"Indonesian\",\n    \"Iranian\",\n    \"Iraqi\",\n    \"Irish\",\n    \"Israeli\",\n    \"Italian\",\n    \"Japanese\",\n    \"Kenyan\",\n    \"Mexican\",\n    \"Dutch\",\n    \"New Zealander \",\n    \"Kiwi\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:44-112"
+    },
+    "249": {
+        "file_id": 7,
+        "content": "This code contains lists of countries and their corresponding primary adjectives. The countries list includes 46 nations, while the adjectives list has 28 items. These data can be used for keyword counting or other text processing tasks related to country-specific information.",
+        "type": "comment"
+    },
+    "250": {
+        "file_id": 7,
+        "content": "    \"Nigerian\",\n    \"North Korean\",\n    \"Pakistani\",\n    \"Peruvian\",\n    \"Filipino\",\n    \"Philippine\",\n    \"Polish\",\n    \"Portuguese\",\n    \"Russian\",\n    \"Saudi \",\n    \"Saudi Arabian\",\n    \"South African\",\n    \"South Korean\",\n    \"Spanish\",\n    \"Swedish\",\n    \"Swiss\",\n    \"Thai\",\n    \"Turkish\",\n    \"Ukrainian\",\n    \"United Arab Emirates\",\n    \"Emirati\",\n    \"British\",\n    \"American\",\n    \"Venezuelan\",\n    \"Vietnamese\",\n    \"Yemeni\",\n    \"Zimbabwean\",\n    \"Belgian\",\n    \"Norwegian\",\n]\nrest_countries = [\n    \"Albania\",\n    \"Algeria\",\n    \"Andorra\",\n    \"Angola\",\n    \"Antigua and Barbuda\",\n    \"Armenia\",\n    \"Austria\",\n    \"Azerbaijan\",\n    \"The Bahamas\",\n    \"Bahrain\",\n    \"Bangladesh\",\n    \"Barbados\",\n    \"Belarus\",\n    \"Belize\",\n    \"Benin\",\n    \"Bhutan\",\n    \"Bolivia\",\n    \"Bosnia and Herzegovina\",\n    \"Botswana\",\n    \"Brunei\",\n    \"Bulgaria\",\n    \"Burkina Faso\",\n    \"Burundi\",\n    \"Cabo Verde\",\n    \"Cambodia\",\n    \"Cameroon\",\n    \"Central African Republic\",\n    \"Chad\",\n    \"Chile\",\n    \"Comoros\",\n    \"Congo\",\n    \"Costa Rica\",\n    \"Côte d’Ivoire\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:113-176"
+    },
+    "251": {
+        "file_id": 7,
+        "content": "The code provides a list of countries divided into two sections: \"popular_countries\" containing widely recognized nations, and \"rest_countries\" containing the remaining countries. It appears to be used for organizing or filtering country data in an application or dataset.",
+        "type": "comment"
+    },
+    "252": {
+        "file_id": 7,
+        "content": "    \"Croatia\",\n    \"Cyprus\",\n    \"Czech Republic\",\n    \"Czechia\",\n    \"Denmark\",\n    \"Djibouti\",\n    \"Dominica\",\n    \"Dominican Republic\",\n    \"East Timor\",\n    \"Timor-Leste\",\n    \"Ecuador\",\n    \"El Salvador\",\n    \"Equatorial Guinea\",\n    \"Eritrea\",\n    \"Estonia\",\n    \"Eswatini\",\n    \"Ethiopia\",\n    \"Fiji\",\n    \"Finland\",\n    \"Gabon\",\n    \"The Gambia\",\n    \"Georgia\",\n    \"Ghana\",\n    \"Grenada\",\n    \"Guatemala\",\n    \"Guinea\",\n    \"Guinea-Bissau\",\n    \"Guyana\",\n    \"Haiti\",\n    \"Honduras\",\n    \"Hungary\",\n    \"Iceland\",\n    \"Jamaica\",\n    \"Jordan\",\n    \"Kazakhstan\",\n    \"Kiribati\",\n    \"Kosovo\",\n    \"Kuwait\",\n    \"Kyrgyzstan\",\n    \"Laos\",\n    \"Latvia\",\n    \"Lebanon\",\n    \"Lesotho\",\n    \"Liberia\",\n    \"Libya\",\n    \"Liechtenstein\",\n    \"Lithuania\",\n    \"Luxembourg\",\n    \"Madagascar\",\n    \"Malawi\",\n    \"Malaysia\",\n    \"Maldives\",\n    \"Mali\",\n    \"Malta\",\n    \"Marshall Islands\",\n    \"Mauritania\",\n    \"Mauritius\",\n    \"Micronesia\",\n    \"Moldova\",\n    \"Monaco\",\n    \"Mongolia\",\n    \"Montenegro\",\n    \"Morocco\",\n    \"Mozambique\",\n    \"Myanmar\",\n    \"Burma\",\n    \"Namibia\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:177-243"
+    },
+    "253": {
+        "file_id": 7,
+        "content": "The code includes a list of country names in alphabetical order. Each country name is separated by a comma, and some countries have multiple names listed for different uses or recognition.",
+        "type": "comment"
+    },
+    "254": {
+        "file_id": 7,
+        "content": "    \"Nauru\",\n    \"Nepal\",\n    \"Nicaragua\",\n    \"Niger\",\n    \"North Macedonia\",\n    \"Oman\",\n    \"Palau\",\n    \"Panama\",\n    \"Papua New Guinea\",\n    \"Paraguay\",\n    \"Qatar\",\n    \"Romania\",\n    \"Rwanda\",\n    \"Saint Kitts and Nevis\",\n    \"Saint Lucia\",\n    \"Saint Vincent and the Grenadines\",\n    \"Samoa\",\n    \"San Marino\",\n    \"Sao Tome and Principe\",\n    \"Senegal\",\n    \"Serbia\",\n    \"Seychelles\",\n    \"Sierra Leone\",\n    \"Singapore\",\n    \"Slovakia\",\n    \"Slovenia\",\n    \"Solomon Islands\",\n    \"Somalia\",\n    \"Sri Lanka\",\n    \"Sudan\",\n    \"Suriname\",\n    \"Syria\",\n    \"Taiwan\",\n    \"Tajikistan\",\n    \"Tanzania\",\n    \"Togo\",\n    \"Tonga\",\n    \"Trinidad and Tobago\",\n    \"Tunisia\",\n    \"Turkmenistan\",\n    \"Tuvalu\",\n    \"Uganda\",\n    \"Uruguay\",\n    \"Uzbekistan\",\n    \"Vanuatu\",\n    \"Vatican City\",\n    \"Zambia\",\n]\nrest_adjectives = [\n    \"Albanian\",\n    \"Algerian\",\n    \"Andorran\",\n    \"Angolan\",\n    \"Antiguan and Barbudan\",\n    \"Armenian\",\n    \"Austrian\",\n    \"Azerbaijani\",\n    \"Bahamian\",\n    \"Bahraini\",\n    \"Bangladeshi\",\n    \"Barbadian\",\n    \"Belarusian\",\n    \"Belizean\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:244-306"
+    },
+    "255": {
+        "file_id": 7,
+        "content": "This code defines a list of countries and their corresponding adjectives, which can be used to generate diverse language datasets.",
+        "type": "comment"
+    },
+    "256": {
+        "file_id": 7,
+        "content": "    \"Beninese\",\n    \"Bhutanese\",\n    \"Bolivian\",\n    \"Bosnian and Herzegovinian\",\n    \"Botswanan\",\n    \"Bruneian\",\n    \"Bulgarian\",\n    \"Burkinabè\",\n    \"Burundian\",\n    \"Cape Verdean\",\n    \"Cambodian\",\n    \"Cameroonian\",\n    \"Central African\",\n    \"Chadian\",\n    \"Chilean\",\n    \"Comorian\",\n    \"Congolese\",\n    \"Costa Rican\",\n    \"Ivorian\",\n    \"Croatian\",\n    \"Cypriot\",\n    \"Czech\",\n    \"Czech\",\n    \"Danish\",\n    \"Djiboutian\",\n    \"Dominican\",\n    \"Dominican\",\n    \"East Timorese\",\n    \"Timorese\",\n    \"Ecuadorian\",\n    \"Salvadoran\",\n    \"Equatorial Guinean\",\n    \"Eritrean\",\n    \"Estonian\",\n    \"Swazi\",\n    \"Ethiopian\",\n    \"Fijian\",\n    \"Finnish\",\n    \"Gabonese\",\n    \"Gambian\",\n    \"Georgian\",\n    \"Ghanaian\",\n    \"Grenadian\",\n    \"Guatemalan\",\n    \"Guinean\",\n    \"Bissau-Guinean\",\n    \"Guyanese\",\n    \"Haitian\",\n    \"Honduran\",\n    \"Hungarian\",\n    \"Icelandic\",\n    \"Jamaican\",\n    \"Jordanian\",\n    \"Kazakh\",\n    \"I-Kiribati\",\n    \"Kosovar\",\n    \"Kuwaiti\",\n    \"Kyrgyz\",\n    \"Laotian\",\n    \"Latvian\",\n    \"Lebanese\",\n    \"Basotho\",\n    \"Liberian\",\n    \"Libyan\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:307-370"
+    },
+    "257": {
+        "file_id": 7,
+        "content": "This code lists various country names and their corresponding adjective forms, used for identifying nationality or origin.",
+        "type": "comment"
+    },
+    "258": {
+        "file_id": 7,
+        "content": "    \"Liechtensteiner\",\n    \"Lithuanian\",\n    \"Luxembourger\",\n    \"Malagasy\",\n    \"Malawian\",\n    \"Malaysian\",\n    \"Maldivian\",\n    \"Malian\",\n    \"Maltese\",\n    \"Marshallese\",\n    \"Mauritanian\",\n    \"Mauritian\",\n    \"Micronesian\",\n    \"Moldovan\",\n    \"Monégasque\",\n    \"Mongolian\",\n    \"Montenegrin\",\n    \"Moroccan\",\n    \"Mozambican\",\n    \"Myanmarese\",\n    \"Burmese\",\n    \"Namibian\",\n    \"Nauruan\",\n    \"Nepali\",\n    \"Nicaraguan\",\n    \"Nigerien\",\n    \"Macedonian\",\n    \"Omani\",\n    \"Palauan\",\n    \"Panamanian\",\n    \"Papua New Guinean\",\n    \"Paraguayan\",\n    \"Qatari\",\n    \"Romanian\",\n    \"Rwandan\",\n    \"Kittitian\",\n    \"Nevisian\",\n    \"Saint Lucian\",\n    \"Vincentian\",\n    \"Samoan\",\n    \"Sammarinese\",\n    \"Santomean\",\n    \"Senegalese\",\n    \"Serbian\",\n    \"Seychellois\",\n    \"Sierra Leonean\",\n    \"Singaporean\",\n    \"Slovak\",\n    \"Slovenian\",\n    \"Solomon Islander\",\n    \"Somali\",\n    \"Sri Lankan\",\n    \"Sudanese\",\n    \"Surinamese\",\n    \"Syrian\",\n    \"Taiwanese\",\n    \"Tajik\",\n    \"Tanzanian\",\n    \"Togolese\",\n    \"Tongan\",\n    \"Trinidadian \",\n    \"Tobagonian\",\n    \"Tunisian\",",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:371-433"
+    },
+    "259": {
+        "file_id": 7,
+        "content": "This code defines a list of country names and their associated adjectival forms, used for keyword counting in a dataset.",
+        "type": "comment"
+    },
+    "260": {
+        "file_id": 7,
+        "content": "    \"Turkmen\",\n    \"Tuvaluan\",\n    \"Ugandan\",\n    \"Uruguayan\",\n    \"Uzbek\",\n    \"Ni-Vanuatu\",\n    \"Vatican\",\n    \"Zambian\",\n]\nlm = controller.ChatGPT(\n    \"../../graph_of_thoughts/controller/config.json\", model_name=\"chatgpt4\"\n)\nprompt = \"\"\"<Instruction> Generate a continuous passage (single paragraph) of 16 sentences following the provided restrictions precisely. </Instruction>\n<Restrictions>\nThe following restrictions must apply to the generated text:\n1. Single continuous passage of exactly 16 sentences without any paragraphs (line breaks).\n2. Countries appearing in the passage must be only from the provided list. No other countries can be mentioned.\n3. When a country is mentioned in the passage, it must be mentioned multiple times consecutively in the same or following sentences.\n4. Passage should be creative and coherent.\n5. Using adjectives of a country is NOT allowed (e.g., \"Colombian coffee\" should be \"coffee from Colombia\" instead)\n</Restrictions>\n<Example>\nList of countries: [Afghanistan, Argentina",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:434-460"
+    },
+    "261": {
+        "file_id": 7,
+        "content": "This code generates a prompt for an AI language model to create a continuous passage with 16 sentences using a provided list of countries and specific restrictions. The generated text should mention the countries multiple times consecutively, be creative and coherent, and avoid using adjectives for the countries.",
+        "type": "comment"
+    },
+    "262": {
+        "file_id": 7,
+        "content": ", Australia, Brazil, Canada, China, Colombia, Cuba, Egypt, France, Germany, Greece, India, Indonesia, Iran, Iraq, Ireland, Israel, Italy, Japan, Kenya, Mexico, Netherlands, New Zealand, Nigeria, North Korea, Pakistan, Peru, Philippines, Poland, Portugal, Russia, Saudi Arabia, South Africa, South Korea, Spain, Sweden, Switzerland, Thailand, Turkey, Ukraine, United Arab Emirates, United Kingdom, United States, Venezuela, Vietnam, Yemen, Zimbabwe, Belgium, Norway]\nPassage:\nWhile exploring the ancient ruins in Greece, Sam discovered manuscripts that hinted at the hidden treasures of Egypt. It seemed these treasures were once stolen from Egypt by rogue merchants and secretly moved to Greece, only to be buried under layers of time. Intrigued, he shared the findings with his friend Maya from India, who was an expert in decoding ancient languages. She pointed out that there was a similar legend in India about treasures from China that had somehow ended up in the southern parts of India, possibly",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:460-462"
+    },
+    "263": {
+        "file_id": 7,
+        "content": "The code defines a list containing the names of countries. These country names are used in various parts of the program to handle data related to specific countries.",
+        "type": "comment"
+    },
+    "264": {
+        "file_id": 7,
+        "content": " through trade or conquest. She also recounted tales from China that spoke of incredible artifacts from Indonesia, suggesting a rich tapestry of cultural exchanges throughout history. Their conversation took an interesting turn when Sam mentioned a book he'd read about the mysterious connections between Argentina and Brazil. The book detailed how both Argentina and Brazil, despite their differences, shared tales of lost civilizations and forgotten cities deep within their jungles. Maya excitedly mentioned that she'd been to the Philippines and had heard local legends about ancient ties with Indonesia and how traders from the Philippines would journey to Indonesia in search of spices and other goods. Thinking of spices, Sam fondly recalled his trip to Spain, where he had learned about the country's historical links with Portugal. Spain and Portugal, both maritime giants of their time, had extensively explored unknown lands and established trade routes. Maya, remembering her travels, sai",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:462-462"
+    },
+    "265": {
+        "file_id": 7,
+        "content": "Code snippet describes a conversation between Sam and Maya discussing historical connections between different countries through trade and cultural exchanges.",
+        "type": "comment"
+    },
+    "266": {
+        "file_id": 7,
+        "content": "d that she had been to Belgium once and was fascinated by its connections with the Netherlands. Both Belgium and the Netherlands, she explained, had rich histories of art, trade, and diplomacy that intertwined them for centuries. They both sat back, marveling at the interconnectedness of the world and how countries from Greece to the Netherlands shared tales of adventure, discovery, and mystery.\n</Example>\nList of countries: [Afghanistan, Argentina, Australia, Brazil, Canada, China, Colombia, Cuba, Egypt, France, Germany, Greece, India, Indonesia, Iran, Iraq, Ireland, Israel, Italy, Japan, Kenya, Mexico, Netherlands, New Zealand, Nigeria, North Korea, Pakistan, Peru, Philippines, Poland, Portugal, Russia, Saudi Arabia, South Africa, South Korea, Spain, Sweden, Switzerland, Thailand, Turkey, Ukraine, United Arab Emirates, United Kingdom, United States, Venezuela, Vietnam, Yemen, Zimbabwe, Belgium, Norway]\nPassage:\n\"\"\"\nnum_samples = 100\nsample_id = 0\nresult = [[\"ID\", \"Text\", \"Countries\", \"Sentences\", \"Characters\"]]",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:462-471"
+    },
+    "267": {
+        "file_id": 7,
+        "content": "This code generates a dataset of samples, where each sample contains an ID, text, list of countries mentioned, number of sentences, and number of characters. It will generate 100 samples with incrementing IDs. The provided list of countries serves as the pool from which countries will be randomly selected for each sample's text.",
+        "type": "comment"
+    },
+    "268": {
+        "file_id": 7,
+        "content": "\"\"\"\nGenerate passages of text that contain country names to be used as input for the\nkeyword counting.\nInput(x)  : Number of samples\nOutput(y) : Passages written to a file in the CSV format.\n            File contains the sample ID, the passage, the countries the passage\n            contains, the sentences of the passages, number of characters of the\n            passage.\n\"\"\"\n# For x batches of y responses\nfor _ in range(num_samples):\n    response = lm.query(prompt, 1)\n    texts = lm.get_response_texts(response)\n    for text in texts:\n        # Clean paragraphs - single long passage\n        text = text.strip().replace(\"\\n\", \"\")\n        # Get all occurrences of all primary permissible countries\n        occurrences = []\n        for country in [country for country in primary_countries if country in text]:\n            occurrences.extend(find_country_indices(text, country))\n        # Order exactly how they appear in the text\n        ordered_occurrences = [country[1] for country in sorted(occurrences)]\n        # Check invalid countries and adjectives",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:473-499"
+    },
+    "269": {
+        "file_id": 7,
+        "content": "This code generates passages containing country names for keyword counting. It iterates through a given number of samples, queries the language model (lm) for responses, cleans paragraphs by removing newlines and extra spaces, finds all occurrences of primary countries in each text, orders them based on their appearance in the text, and checks for invalid countries or adjectives.",
+        "type": "comment"
+    },
+    "270": {
+        "file_id": 7,
+        "content": "        invalid_primary_adjective = [\n            adjective for adjective in primary_adjectives if adjective in text\n        ]\n        invalid_rest_country = [\n            country for country in rest_countries if country in text\n        ]\n        invalid_rest_adjective = [\n            adjective for adjective in rest_adjectives if adjective in text\n        ]\n        invalid_count = (\n            len(invalid_primary_adjective)\n            + len(invalid_rest_country)\n            + len(invalid_rest_adjective)\n        )\n        if invalid_count > 0:\n            print(\n                f\"Invalid countries or adjectives present: {invalid_primary_adjective}, {invalid_rest_country}, {invalid_rest_adjective}\"\n            )\n            continue\n        result.append(\n            [\n                sample_id,\n                text,\n                \"[{0}]\".format(\", \".join(map(str, ordered_occurrences))),\n                len(text.split(\".\")) - 1,\n                len(text),\n            ]\n        )\n        sample_id += 1\n# Writing to csv file",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:500-532"
+    },
+    "271": {
+        "file_id": 7,
+        "content": "This code segment checks for invalid primary adjectives, rest countries, and rest adjectives in the text. It counts their occurrences, and if any of them are present, it prints a message with details about the invalid elements found. If there are no invalid elements, it adds the sample (with its ID, text, ordered occurrences, number of sentences, and total length) to the result list. The code continues to the next iteration, and after processing all samples, it will write the final result to a CSV file.",
+        "type": "comment"
+    },
+    "272": {
+        "file_id": 7,
+        "content": "with open(\"countries_script.csv\", \"w\") as csvfile:\n    csvwriter = csv.writer(csvfile)\n    csvwriter.writerows(result)",
+        "type": "code",
+        "location": "/examples/keyword_counting/dataset_gen_countries.py:533-535"
+    },
+    "273": {
+        "file_id": 7,
+        "content": "This code writes the result to a CSV file named \"countries_script.csv\". It opens the file in write mode (\"w\"), creates a CSV writer object, and uses the writerows() method to write each row of the result variable to the CSV file.",
+        "type": "comment"
+    },
+    "274": {
+        "file_id": 8,
+        "content": "/examples/keyword_counting/plot.py",
+        "type": "filepath"
+    },
+    "275": {
+        "file_id": 8,
+        "content": "This code retrieves JSON data, organizes it in a dictionary and plots results using boxplots and bar charts with customizable titles. It also sets y-axis limits, handles missing results and displays solved values.",
+        "type": "summary"
+    },
+    "276": {
+        "file_id": 8,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\n# contributions: Ales Kubicek\nimport json\nimport os\nimport matplotlib.pyplot as plt\ndef get_complete_results(base_directory):\n    results_complete = {}\n    for folder_name in os.listdir(base_directory):\n        folder_path = os.path.join(base_directory, folder_name)\n        if os.path.isdir(folder_path):\n            results_complete[folder_name] = []\n            for file_name in os.listdir(folder_path):\n                if file_name.endswith(\".json\"):\n                    file_path = os.path.join(folder_path, file_name)\n                    with open(file_path, \"r\") as f:\n                        data = json.load(f)\n                        results_complete[folder_name].append(\n                            {\"key\": int(file_name.split(\".\")[0]), \"data\": data}\n                        )\n        for key in results_complete.keys():",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:1-29"
+    },
+    "277": {
+        "file_id": 8,
+        "content": "This code retrieves complete results from a given base directory, iterating through each folder and file. It collects JSON data from specified .json files, stores them in the \"results_complete\" dictionary with corresponding key and appends the data to its value.",
+        "type": "comment"
+    },
+    "278": {
+        "file_id": 8,
+        "content": "            results_complete[key] = sorted(\n                results_complete[key], key=lambda x: x[\"key\"]\n            )\n    return results_complete\ndef get_final_scores(results_complete):\n    scores = {}\n    for method in results_complete.keys():\n        scores[method] = []\n        for result in results_complete[method]:\n            score = 100\n            solved = False\n            cost = 1\n            prompt_tokens = 0\n            completion_tokens = 0\n            for op in result[\"data\"]:\n                if \"operation\" in op and op[\"operation\"] == \"ground_truth_evaluator\":\n                    try:\n                        score = min(op[\"scores\"])\n                        solved = any(op[\"problem_solved\"])\n                    except:\n                        continue\n                if \"cost\" in op:\n                    cost = op[\"cost\"]\n                    prompt_tokens = op[\"prompt_tokens\"]\n                    completion_tokens = op[\"completion_tokens\"]\n            scores[method].append(\n                [result[\"key\"], score, solved, prompt_tokens, completion_tokens, cost]",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:30-58"
+    },
+    "279": {
+        "file_id": 8,
+        "content": "The code sorts the results dictionary by key, then retrieves final scores for each method in the results_complete dictionary. It appends a list of scores (including score, solved status, prompt tokens, completion tokens, and cost) to the corresponding method in the scores dictionary.",
+        "type": "comment"
+    },
+    "280": {
+        "file_id": 8,
+        "content": "            )\n        scores[method] = sorted(scores[method], key=lambda x: x[0])\n    return scores\ndef get_plotting_data(base_directory):\n    results_complete = get_complete_results(base_directory)\n    scores = get_final_scores(results_complete)\n    results_plotting = {\n        method: {\n            \"scores\": [x[1] for x in scores[method]],\n            \"solved\": sum([1 for x in scores[method] if x[2]]),\n            \"costs\": [x[5] for x in scores[method]],\n        }\n        for method in scores.keys()\n    }\n    return results_plotting\ndef plot_results(\n    results,\n    methods_order=[\"io\", \"cot\", \"tot\", \"tot2\", \"got4\", \"got8\", \"gotx\"],\n    model=\"GPT-3.5\",\n    y_lower=0,\n    y_upper=40,\n    cost_upper=1.8,\n    display_solved=True,\n    annotation_offset=1,\n    display_left_ylabel=False,\n    display_right_ylabel=False,\n):\n    methods_order = [method for method in methods_order if method in results]\n    # Extract scores based on the order\n    scores_ordered = [\n        [score for score in results[method][\"scores\"] if score != 100 and score != 300]",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:59-93"
+    },
+    "281": {
+        "file_id": 8,
+        "content": "This code retrieves and prepares data for plotting keyword counting results. It first gets complete results from a specified base directory, then extracts final scores. The data is then organized into a dictionary format for plotting. The function `plot_results` takes this data, along with optional parameters to adjust the visualization. The code filters out irrelevant scores and orders them based on the input order.",
+        "type": "comment"
+    },
+    "282": {
+        "file_id": 8,
+        "content": "        for method in methods_order\n    ]\n    total_costs = [sum(results[method][\"costs\"]) for method in methods_order]\n    # Create figure and axis\n    fig, ax = plt.subplots(dpi=150, figsize=(3.75, 4))\n    # Create boxplots\n    positions = range(1, len(methods_order) + 1)\n    ax.boxplot(scores_ordered, positions=positions)\n    fig_fontsize = 12\n    # Set the ticks and labels\n    methods_labels = [\"IO\", \"CoT\", \"ToT\", \"ToT2\", \"GoT4\", \"GoT8\", \"GoTx\"]\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticks(range(1, len(methods_order) + 1))\n    ax.set_xticklabels(methods_labels, fontsize=10)\n    ax.set_ylim(y_lower, (y_upper + 2) if display_solved else y_upper + 1)\n    plt.yticks(fontsize=fig_fontsize)\n    if display_left_ylabel:\n        ax.set_ylabel(f\"Number of errors; the lower the better\", fontsize=fig_fontsize)\n    ax.set_title(f\"Keyword Counting\")\n    ax2 = ax.twinx()\n    ax2.bar(positions, total_costs, alpha=0.5, color=\"blue\", label=\"Total Cost ($)\")\n    ax2.yaxis.set_tick_params(colors=\"#1919ff\", labelsize=fig_fontsize)",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:94-122"
+    },
+    "283": {
+        "file_id": 8,
+        "content": "This code generates a boxplot of keyword counting results and adds a bar chart of total costs to the same axes. It uses the matplotlib library for plotting, sets tick and label positions, and allows for customization of y-axis labels and title. The total costs are calculated by summing the \"costs\" values from the \"results\" dictionary for each method in a specified order.",
+        "type": "comment"
+    },
+    "284": {
+        "file_id": 8,
+        "content": "    ax2.set_ylim(0, cost_upper)\n    number_of_ticks = len(ax.get_yticks())\n    tick_interval = cost_upper / (number_of_ticks)\n    ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]\n    ax2.set_yticks(ax2_ticks)\n    if display_right_ylabel:\n        ax2.set_ylabel(\n            \"Total Cost ($); the lower the better\",\n            color=\"#1919ff\",\n            fontsize=fig_fontsize,\n        )\n    if display_solved:\n        annotation_height = y_upper + annotation_offset\n        count = 1\n        for method in methods_order:\n            if method not in results:\n                continue\n            solved = results[method][\"solved\"]\n            ax.text(\n                count,\n                annotation_height,\n                f\"{solved}\",\n                ha=\"center\",\n                va=\"bottom\",\n                fontsize=fig_fontsize,\n            )\n            count += 1\n    model = model.replace(\".\", \"\").replace(\"-\", \"\").lower()\n    fig.savefig(f\"keyword_counting_{model}.pdf\", bbox_inches=\"tight\")\nplot_results(",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:123-158"
+    },
+    "285": {
+        "file_id": 8,
+        "content": "This code is setting the y-axis limits and ticks for a graph, adding annotations for solved solutions, labeling the y-axis, and saving the figure with a specific file name. It also handles missing results by continuing to the next method in case one is not available. The purpose of this code is likely related to plotting a graph that compares different methods or models based on their performance (cost) and whether they solved the problem or not.",
+        "type": "comment"
+    },
+    "286": {
+        "file_id": 8,
+        "content": "    get_plotting_data(\"results/\"),\n    display_solved=True,\n    annotation_offset=-0.3,\n    model=\"GPT-3.5\",\n    y_upper=35,\n    display_left_ylabel=True,\n    display_right_ylabel=True,\n    cost_upper=9,\n)",
+        "type": "code",
+        "location": "/examples/keyword_counting/plot.py:159-167"
+    },
+    "287": {
+        "file_id": 8,
+        "content": "This code is calling a function named 'get_plotting_data' to retrieve data from the \"results/\" directory and generate a plot. The model used for this task is \"GPT-3.5\". The y-axis has an upper limit of 35, and the cost axis has an upper limit of 9. The function will display solved values on the plot and show left and right y-labels.",
+        "type": "comment"
+    },
+    "288": {
+        "file_id": 9,
+        "content": "/examples/set_intersection/README.md",
+        "type": "filepath"
+    },
+    "289": {
+        "file_id": 9,
+        "content": "The code provides a data generator for set intersections and allows users to customize parameters, storing results in JSON files. To visualize the data, modify the results directory and length parameter in `plot.py` before executing the script.",
+        "type": "summary"
+    },
+    "290": {
+        "file_id": 9,
+        "content": "# Set Intersection\nThe use case in this directory computes the intersection of two input\nsets. We provide implementations of five different approaches for 32, 64\nand 128 elements:\n- IO\n- Chain-of-Thought (CoT)\n- Tree of Thought (ToT):\n  - ToT: wider tree, meaning more branches per level\n  - ToT2: tree with more levels, but fewer branches per level\n- Graph of Thoughts (GoT)\n## Data\nWe provide input files with 100 precomputed samples for each set length:\n`set_intersection_<number of elements>.csv`. It is also possible to use\nthe data generator `dataset_gen_intersection.py` to generate additional or\ndifferent samples. The parameters can be updated in lines 24 to 28 of\nthe main body:\n- set_size = 32 # size of the generated sets\n- int_value_ubound = 64 # (exclusive) upper limit of generated numbers\n- seed = 42 # seed of the random number generator\n- num_sample = 100 # number of samples\n- filename = 'set_intersection_032.csv' # output filename\n## Execution\nThe files to execute the use case are called\n`set_intersection_<number of elements>.py`. In the main body, one can",
+        "type": "code",
+        "location": "/examples/set_intersection/README.md:1-29"
+    },
+    "291": {
+        "file_id": 9,
+        "content": "This code provides different approaches for computing set intersection and offers a data generator to create samples. It includes IO, Chain-of-Thought (CoT), Tree of Thought (ToT) with two variations, and Graph of Thoughts (GoT). The user can specify the number of elements, upper bound, seed, number of samples, and output filename. The code is structured into separate files for each set length.",
+        "type": "comment"
+    },
+    "292": {
+        "file_id": 9,
+        "content": "select the specific samples to be run (variable sample) and the\napproaches (variable approaches). It is also possible to set a budget in\ndollars (variable budget).\nThe input filename for the samples is currently hardcoded to\n`set_intersection_<number of elements>.csv`, but can be updated in the\nfunction `run`.\nThe Python scripts will create the directory `result`, if it is not\nalready present. In the `result` directory, another directory is created\nfor each run: `{name of LLM}_{list of approaches}_{day}_{start time}`.\nInside each execution specific directory two files (`config.json`,\n`log.log`) and a separate directory for each selected approach are\ncreated. `config.json` contains the configuration of the run: input data,\nselected approaches, name of the LLM, and the budget. `log.log` contains\nthe prompts and responses of the LLM as well as additional debug data.\nThe approach directories contain a separate json file for every sample\nand the file contains the Graph Reasoning State (GRS) for that sample.",
+        "type": "code",
+        "location": "/examples/set_intersection/README.md:30-46"
+    },
+    "293": {
+        "file_id": 9,
+        "content": "This code selects samples and approaches, allows budget setting, hardcodes input filename, creates directories for execution-specific files, and stores the Graph Reasoning State (GRS) for each sample in separate JSON files.",
+        "type": "comment"
+    },
+    "294": {
+        "file_id": 9,
+        "content": "## Plot Data\nChange the results directory in line 170 of `plot.py` and update the\nlength parameter in the subsequent line and run `python3 plot.py` to\nplot your data.",
+        "type": "code",
+        "location": "/examples/set_intersection/README.md:48-52"
+    },
+    "295": {
+        "file_id": 9,
+        "content": "This code snippet instructs the user to modify the results directory in line 170 of `plot.py` and adjust the length parameter accordingly before executing `python3 plot.py` to visualize their data.",
+        "type": "comment"
+    },
+    "296": {
+        "file_id": 10,
+        "content": "/examples/set_intersection/dataset_gen_intersection.py",
+        "type": "filepath"
+    },
+    "297": {
+        "file_id": 10,
+        "content": "The code defines a function \"scramble\" that shuffles array elements and generates random sets, calculating their intersection for specified samples. It uses numpy's default random generator with seed 42 to generate sets of size 32, writing the input, generated, and intersection sets in CSV format.",
+        "type": "summary"
+    },
+    "298": {
+        "file_id": 10,
+        "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Robert Gerstenberger\nimport csv\nimport numpy as np\ndef scramble(array: np.ndarray, rng: np.random.Generator) -> None:\n    \"\"\"\n    Helper function to change the order of the elements in an array randomly.\n    :param array: Array to be scrambled.\n    :type: numpy.ndarray\n    :param rng: Random number generator.\n    :type rng: numpy.random.Generator\n    \"\"\"\n    size = array.shape[0]\n    index_array = rng.integers(0, size, size)\n    for i in range(size):\n        temp = array[i]\n        array[i] = array[index_array[i]]\n        array[index_array[i]] = temp\nif __name__ == \"__main__\":\n    \"\"\"\n    Input(u)  : Set size.\n    Input(v)  : Range of the integer numbers in the sets: 0..v (exclusive)\n    Input(w)  : Seed for the random number generator.\n    Input(x)  : Number of samples to be generated.\n    Input(y)  : Filename for the output CSV file.",
+        "type": "code",
+        "location": "/examples/set_intersection/dataset_gen_intersection.py:1-39"
+    },
+    "299": {
+        "file_id": 10,
+        "content": "The code snippet defines a function called \"scramble\" which shuffles the elements of an array randomly. It also contains main code block that specifies input parameters such as set size, range of integer numbers in sets, seed for random number generator, number of samples to be generated, and filename for output CSV file. The purpose is likely to generate a dataset by scrambling the order of elements within sets.",
+        "type": "comment"
+    }
+}

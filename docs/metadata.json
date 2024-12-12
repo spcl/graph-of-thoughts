@@ -1,0 +1,195 @@
+{
+    "url": {
+        "full": "https://github.com/spcl/graph-of-thoughts",
+        "partial": "spcl/graph-of-thoughts"
+    },
+    "file_mapping": {
+        "0": {
+            "filepath": "/README.md",
+            "entry_id": 0,
+            "language_id": "markdown"
+        },
+        "1": {
+            "filepath": "/examples/README.md",
+            "entry_id": 14,
+            "language_id": "plain-text"
+        },
+        "2": {
+            "filepath": "/examples/doc_merge/README.md",
+            "entry_id": 18,
+            "language_id": "plain-text"
+        },
+        "3": {
+            "filepath": "/examples/doc_merge/doc_merge.py",
+            "entry_id": 24,
+            "language_id": "python"
+        },
+        "4": {
+            "filepath": "/examples/doc_merge/plot.py",
+            "entry_id": 80,
+            "language_id": "python"
+        },
+        "5": {
+            "filepath": "/examples/doc_merge/pure_documents.json",
+            "entry_id": 94,
+            "language_id": "json"
+        },
+        "6": {
+            "filepath": "/examples/keyword_counting/README.md",
+            "entry_id": 238,
+            "language_id": "plain-text"
+        },
+        "7": {
+            "filepath": "/examples/keyword_counting/dataset_gen_countries.py",
+            "entry_id": 244,
+            "language_id": "python"
+        },
+        "8": {
+            "filepath": "/examples/keyword_counting/plot.py",
+            "entry_id": 274,
+            "language_id": "python"
+        },
+        "9": {
+            "filepath": "/examples/set_intersection/README.md",
+            "entry_id": 288,
+            "language_id": "markdown"
+        },
+        "10": {
+            "filepath": "/examples/set_intersection/dataset_gen_intersection.py",
+            "entry_id": 296,
+            "language_id": "python"
+        },
+        "11": {
+            "filepath": "/examples/set_intersection/plot.py",
+            "entry_id": 304,
+            "language_id": "python"
+        },
+        "12": {
+            "filepath": "/examples/set_intersection/utils.py",
+            "entry_id": 318,
+            "language_id": "python"
+        },
+        "13": {
+            "filepath": "/examples/sorting/README.md",
+            "entry_id": 326,
+            "language_id": "markdown"
+        },
+        "14": {
+            "filepath": "/examples/sorting/plot.py",
+            "entry_id": 332,
+            "language_id": "python"
+        },
+        "15": {
+            "filepath": "/examples/sorting/utils.py",
+            "entry_id": 346,
+            "language_id": "python"
+        },
+        "16": {
+            "filepath": "/graph_of_thoughts/controller/README.md",
+            "entry_id": 354,
+            "language_id": "plain-text"
+        },
+        "17": {
+            "filepath": "/graph_of_thoughts/controller/__init__.py",
+            "entry_id": 360,
+            "language_id": "python"
+        },
+        "18": {
+            "filepath": "/graph_of_thoughts/controller/controller.py",
+            "entry_id": 364,
+            "language_id": "python"
+        },
+        "19": {
+            "filepath": "/graph_of_thoughts/language_models/README.md",
+            "entry_id": 378,
+            "language_id": "plain-text"
+        },
+        "20": {
+            "filepath": "/graph_of_thoughts/language_models/__init__.py",
+            "entry_id": 398,
+            "language_id": "python"
+        },
+        "21": {
+            "filepath": "/graph_of_thoughts/language_models/abstract_language_model.py",
+            "entry_id": 402,
+            "language_id": "python"
+        },
+        "22": {
+            "filepath": "/graph_of_thoughts/language_models/chatgpt.py",
+            "entry_id": 410,
+            "language_id": "python"
+        },
+        "23": {
+            "filepath": "/graph_of_thoughts/language_models/config_template.json",
+            "entry_id": 426,
+            "language_id": "json"
+        },
+        "24": {
+            "filepath": "/graph_of_thoughts/language_models/llamachat_hf.py",
+            "entry_id": 432,
+            "language_id": "python"
+        },
+        "25": {
+            "filepath": "/graph_of_thoughts/operations/README.md",
+            "entry_id": 444,
+            "language_id": "markdown"
+        },
+        "26": {
+            "filepath": "/graph_of_thoughts/operations/__init__.py",
+            "entry_id": 456,
+            "language_id": "python"
+        },
+        "27": {
+            "filepath": "/graph_of_thoughts/operations/graph_of_operations.py",
+            "entry_id": 460,
+            "language_id": "python"
+        },
+        "28": {
+            "filepath": "/graph_of_thoughts/operations/operations.py",
+            "entry_id": 468,
+            "language_id": "python"
+        },
+        "29": {
+            "filepath": "/graph_of_thoughts/operations/thought.py",
+            "entry_id": 534,
+            "language_id": "python"
+        },
+        "30": {
+            "filepath": "/graph_of_thoughts/parser/__init__.py",
+            "entry_id": 544,
+            "language_id": "python"
+        },
+        "31": {
+            "filepath": "/graph_of_thoughts/parser/parser.py",
+            "entry_id": 548,
+            "language_id": "python"
+        },
+        "32": {
+            "filepath": "/graph_of_thoughts/prompter/__init__.py",
+            "entry_id": 558,
+            "language_id": "python"
+        },
+        "33": {
+            "filepath": "/graph_of_thoughts/prompter/prompter.py",
+            "entry_id": 562,
+            "language_id": "python"
+        },
+        "34": {
+            "filepath": "/paper/README.md",
+            "entry_id": 570,
+            "language_id": "markdown"
+        },
+        "35": {
+            "filepath": "/paper/plots.py",
+            "entry_id": 574,
+            "language_id": "python"
+        },
+        "36": {
+            "filepath": "/pyproject.toml",
+            "entry_id": 598,
+            "language_id": "toml"
+        }
+    },
+    "project_name": "graph-of-thoughts",
+    "split_count": 7
+}

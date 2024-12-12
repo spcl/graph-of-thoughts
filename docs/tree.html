@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="github-markdown.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <title>Project structure of: spcl/graph-of-thoughts</title>
+    <style>
+        .directory:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        :target {
+            background-color: yellow !important;
+        }
+
+        .folded::before {
+            content: '\25B6';
+            margin-right: 8px;
+            /* Add space between marker and text */
+        }
+
+        .expanded::before {
+            content: '\25BC';
+            margin-right: 8px;
+            /* Add space between marker and text */
+        }
+    </style>
+    <script>
+        function toggleVisibility(element) {
+            let mclass = element.getAttribute("class");
+            if (mclass == "expanded") {
+                element.setAttribute('class', 'folded');
+            } else {
+                element.setAttribute('class', 'expanded');
+            }
+            const siblings = element.parentNode.children;
+            for (const sibling of siblings) {
+                if (sibling !== element) {
+                    sibling.style.display = (sibling.style.display === 'none') ? 'block' : 'none';
+                }
+            }
+        }
+    </script>
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 45px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+
+            .partial-repository-url {
+                display: none;
+            }
+        }
+
+        ul {
+            list-style: none;
+        }
+        #feeling-lucky:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <article class="markdown-body">
+        <h2>Project structure<span hierarchy="0" class="partial-repository-url"> of: spcl/graph-of-thoughts</span><div style="float: right;"><a title="Document index" style="margin:3.5px;" href="index.html"><i class="bi bi-search"></i></a><a title="Feeling lucky" style="margin:3.5px;" id="feeling-lucky" href="#"><i class="bi bi-dice-3"></i></a><a title="Expand tree" style="margin:3.5px;" href="tree.html?full=true" id="expand-tree"><i class="bi bi-caret-down-square"></i></a></div></h2>
+<ul>
+<li><span hierarchy="0" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/"><code>graph-of-thoughts</code></strong> <em>Data analysis, visualization, and language modeling tools.</em></span><ul>
+<li><span hierarchy="1" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/examples/"><code>examples</code></strong> <em>Interactive examples of data analysis and visualization.</em></span><ul>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/examples/doc_merge/"><code>doc&UnderBar;merge</code></strong> <em>Efficient NDA merging with language models and redundancy handling.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/examples/doc_merge/doc_merge.py" id="/examples/doc_merge/doc_merge.py"><code>doc&UnderBar;merge&period;py</code></a> <em>Efficient NDA merging with language model and redundancy handling.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/doc_merge/plot.py" id="/examples/doc_merge/plot.py"><code>plot&period;py</code></a> <em>Plot script, imports, sorts, plots boxplots and bars.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/doc_merge/pure_documents.json" id="/examples/doc_merge/pure_documents.json"><code>pure&UnderBar;documents&period;json</code></a> <em>Company-supplier agreement discussions, covering various aspects.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/doc_merge/README.md" id="/examples/doc_merge/README.md"><code>README&period;md</code></a> <em>Document merging methods comparison with debug logs.</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/examples/keyword_counting/"><code>keyword&UnderBar;counting</code></strong> <em>Count country occurrences in text, generate dataset, and plot results</em></span><ul>
+<li><a class="file_link" href="index.html?q=/examples/keyword_counting/dataset_gen_countries.py" id="/examples/keyword_counting/dataset_gen_countries.py"><code>dataset&UnderBar;gen&UnderBar;countries&period;py</code></a> <em>Generate dataset for country occurrences using language model</em></li>
+<li><a class="file_link" href="index.html?q=/examples/keyword_counting/plot.py" id="/examples/keyword_counting/plot.py"><code>plot&period;py</code></a> <em>Python script for plotting boxplots, bar charts from JSON data.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/keyword_counting/README.md" id="/examples/keyword_counting/README.md"><code>README&period;md</code></a> <em>Count frequency methods for countries in text</em></li>
+</ul>
+</li>
+<li><a class="file_link" href="index.html?q=/examples/README.md" id="/examples/README.md"><code>README&period;md</code></a> <em>Runnable examples for Graph of Thoughts package with standalone scripts and prompt files.</em></li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/examples/set_intersection/"><code>set&UnderBar;intersection</code></strong> <em>Set intersection data tools and visualizations</em></span><ul>
+<li><a class="file_link" href="index.html?q=/examples/set_intersection/dataset_gen_intersection.py" id="/examples/set_intersection/dataset_gen_intersection.py"><code>dataset&UnderBar;gen&UnderBar;intersection&period;py</code></a> <em>Shuffles, generates sets, calculates intersections.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/set_intersection/plot.py" id="/examples/set_intersection/plot.py"><code>plot&period;py</code></a> <em>Boxplot generator for AI method results</em></li>
+<li><a class="file_link" href="index.html?q=/examples/set_intersection/README.md" id="/examples/set_intersection/README.md"><code>README&period;md</code></a> <em>Set intersection data generator and visualizer.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/set_intersection/utils.py" id="/examples/set_intersection/utils.py"><code>utils&period;py</code></a> <em>Set intersection utility functions and test case.</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/examples/sorting/"><code>sorting</code></strong> <em>Sorting algorithms examples, Python, plotting, utilities.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/examples/sorting/plot.py" id="/examples/sorting/plot.py"><code>plot&period;py</code></a> <em>Sorts, plots, customizes boxplots for sorting algorithms.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/sorting/README.md" id="/examples/sorting/README.md"><code>README&period;md</code></a> <em>Sorting algorithm examples in Python.</em></li>
+<li><a class="file_link" href="index.html?q=/examples/sorting/utils.py" id="/examples/sorting/utils.py"><code>utils&period;py</code></a> <em>Sorting utility functions, list conversion and testing.</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span hierarchy="1" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/"><code>graph&UnderBar;of&UnderBar;thoughts</code></strong> <em>Graph-of-thoughts engine with language models and operations.</em></span><ul>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/controller/"><code>controller</code></strong> <em>Language model graph processing controller.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/controller/__init__.py" id="/graph_of_thoughts/controller/__init__.py"><code>&UnderBar;&UnderBar;init&UnderBar;&UnderBar;&period;py</code></a> <em>Imports Controller class from package's controller module.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/controller/controller.py" id="/graph_of_thoughts/controller/controller.py"><code>controller&period;py</code></a> <em>Graph processing controller for language models.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/controller/README.md" id="/graph_of_thoughts/controller/README.md"><code>README&period;md</code></a> <em>Controller class manages graph execution with LLM, custom prompter, parser.</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/language_models/"><code>language&UnderBar;models</code></strong> <em>Language model library with GPT-4, GPT-3.5, and Llama-2 support</em></span><ul>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/__init__.py" id="/graph_of_thoughts/language_models/__init__.py"><code>&UnderBar;&UnderBar;init&UnderBar;&UnderBar;&period;py</code></a> <em>Imports language model classes from submodules</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/abstract_language_model.py" id="/graph_of_thoughts/language_models/abstract_language_model.py"><code>abstract&UnderBar;language&UnderBar;model&period;py</code></a> <em>Abstract Language Model Class Defined</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/chatgpt.py" id="/graph_of_thoughts/language_models/chatgpt.py"><code>chatgpt&period;py</code></a> <em>ChatGPT class for OpenAI's chat API, multi-response support.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/config_template.json" id="/graph_of_thoughts/language_models/config_template.json"><code>config&UnderBar;template&period;json</code></a> <em>Language model configuration template</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/llamachat_hf.py" id="/graph_of_thoughts/language_models/llamachat_hf.py"><code>llamachat&UnderBar;hf&period;py</code></a> <em>LLaMA 2 model for text generation init.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/language_models/README.md" id="/graph_of_thoughts/language_models/README.md"><code>README&period;md</code></a> <em>Language Models module for GPT-4, GPT-3.5, and Llama-2</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/operations/"><code>operations</code></strong> <em>Manage graph-of-thought operations with language models and helper classes.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/operations/__init__.py" id="/graph_of_thoughts/operations/__init__.py"><code>&UnderBar;&UnderBar;init&UnderBar;&UnderBar;&period;py</code></a> <em>Imports classes for operations in graph-of-thoughts.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/operations/graph_of_operations.py" id="/graph_of_thoughts/operations/graph_of_operations.py"><code>graph&UnderBar;of&UnderBar;operations&period;py</code></a> <em>Graph of Operations: Manages operation execution plans</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/operations/operations.py" id="/graph_of_thoughts/operations/operations.py"><code>operations&period;py</code></a> <em>Graph of Thoughts operations preservation.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/operations/README.md" id="/graph_of_thoughts/operations/README.md"><code>README&period;md</code></a> <em>Manage thought operations with language models and helper classes.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/operations/thought.py" id="/graph_of_thoughts/operations/thought.py"><code>thought&period;py</code></a> <em>Thought class: LLM operation, state, score.</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/parser/"><code>parser</code></strong> <em>Python language model response parsing abstract class library.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/parser/__init__.py" id="/graph_of_thoughts/parser/__init__.py"><code>&UnderBar;&UnderBar;init&UnderBar;&UnderBar;&period;py</code></a> <em>Import Parser class from "parser" module for easier usage.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/parser/parser.py" id="/graph_of_thoughts/parser/parser.py"><code>parser&period;py</code></a> <em>Abstract class with 3 parsing methods for language model responses using thought states and texts.</em></li>
+</ul>
+</li>
+<li><span hierarchy="2" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/graph_of_thoughts/prompter/"><code>prompter</code></strong> <em>Generate prompt models for language.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/prompter/__init__.py" id="/graph_of_thoughts/prompter/__init__.py"><code>&UnderBar;&UnderBar;init&UnderBar;&UnderBar;&period;py</code></a> <em>Imports Prompter class from "prompter" module.</em></li>
+<li><a class="file_link" href="index.html?q=/graph_of_thoughts/prompter/prompter.py" id="/graph_of_thoughts/prompter/prompter.py"><code>prompter&period;py</code></a> <em>Generate prompt language model.</em></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><span hierarchy="1" class="expanded" onclick="toggleVisibility(this)" ><strong class="directory" id="/paper/"><code>paper</code></strong> <em>ArXiv preprint data visualization scripts and plots.</em></span><ul>
+<li><a class="file_link" href="index.html?q=/paper/plots.py" id="/paper/plots.py"><code>plots&period;py</code></a> <em>Generate customized boxplots with Python and JSON data</em></li>
+<li><a class="file_link" href="index.html?q=/paper/README.md" id="/paper/README.md"><code>README&period;md</code></a> <em>Unpack, execute plots.py for arXiv preprint data visualization</em></li>
+</ul>
+</li>
+<li><a class="file_link" href="index.html?q=/pyproject.toml" id="/pyproject.toml"><code>pyproject&period;toml</code></a> <em>Python package settings with Hatchling and entry point.</em></li>
+<li><a class="file_link" href="index.html?q=/README.md" id="/README.md"><code>README&period;md</code></a> <em>GoT framework: Python language model for sorting and JSON graphs</em></li>
+</ul>
+</li>
+</ul>
+    </article>
+    <script type="text/javascript">
+        function getQueryParams() {
+            var search = window.location.search.substring(1); // Remove leading '?'
+            var queryParams = {};
+            search.split('&').forEach(function (pair) {
+                var parts = pair.split('=');
+                var key = decodeURIComponent(parts[0]);
+                var value = decodeURIComponent(parts[1]);
+                queryParams[key] = value;
+            });
+            return queryParams;
+        }
+
+        const queryParams = getQueryParams(window.location.search);
+        const show_full = queryParams.full == "true";
+        //const is_random = queryParams.random == 'true';
+        function feelingLucky() {
+            var elements = document.getElementsByClassName("file_link");
+            var randomIndex = Math.floor(Math.random() * elements.length);
+            window.location = elements[randomIndex].href;
+        }
+        //if (is_random) {feelingLucky();}
+        document.getElementById("feeling-lucky").onclick = feelingLucky;
+        if (!show_full) {
+            const spans = document.querySelectorAll('span');
+            for (let span of spans) {
+                if (span.getAttribute("hierarchy") == '0') { continue }
+                toggleVisibility(span);
+            }
+        } else {
+            const expand_elem = document.getElementById('expand-tree');
+            expand_elem.setAttribute("href", "tree.html");
+            expand_elem.setAttribute("title", "Undo expand");
+            expand_elem.innerHTML = '<i class="bi bi-caret-up-square"></i>'
+        }
+
+    </script>
+</body>
+
+</html>
