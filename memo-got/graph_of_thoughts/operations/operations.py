@@ -21,6 +21,8 @@ from graph_of_thoughts.language_models import AbstractLanguageModel
 from graph_of_thoughts.prompter import Prompter
 from graph_of_thoughts.parser import Parser
 from graph_of_thoughts.call_count import increment_counter
+from graph_of_thoughts.language_models import ChatGPT
+
 
 class UndefinedTaskException(Exception):
     def __init__(self, message):
@@ -54,6 +56,8 @@ class ThoughtLite:
     ground_truth: str = ""
     sub_text: str = ""
     part: str = ""
+    subset: str= ""
+    result: str= ""
 
     def __str__(self):
         return f"""
@@ -63,6 +67,9 @@ sub_text:       {self.sub_text},
 ground_truth:   {self.ground_truth},
 phase:          {self.phase},
 part:           {self.part},
+subset:         {self.subset},
+op_type:        {self.op_type},
+result:         {self.result},
 """
 
     def __repr__(self):
@@ -73,38 +80,56 @@ sub_text:       {self.sub_text},
 ground_truth:   {self.ground_truth},
 phase:          {self.phase},
 part:           {self.part},
+subset:         {self.subset},
+op_type:        {self.op_type},
+result:         {self.result},
 """
 
 
-    def __init__(self, task:str, thought_state: Dict):
+    def __init__(self, task:str, thought_state: Dict, **kwargs):
         # print(thought_state["current"], type(thought_state["current"]))
         # print(thought_state["original"], type(thought_state["original"]))
         self.task = task
         self.current_data = thought_state["current"]
+        self.op_type = kwargs["op_type"]
+
         if self.current_data!=None and self.current_data!="":
             if task=="sorting":
                 self.current_data = tuple(ast.literal_eval(thought_state["current"]))
-            
+
             elif task=="counting":
                 self.current_data = thought_state["current"]
                 if "sub_text" in thought_state:
                     self.sub_text = thought_state["sub_text"]
                 else:
                     self.sub_text = ""
-            
+
+            elif task=="intersection":
+                self.current_data = tuple(ast.literal_eval(thought_state["current"]))
+                #  self.result = tuple(ast.literal_eval(thought_state["result"]))
+                if "subset" in thought_state:
+                    self.subset = tuple(ast.literal_eval(thought_state["subset"]))
+                else:
+                    self.subset = tuple()
+
             else:
                 raise UndefinedTaskException(self.task)
 
         if task=="sorting":
             self.original = tuple(ast.literal_eval(thought_state["original"]))
-        
+
         elif task=="counting":
             self.original = thought_state["original"]
             if "sub_text" in thought_state:
                 self.sub_text = thought_state["sub_text"]
             else:
                 self.sub_text = ""
-        
+        elif task=="intersection":
+            #  self.result = tuple(ast.literal_eval(thought_state["result"]))
+            if "subset" in thought_state:
+                self.subset = tuple(ast.literal_eval(thought_state["subset"]))
+            else:
+                self.subset = tuple()
         else:
             raise UndefinedTaskException(self.task)
         self.phase = thought_state["phase"]
@@ -119,6 +144,8 @@ part:           {self.part},
                 return_val = self.original == other.original
             elif self.task=="counting":
                 return_val = self.original == other.original and self.phase == other.phase and self.sub_text==other.sub_text
+            elif self.task=="intersection":
+                return_val = self.phase == other.phase and Counter(self.subset)==Counter(other.subset)
             else:
                 raise UndefinedTaskException(self.task)
         else:
@@ -126,6 +153,13 @@ part:           {self.part},
                 return_val = self.phase == other.phase and Counter(self.current_data) == Counter(other.current_data)
             elif self.task=="counting":
                 return_val = self.phase == other.phase and self.current_data == other.current_data and self.sub_text==other.sub_text
+            elif self.task=="intersection":
+                # breakpoint()
+                if other.op_type==OperationType.generate and self.op_type==OperationType.generate:
+                    return_val = self.phase == other.phase and Counter(self.subset) == Counter(other.subset)
+                elif other.op_type==OperationType.aggregate and self.op_type==OperationType.aggregate:
+                    # breakpoint()
+                    return_val = self.phase == other.phase and Counter(self.current_data) == Counter(other.current_data)
             else:
                 raise UndefinedTaskException(self.task)
     
@@ -345,14 +379,62 @@ class Score(Operation):
                     "Using scoring function %s to score states", self.scoring_function, exc_info=True
                 )
                 scores = self.scoring_function(previous_thoughts_states)
+                self.logger.debug("Thoughts: %s", previous_thoughts_states)
+                self.logger.debug("Scores: %s", scores)
             else:
                 prompt = prompter.score_prompt(previous_thoughts_states)
                 self.logger.debug("Prompt for LM: %s", prompt, exc_info=True)
+                if task=="doc_merge":
+                    """
+                    Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                    alpha threshold needs to be set accordingly.
+                    """
+                    prompt_embedding = lm.get_embedding(text=prompt)
+                    current_merged_doc = thought.state["current"]
+                    key = (current_merged_doc, tuple(prompt_embedding), self.operation_type)
 
-                responses = lm.get_response_texts(
-                    lm.query(prompt, num_responses=self.num_samples)
-                )
-                increment_counter() 
+                    best_similarity = 0
+                    best_match = None
+                    for stored_key in memo:
+                        if len(stored_key)==3 and stored_key[2]==OperationType.score:
+                            sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                            if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                best_similarity = sim_score
+                                best_match = stored_key
+
+                        elif len(stored_key)==3 and stored_key[2]==OperationType.score:
+                            sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                            if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                best_similarity = sim_score
+                                best_match = stored_key
+
+                    if best_match:
+                        self.logger.debug("CURRENT KEY: %s", key)
+                        self.logger.debug("BEST MATCH: %s", best_match)
+                        self.logger.debug("COSINE SIM: %s", best_similarity) 
+                        self.logger.debug("ALL KEYS: %s", memo.keys())
+                        responses = memo[best_match]
+                        # breakpoint()
+
+                    else:
+                        self.logger.debug("CURRENT KEY: %s", key)
+                        self.logger.debug("COSINE SIM: %s", best_similarity) 
+                        self.logger.debug("ALL KEYS: %s", memo.keys())
+                        responses = lm.get_response_texts(
+                            lm.query(prompt, num_responses=self.num_samples)
+                        )
+                        increment_counter() 
+                        memo[key] = responses
+                        self.logger.debug("Caching %s", responses, exc_info=True)
+                        self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+                        # breakpoint()
+
+                else:
+                    responses = lm.get_response_texts(
+                        lm.query(prompt, num_responses=self.num_samples)
+                    )
+                    increment_counter() 
+                
                 self.logger.debug("Responses from LM: %s", responses, exc_info=True)
                 scores = parser.parse_score_answer(previous_thoughts_states, responses)
             for thought, score in zip(previous_thoughts, scores):
@@ -372,10 +454,58 @@ class Score(Operation):
                     prompt = prompter.score_prompt([thought.state])
                     self.logger.debug("Prompt for LM: %s", prompt, exc_info=True)
 
-                    responses = lm.get_response_texts(
-                        lm.query(prompt, num_responses=self.num_samples)
-                    )
-                    increment_counter()
+                    if task=="doc_merge":
+                        """
+                        Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                        alpha threshold needs to be set accordingly.
+                        """
+                        prompt_embedding = lm.get_embedding(text=prompt)
+                        current_merged_doc = thought.state["current"]
+                        key = (current_merged_doc, tuple(prompt_embedding), self.operation_type)
+
+                        best_similarity = 0
+                        best_match = None
+                        # breakpoint()
+                        for stored_key in memo:
+                            if len(stored_key)==3 and stored_key[2]==OperationType.score:
+                                sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                                if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                    best_similarity = sim_score
+                                    best_match = stored_key
+
+                            elif len(stored_key)==3 and stored_key[2]==OperationType.score:
+                                sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                                if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                    best_similarity = sim_score
+                                    best_match = stored_key
+
+                        if best_match:
+                            self.logger.debug("CURRENT KEY: %s", key)
+                            self.logger.debug("BEST MATCH: %s", best_match)
+                            self.logger.debug("COSINE SIM: %s", best_similarity) 
+                            self.logger.debug("ALL KEYS: %s", memo.keys())
+                            responses = memo[best_match]
+                            # breakpoint()
+
+                        else:
+                            self.logger.debug("CURRENT KEY: %s", key)
+                            self.logger.debug("COSINE SIM: %s", best_similarity) 
+                            self.logger.debug("ALL KEYS: %s", memo.keys())
+                            responses = lm.get_response_texts(
+                                lm.query(prompt, num_responses=self.num_samples)
+                            )
+                            increment_counter() 
+                            memo[key] = responses
+                            self.logger.debug("Caching %s", responses, exc_info=True)
+                            self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+                            # breakpoint()
+                    else:
+                        responses = lm.get_response_texts(
+                            lm.query(prompt, num_responses=self.num_samples)
+                        )
+                        increment_counter()
+                        # breakpoint()
+                    
                     self.logger.debug("Responses from LM: %s", responses, exc_info=True)
                     score = parser.parse_score_answer([thought.state], responses)[0]
 
@@ -469,24 +599,71 @@ class ValidateAndImprove(Operation):
                     valid = self.validate_function(current_thought.state)
                 else:
                     prompt = prompter.validation_prompt(**current_thought.state)
-                    key = (self.operation_type, prompter.validation_prompt, ThoughtLite(task, current_thought.state))
+                    if task=="doc_merge":
+                        """
+                        Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                        alpha threshold needs to be set accordingly.
+                        """
+                        prompt_embedding = lm.get_embedding(text=prompt)
+                        current_merged_doc = thought.state["current"]
+                        key = (current_merged_doc, prompt_embedding)
+                    else:
+                        key = (self.operation_type, prompter.validation_prompt, ThoughtLite(task, current_thought.state, **{"op_type": self.operation_type}))
+                    #  breakpoint()
                     self.logger.debug("Created key: %s", key, exc_info=True)
                     self.logger.debug("Prompt for LM: %s", prompt, exc_info=True)
 
-                    if key in memo:
-                        self.logger.debug("Created key: %s", key)
-                        self.logger.debug("Created key: %s", memo.keys())
-                        responses = memo[key]
-                        self.logger.debug("Using cache response: %s", responses, exc_info=True)
-                        self.logger.debug("Using key: %s", key, exc_info=True)
+                    if task=="doc_merge":
+                        best_similarity = 0
+                        best_match = None
+                        for stored_key in memo:
+                            if current_merged_doc=="" and stored_key[0]=="":
+                                sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                                if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                    best_similarity = sim_score
+                                    best_match = stored_key
+
+                            elif current_merged_doc!="" and stored_key[0] != "":
+                                sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                                if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                                    best_similarity = sim_score
+                                    best_match = stored_key
+
+                        if best_match:
+                            self.logger.debug("CURRENT KEY: %s", key)
+                            self.logger.debug("BEST MATCH: %s", best_match)
+                            self.logger.debug("COSINE SIM: %s", best_similarity) 
+                            self.logger.debug("ALL KEYS: %s", memo.keys())
+                            responses = memo[best_match]
+                            # breakpoint()
+
+                        else:
+                            self.logger.debug("CURRENT KEY: %s", key)
+                            self.logger.debug("COSINE SIM: %s", best_similarity) 
+                            self.logger.debug("ALL KEYS: %s", memo.keys())
+                            responses = lm.get_response_texts(
+                                lm.query(prompt, num_responses=self.num_branches_response)
+                            )
+                            increment_counter()
+                            memo[key] = responses
+                            self.logger.debug("Caching %s", responses, exc_info=True)
+                            self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+
                     else:
-                        responses = lm.get_response_texts(
-                            lm.query(prompt, num_responses=self.num_branches_response)
-                        )
-                        increment_counter()
-                        memo[key] = responses
-                        self.logger.debug("Caching %s", responses, exc_info=True)
-                        self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+                        if key in memo:
+                            self.logger.debug("Created key: %s", key)
+                            self.logger.debug("Created key: %s", memo.keys())
+                            responses = memo[key]
+                            self.logger.debug("Using cache response: %s", responses, exc_info=True)
+                            self.logger.debug("Using key: %s", key, exc_info=True)
+                        else:
+                            responses = lm.get_response_texts(
+                                lm.query(prompt, num_responses=self.num_branches_response)
+                            )
+                            increment_counter()
+                            memo[key] = responses
+                            self.logger.debug("Caching %s", responses, exc_info=True)
+                            self.logger.debug("Responses from LM: %s", responses, exc_info=True)
 
                     valid = parser.parse_validation_answer(
                         current_thought.state, responses
@@ -565,15 +742,15 @@ class Generate(Operation):
     ) -> None:
 
        
-        if len(memo) != 0:
-            self.logger.debug("memo dictionary contents at entry of generate._execute ")
-            for key in memo:
-                self.logger.debug("element begin", exc_info=True)
-                self.logger.debug("  key: %s", key, exc_info=True)
-                self.logger.debug("  value: %s", memo[key], exc_info=True)
-                self.logger.debug("element end", exc_info=True)
-                self.logger.debug(" ", exc_info=True)
-
+        #  if len(memo) != 0:
+        #      self.logger.debug("memo dictionary contents at entry of generate._execute ")
+        #      for key in memo:
+        #          self.logger.debug("element begin", exc_info=True)
+        #          self.logger.debug("  key: %s", key, exc_info=True)
+        #          self.logger.debug("  value: %s", memo[key], exc_info=True)
+        #          self.logger.debug("element end", exc_info=True)
+        #          self.logger.debug(" ", exc_info=True)
+        #
         """
         Executes the Generate operation by generating thoughts from the predecessors.
         The thoughts are generated by prompting the LM with the predecessors' thought states.
@@ -597,13 +774,66 @@ class Generate(Operation):
             previous_thoughts = [Thought(state=kwargs)]
 
         for thought in previous_thoughts:
-            try:
-                base_state = thought.state
-                prompt = prompter.generate_prompt(self.num_branches_prompt, **base_state)
-                key = (self.operation_type, prompter.generate_prompt, ThoughtLite(task, thought.state))
-                self.logger.debug("Created key: %s", key, exc_info=True)
-                self.logger.debug("Prompt for LM: %s", prompt, exc_info=True)
 
+            base_state = thought.state
+            prompt = prompter.generate_prompt(self.num_branches_prompt, **base_state)
+            
+            if task=="doc_merge":
+                """
+                Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                alpha threshold needs to be set accordingly.
+                """
+                prompt_embedding = lm.get_embedding(text=prompt)
+                current_merged_doc = thought.state["current"]
+                key = (current_merged_doc, tuple(prompt_embedding))
+                # breakpoint()
+            else:
+                key = (self.operation_type, prompter.generate_prompt, ThoughtLite(task, thought.state, **{"op_type": self.operation_type}))
+            #  breakpoint()
+            self.logger.debug("Created key: %s", key, exc_info=True)
+            self.logger.debug("Prompt for LM: %s", prompt, exc_info=True)
+
+            if task=="doc_merge":
+                # breakpoint()
+                best_similarity = 0
+                best_match = None
+                for stored_key in memo:
+                    if current_merged_doc=="" and stored_key[0]=="":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                    elif current_merged_doc!="" and stored_key[0] != "":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                if best_match:
+                    self.logger.debug("CURRENT KEY: %s", key)
+                    self.logger.debug("BEST MATCH: %s", best_match)
+                    self.logger.debug("COSINE SIM: %s", best_similarity) 
+                    self.logger.debug("ALL KEYS: %s", memo.keys())
+                    responses = memo[best_match]
+                    self.logger.debug("Using cache response: %s", responses, exc_info=True)
+                    self.logger.debug("Using key: %s", key, exc_info=True)
+                    # breakpoint()
+
+                else:
+                    self.logger.debug("CURRENT KEY: %s", key)
+                    self.logger.debug("COSINE SIM: %s", best_similarity) 
+                    self.logger.debug("ALL KEYS: %s", memo.keys())
+                    responses = lm.get_response_texts(
+                        lm.query(prompt, num_responses=self.num_branches_response)
+                    )
+                    increment_counter()
+                    memo[key] = responses
+                    # breakpoint()
+                    self.logger.debug("Caching %s", responses, exc_info=True)
+                    self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+
+            else:
                 if key in memo:
                     self.logger.debug("CURRENT KEY: %s", key)
                     self.logger.debug("ALL KEYS: %s", memo.keys())
@@ -618,21 +848,17 @@ class Generate(Operation):
                     memo[key] = responses
                     self.logger.debug("Caching %s", responses, exc_info=True)
                     self.logger.debug("Responses from LM: %s", responses, exc_info=True)
-                
-                for new_state in parser.parse_generate_answer(base_state, responses):
-                    new_state = {**base_state, **new_state}
-                    self.thoughts.append(Thought(new_state))
-                    self.logger.debug(
-                        "New thought %d created with state %s",
-                        self.thoughts[-1].id,
-                        self.thoughts[-1].state,
-                        exc_info=True
-                    )
-            except Exception as e:
-                # Get full traceback info as a string
-                tb_str = ''.join(traceback.format_exception(None, e, e.__traceback__))
-                print("Full traceback:")
-                print(tb_str)
+            
+            for new_state in parser.parse_generate_answer(base_state, responses):
+                new_state = {**base_state, **new_state}
+                self.thoughts.append(Thought(new_state))
+                self.logger.debug(
+                    "New thought %d created with state %s",
+                    self.thoughts[-1].id,
+                    self.thoughts[-1].state,
+                    exc_info=True
+                )
+
 
         if (
             len(self.thoughts)
@@ -696,22 +922,71 @@ class Improve(Operation):
 
         for thought in previous_thoughts:
             improve_prompt = prompter.improve_prompt(**thought.state)
-            
-            key = (self.operation_type, prompter.improve_prompt, ThoughtLite(task, thought.state))
+
+            if task=="doc_merge":
+                """
+                Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                alpha threshold needs to be set accordingly.
+                """
+                prompt_embedding = lm.get_embedding(text=improve_prompt)
+                current_merged_doc = thought.state["current"]
+                key = (current_merged_doc, prompt_embedding)
+            else:
+                key = (self.operation_type, prompter.improve_prompt, ThoughtLite(task, thought.state, **{"op_type": self.operation_type}))
+            #  breakpoint()
+
             self.logger.debug("Created key: %s", key)
             self.logger.debug("Prompt for LM: %s", improve_prompt)
 
-            if key in memo:
-                responses = memo[key]
-                self.logger.debug("Using cache response: %s", responses)
+            if task=="doc_merge":
+                best_similarity = 0
+                best_match = None
+                for stored_key in memo:
+                    if current_merged_doc=="" and stored_key[0]=="":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                    elif current_merged_doc!="" and stored_key[0] != "":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                if best_match:
+                    self.logger.debug("CURRENT KEY: %s", key)
+                    self.logger.debug("BEST MATCH: %s", best_match)
+                    self.logger.debug("COSINE SIM: %s", best_similarity) 
+                    self.logger.debug("ALL KEYS: %s", memo.keys())
+                    responses = memo[best_match]
+                    self.logger.debug("Using cache response: %s", responses)
+                    # breakpoint()
+
+                else:
+                    self.logger.debug("CURRENT KEY: %s", key)
+                    self.logger.debug("COSINE SIM: %s", best_similarity) 
+                    self.logger.debug("ALL KEYS: %s", memo.keys())
+                    responses = lm.get_response_texts(
+                        lm.query(improve_prompt, num_responses=1)
+                    )
+                    increment_counter()
+                    memo[key] = responses
+                    self.logger.debug("Caching %s", responses, exc_info=True)
+                    self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+
             else:
-                responses = lm.get_response_texts(
-                    lm.query(improve_prompt, num_responses=1)
-                )
-                increment_counter()
-                memo[key] = responses
-                self.logger.debug("Caching %s", responses)
-                self.logger.debug("Responses from LM: %s", responses)
+                if key in memo:
+                    responses = memo[key]
+                    self.logger.debug("Using cache response: %s", responses)
+                else:
+                    responses = lm.get_response_texts(
+                        lm.query(improve_prompt, num_responses=1)
+                    )
+                    increment_counter()
+                    memo[key] = responses
+                    self.logger.debug("Caching %s", responses)
+                    self.logger.debug("Responses from LM: %s", responses)
 
             state_update = parser.parse_improve_answer(thought.state, responses)
             self.thoughts.append(Thought({**thought.state, **state_update}))
@@ -783,87 +1058,152 @@ class Aggregate(Operation):
         previous_thought_states = [thought.state for thought in previous_thoughts]
         prompt = prompter.aggregation_prompt(previous_thought_states)
 
-        try:
+        # try:
 
-            assert len(previous_thought_states) == 2
+        assert len(previous_thought_states) == 2
 
-            first_state = previous_thought_states[0]
-            second_state = previous_thought_states[1]
-            # breakpoint()
-            combined_state: Dict = dict()
+        first_state = previous_thought_states[0]
+        second_state = previous_thought_states[1]
+        #  breakpoint()
+        combined_state: Dict = dict()
 
-            # self.logger.debug("FIRST STATE: %s", first_state)
-            # self.logger.debug("SECOND STATE: %s", second_state)
+        # self.logger.debug("FIRST STATE: %s", first_state)
+        # self.logger.debug("SECOND STATE: %s", second_state)
 
-            if len(second_state)==1:
-                previous_thought_states.pop()
-                prompt = prompter.aggregation_prompt(previous_thought_states)
+        if len(second_state)==1:
+            previous_thought_states.pop()
+            prompt = prompter.aggregation_prompt(previous_thought_states)
 
-                self.logger.debug("States can't be combined, using normal prompting approach")
-                self.logger.debug("Prompt for LM: %s", prompt)
+            self.logger.debug("States can't be combined, using normal prompting approach")
+            self.logger.debug("Prompt for LM: %s", prompt)
 
-                responses = lm.get_response_texts(
-                    lm.query(prompt, num_responses=self.num_responses)
-                )   
-                increment_counter()
-                self.logger.debug("Responses from LM: %s", responses)
+            responses = lm.get_response_texts(
+                lm.query(prompt, num_responses=self.num_responses)
+            )
+            increment_counter()
+            self.logger.debug("Responses from LM: %s", responses)
 
 
-                parsed = parser.parse_aggregation_answer(previous_thought_states, responses)
+            parsed = parser.parse_aggregation_answer(previous_thought_states, responses)
 
-                if isinstance(parsed, dict):
-                    parsed = [parsed]
-                for new_state in parsed:
-                    self.thoughts.append(Thought({**base_state, **new_state}))
+            if isinstance(parsed, dict):
+                parsed = [parsed]
+            for new_state in parsed:
+                self.thoughts.append(Thought({**base_state, **new_state}))
 
-                return
-            
-            elif first_state["phase"] == second_state["phase"] and first_state["original"] == second_state["original"]:
+            return
+
+        elif "phase" in first_state and first_state["phase"] == second_state["phase"]:
+            if task=="sorting" and first_state["original"] == second_state["original"]:
                 combined_state["phase"] = first_state["phase"]
                 combined_state["original"] = first_state["original"]
-                if task=="sorting":
-                    list1 = ast.literal_eval(first_state["current"])
-                    list2 = ast.literal_eval(second_state["current"])
-                    combined_list = list1 + list2
-                    combined_state["current"] = str(combined_list)
-                elif task=="counting":
-                    dict_1 = ast.literal_eval(first_state["current"])
-                    dict_2 = ast.literal_eval(second_state["current"])
-                    combined_dict = dict(Counter(dict_1) + Counter(dict_2))
-                    combined_state["current"] = str(combined_dict)
-                else:
-                    raise UndefinedTaskException(task)
+                list1 = ast.literal_eval(first_state["current"])
+                list2 = ast.literal_eval(second_state["current"])
+                combined_list = list1 + list2
+                combined_state["current"] = str(combined_list)
+            elif task=="counting" and first_state["original"] == second_state["original"]:
+                combined_state["phase"] = first_state["phase"]
+                combined_state["original"] = first_state["original"]
+                dict_1 = ast.literal_eval(first_state["current"])
+                dict_2 = ast.literal_eval(second_state["current"])
+                combined_dict = dict(Counter(dict_1) + Counter(dict_2))
+                combined_state["current"] = str(combined_dict)
+            elif task=="intersection": # and first_state["result"] == second_state["result"]:
+                combined_state["phase"] = first_state["phase"]
+                set_1 = ast.literal_eval(first_state["current"])
+                set_2 = ast.literal_eval(second_state["current"])
+                combined_dict = dict(Counter(set_1) + Counter(set_2))
+                combined_state["current"] = str(combined_dict)
+                #  combined_state["result"] = str(tuple(list(ast.literal_eval(first_state["result"]))))
 
-            if len(combined_state) != 0:
-                # Create a combined ThoughtLite instance corresponding to combined_state.
-                # If the combined ThoughtLite instance is memoized:
-                #    reuse the response.
-                # else
-                #    call LLM and cache its response    
-                self.logger.debug("States can be combined, trying optimized approach")
-                key = (self.operation_type, prompter.aggregation_prompt, ThoughtLite(task, combined_state))
-                if key in memo:
+            else:
+                raise UndefinedTaskException(task)
+
+        if len(combined_state) != 0:
+            # Create a combined ThoughtLite instance corresponding to combined_state.
+            # If the combined ThoughtLite instance is memoized:
+            #    reuse the response.
+            # else
+            #    call LLM and cache its response    
+            self.logger.debug("States can be combined, trying optimized approach")
+            key = (self.operation_type, prompter.aggregation_prompt, ThoughtLite(task, combined_state, **{"op_type": self.operation_type}))
+            #  breakpoint()
+
+            if key in memo:
+                self.logger.debug("CURRENT KEY: %s", key)
+                self.logger.debug("ALL KEYS: %s", memo.keys())
+                responses = memo[key]
+                self.logger.debug("Using cache response: %s", responses, exc_info=True)
+                self.logger.debug("Using key: %s", key, exc_info=True)
+            else:
+                responses = lm.get_response_texts(
+                    lm.query(prompt, num_responses=self.num_responses))                
+                increment_counter()
+                memo[key] = responses
+                self.logger.debug("Caching %s", responses, exc_info=True)
+                self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+
+            parsed = parser.parse_aggregation_answer(previous_thought_states, responses)
+
+            if isinstance(parsed, dict):
+                parsed = [parsed]
+            
+            for new_state in parsed:
+                self.thoughts.append(Thought({**base_state, **new_state}))
+        
+        else:
+            if task=="doc_merge":
+                """
+                Based on whether current exists, we will do doc_merge_prompt or improve_summary_prompt.
+                alpha threshold needs to be set accordingly.
+                """
+                prompt_embedding = lm.get_embedding(text=prompt)
+                current_merged_doc = thought.state["current"]
+                key = (current_merged_doc, prompt_embedding)
+                # breakpoint()
+
+                best_similarity = 0
+                best_match = None
+                for stored_key in memo:
+                    if current_merged_doc=="" and stored_key[0]=="":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                    elif current_merged_doc!="" and stored_key[0] != "":
+                        sim_score = lm.cosine_sim(prompt_embedding, stored_key[1])
+                        if sim_score > best_similarity and sim_score > kwargs['alpha']:
+                            best_similarity = sim_score
+                            best_match = stored_key
+
+                if best_match:
                     self.logger.debug("CURRENT KEY: %s", key)
+                    self.logger.debug("BEST MATCH: %s", best_match)
+                    self.logger.debug("COSINE SIM: %s", best_similarity) 
                     self.logger.debug("ALL KEYS: %s", memo.keys())
-                    responses = memo[key]
-                    self.logger.debug("Using cache response: %s", responses, exc_info=True)
-                    self.logger.debug("Using key: %s", key, exc_info=True)
+                    responses = memo[best_match]
+                    self.logger.debug("Using cache response: %s", responses)
+                    # breakpoint()
+
                 else:
+                    self.logger.debug("States can't be combined, using normal prompting approach")
+                    self.logger.debug("Prompt for LM: %s", prompt)
+
                     responses = lm.get_response_texts(
-                        lm.query(prompt, num_responses=self.num_responses))                
+                        lm.query(prompt, num_responses=self.num_responses)
+                    )   
                     increment_counter()
-                    memo[key] = responses
-                    self.logger.debug("Caching %s", responses, exc_info=True)
-                    self.logger.debug("Responses from LM: %s", responses, exc_info=True)
+                    self.logger.debug("Responses from LM: %s", responses)
+
 
                 parsed = parser.parse_aggregation_answer(previous_thought_states, responses)
 
                 if isinstance(parsed, dict):
                     parsed = [parsed]
-                
                 for new_state in parsed:
                     self.thoughts.append(Thought({**base_state, **new_state}))
-            
+
             else:
                 self.logger.debug("States can't be combined, using normal prompting approach")
                 self.logger.debug("Prompt for LM: %s", prompt)
@@ -881,11 +1221,11 @@ class Aggregate(Operation):
                     parsed = [parsed]
                 for new_state in parsed:
                     self.thoughts.append(Thought({**base_state, **new_state}))
-        except Exception as e:
-                # Get full traceback info as a string
-                tb_str = ''.join(traceback.format_exception(None, e, e.__traceback__))
-                print("Full traceback:")
-                print(tb_str)    
+        # except Exception as e:
+        #         # Get full traceback info as a string
+        #         tb_str = ''.join(traceback.format_exception(None, e, e.__traceback__))
+        #         print("Full traceback:")
+        #         print(tb_str)    
 
 
 class KeepBestN(Operation):

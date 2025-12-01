@@ -10,6 +10,10 @@
 # main author: Nils Blach
 # contributions: Ales Kubicek
 
+import sys
+
+sys.path.insert(0, "../../")
+
 import os
 import logging
 import datetime
@@ -739,6 +743,7 @@ Output:
         :rtype: str
         :raise AssertionError: If more than two thought states are provided.
         """
+       # breakpoint()
         assert len(state_dicts) <= 2, "Expected 2 states for aggregation prompt."
         if len(state_dicts) == 0:
             state_dicts = [{"current": "{}"}, {"current": "{}"}]
@@ -1341,7 +1346,7 @@ def run(
     """
 
     orig_budget = budget
-    data_path = os.path.join(os.path.dirname(__file__), "countries.csv")
+    data_path = os.path.join(os.path.dirname(__file__), sys.argv[1])
     data = []
     with open(data_path, "r") as f:
         reader = csv.reader(f)
@@ -1357,7 +1362,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/default/" + sys.argv[2])
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -1405,7 +1410,7 @@ def run(
             lm = language_models.ChatGPT(
                 os.path.join(
                     os.path.dirname(__file__),
-                    "../../graph_of_thoughts/language_models/config.json",
+                    "../../graph_of_thoughts/language_models/config_template.json",
                 ),
                 model_name=lm_name,
                 cache=True,
@@ -1449,10 +1454,11 @@ if __name__ == "__main__":
     Output Example:
         {Spain: 2, ...}
     """
-    budget = 30
-    samples = [item for item in range(0, 100)]
-    approaches = [io, cot, tot, tot2, got4, got8, gotx]
+    budget = 3000
+    samples = [item for item in range(0, 10)]
+    #  samples = [0]
+    approaches = [gotx]
 
-    spent = run(samples, approaches, budget, "chatgpt")
+    spent = run(samples, approaches, budget, "gpt-4.1-mini")
 
     logging.info(f"Spent {spent} out of {budget} budget.")

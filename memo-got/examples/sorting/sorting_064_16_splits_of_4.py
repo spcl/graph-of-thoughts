@@ -38,6 +38,9 @@ class SortingPrompter(prompter.Prompter):
     sort_prompt = """<Instruction> Sort the following list of numbers in ascending order. Output only the sorted list of numbers, no additional text. </Instruction>
 
 <Examples>
+Input: [6, 2, 9, 0]
+Output: [0, 2, 6, 9]
+
 Input: [5, 1, 0, 1, 2, 0, 4, 8, 1, 9, 5, 1, 3, 3, 9, 7]
 Output: [0, 0, 1, 1, 1, 1, 2, 3, 3, 4, 5, 5, 7, 8, 9, 9]
 
@@ -179,7 +182,34 @@ To merge the two lists in a merge-sort style approach, follow these steps:
 2. Append the smaller element to the merged list and move to the next element in the list from which the smaller element came.
 3. Repeat steps 1 and 2 until one of the lists is empty.
 4. Append the remaining elements of the non-empty list to the merged list.
+
+* Make sure the elements and their counts in both lists match.
 </Approach>
+
+<Examples>
+1: [3, 4, 5, 6]
+2: [7, 8, 8, 9]
+Merged list:
+[3, 4, 5, 6, 7, 8, 8, 9]
+
+
+1: [0, 0, 3, 4, 5, 5, 5, 8]
+2: [1, 2, 4, 4, 5, 7, 9, 9]
+Merged list:
+[0, 0, 1, 2, 3, 4, 4, 4, 5, 5, 5, 5, 7, 8, 9, 9]
+
+
+1: [0, 1, 1, 2, 3, 3, 3, 3, 4, 4, 4, 7, 7, 7, 9, 9]
+2: [0, 1, 1, 2, 2, 3, 4, 4, 5, 6, 6, 6, 6, 7, 7, 8]
+Merged list:
+[0, 0, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 5, 6, 6, 6, 6, 7, 7, 7, 7, 7, 8, 9, 9]
+
+
+1: [0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 4, 4, 4, 4, 4, 4, 4, 5, 5, 6, 6, 6, 6, 6, 7, 7, 7, 8, 8, 9, 9, 9]
+2: [0, 0, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 7, 8, 8, 8, 8, 9, 9]
+Merged list:
+[0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9]
+</Examples>
 
 Merge the following two lists into one sorted list:
 1: {input1}
@@ -761,6 +791,7 @@ def run(
     methods: List[Callable[[], operations.GraphOfOperations]],
     budget: float,
     lm_name: str,
+    task: str,
 ) -> float:
     """
     Controller function that executes each specified method for each specified
@@ -779,7 +810,7 @@ def run(
     """
 
     orig_budget = budget
-    data_path = os.path.join(os.path.dirname(__file__), "sorting_064_4_digit.csv")
+    data_path = os.path.join(os.path.dirname(__file__), sys.argv[1])
     data = []
     with open(data_path, "r") as f:
         reader = csv.reader(f)
@@ -791,7 +822,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results/memoized/sorting_064")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/memoized/" + sys.argv[2])
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -856,6 +887,7 @@ def run(
                     "phase": 0,
                     "method": method.__name__,
                 },
+                task = task,
             )
             try:
                 executor.run()
@@ -882,11 +914,11 @@ if __name__ == "__main__":
     Output Example:
         [0, 0, 0, 0, 1, 1, 1, 1, 2...]
     """
-    budget = 30
-    # samples = [item for item in range(0, 100)]
-    samples = [0]
+    budget = 3000
+    samples = [item for item in range(0, 20)]
+    #  samples = [0]
     approaches = [got]
 
-    spent = run(samples, approaches, budget, "gpt-4.1-mini")
+    spent = run(samples, approaches, budget, "gpt-4.1-mini", "sorting")
 
     logging.info(f"Spent {spent} out of {budget} budget.")

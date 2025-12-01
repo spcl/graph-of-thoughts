@@ -1347,7 +1347,7 @@ def run(
     """
 
     orig_budget = budget
-    data_path = os.path.join(os.path.dirname(__file__), "countries.csv")
+    data_path = os.path.join(os.path.dirname(__file__), sys.argv[1])
     data = []
     with open(data_path, "r") as f:
         reader = csv.reader(f)
@@ -1363,7 +1363,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results/memo")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/memo/" + sys.argv[2])
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -1456,9 +1456,9 @@ if __name__ == "__main__":
     Output Example:
         {Spain: 2, ...}
     """
-    budget = 30
-    # samples = [item for item in range(0, 100)]
-    samples = [0]
+    budget = 3000
+    samples = [item for item in range(0, 10)]
+    #  samples = [0]
     approaches = [gotx]
 
     spent = run(samples, approaches, budget, "gpt-4.1-mini", task="counting")

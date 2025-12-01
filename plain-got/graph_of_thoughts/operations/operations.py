@@ -441,6 +441,7 @@ class Generate(Operation):
         :type parser: Parser
         :param kwargs: Additional parameters for execution.
         """
+        #  breakpoint()
         previous_thoughts: List[Thought] = self.get_previous_thoughts()
 
         if len(previous_thoughts) == 0 and len(self.predecessors) > 0:
@@ -453,6 +454,7 @@ class Generate(Operation):
         for thought in previous_thoughts:
             base_state = thought.state
             prompt = prompter.generate_prompt(self.num_branches_prompt, **base_state)
+            #breakpoint()
             self.logger.debug("Prompt for LM: %s", prompt)
             responses = lm.get_response_texts(
                 lm.query(prompt, num_responses=self.num_branches_response)
@@ -598,6 +600,7 @@ class Aggregate(Operation):
             base_state = {**base_state, **thought.state}
 
         previous_thought_states = [thought.state for thought in previous_thoughts]
+        # breakpoint()
         prompt = prompter.aggregation_prompt(previous_thought_states)
 
         self.logger.debug("Prompt for LM: %s", prompt)
@@ -605,6 +608,7 @@ class Aggregate(Operation):
         responses = lm.get_response_texts(
             lm.query(prompt, num_responses=self.num_responses)
         )
+        #breakpoint()
         increment_counter()
         self.logger.debug("Responses from LM: %s", responses)
 

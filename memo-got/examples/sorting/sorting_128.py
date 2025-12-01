@@ -7,6 +7,10 @@
 # main author: Nils Blach
 
 import os
+import sys
+
+sys.path.insert(0, "../../")
+
 import logging
 import datetime
 import json

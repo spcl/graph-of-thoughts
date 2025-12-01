@@ -9,29 +9,61 @@
 
 import json
 import os
+import sys
 import matplotlib.pyplot as plt
+import numpy as np
 
 
-def get_complete_results(base_directory):
+# def get_complete_results(base_directory):
+#     results_complete = {}
+#     for folder_name in os.listdir(base_directory):
+#         folder_path = os.path.join(base_directory, folder_name)
+#         if os.path.isdir(folder_path):
+#             results_complete[folder_name] = []
+#             for file_name in os.listdir(folder_path):
+#                 if file_name.endswith(".json"):
+#                     file_path = os.path.join(folder_path, file_name)
+#                     with open(file_path, "r") as f:
+#                         data = json.load(f)
+#                         results_complete[folder_name].append(
+#                             {"key": int(file_name.split(".")[0]), "data": data}
+#                         )
+#         for key in results_complete.keys():
+#             results_complete[key] = sorted(
+#                 results_complete[key], key=lambda x: x["key"]
+#             )
+#     return results_complete
+
+
+def get_complete_results(base_directories):
     results_complete = {}
-    for folder_name in os.listdir(base_directory):
-        folder_path = os.path.join(base_directory, folder_name)
-        if os.path.isdir(folder_path):
-            results_complete[folder_name] = []
-            for file_name in os.listdir(folder_path):
-                if file_name.endswith(".json"):
-                    file_path = os.path.join(folder_path, file_name)
-                    with open(file_path, "r") as f:
-                        data = json.load(f)
-                        results_complete[folder_name].append(
-                            {"key": int(file_name.split(".")[0]), "data": data}
-                        )
-        for key in results_complete.keys():
-            results_complete[key] = sorted(
-                results_complete[key], key=lambda x: x["key"]
-            )
-    return results_complete
 
+    for base_directory in base_directories:
+        for folder_name in os.listdir(base_directory):
+            folder_path = os.path.join(base_directory, folder_name)
+
+            if os.path.isdir(folder_path):
+                results_complete[folder_path] = []
+
+                for file_name in os.listdir(folder_path):
+                    if file_name.endswith(".json"):
+                        file_path = os.path.join(folder_path, file_name)
+                        with open(file_path, "r") as f:
+                            data = json.load(f)
+                            results_complete[folder_path].append(
+                                {
+                                    "key": int(file_name.split(".")[0]),
+                                    "data": data,
+                                }
+                            )
+
+                # sort entries for this folder
+                results_complete[folder_path] = sorted(
+                    results_complete[folder_path],
+                    key=lambda x: x["key"],
+                )
+
+    return results_complete
 
 def get_final_scores(results_complete):
     scores = {}
@@ -43,7 +75,10 @@ def get_final_scores(results_complete):
             cost = 1
             prompt_tokens = 0
             completion_tokens = 0
+            llm_calls = 0
             for op in result["data"]:
+                if "llm_calls" in op:
+                    llm_calls = op["llm_calls"]
                 if "operation" in op and op["operation"] == "ground_truth_evaluator":
                     try:
                         score = min(op["scores"])
@@ -55,7 +90,7 @@ def get_final_scores(results_complete):
                     prompt_tokens = op["prompt_tokens"]
                     completion_tokens = op["completion_tokens"]
             scores[method].append(
-                [result["key"], score, solved, prompt_tokens, completion_tokens, cost]
+                [result["key"], score, solved, prompt_tokens, completion_tokens, cost, llm_calls]
             )
         scores[method] = sorted(scores[method], key=lambda x: x[0])
     return scores
@@ -69,6 +104,7 @@ def get_plotting_data(base_directory):
             "scores": [x[1] for x in scores[method]],
             "solved": sum([1 for x in scores[method] if x[2]]),
             "costs": [x[5] for x in scores[method]],
+            "llm_calls": [x[6] for x in scores[method]],
         }
         for method in scores.keys()
     }
@@ -77,8 +113,8 @@ def get_plotting_data(base_directory):
 
 def plot_results(
     results,
-    methods_order=["io", "cot", "tot", "tot2", "got"],
-    model="GPT-3.5",
+    methods_order=["plain-got", "memo-got"],
+    model="GPT-4.1-mini",
     length=32,
     y_lower=0,
     cost_upper=0.0,
@@ -87,7 +123,12 @@ def plot_results(
     display_left_ylabel=False,
     display_right_ylabel=False,
 ):
-    methods_order = [method for method in methods_order if method in results]
+    methods = []
+    for key in results:
+        for tag in methods_order:
+            if tag in key:
+                methods.append(key)
+    methods_order = methods
     # Extract scores based on the order
     scores_ordered = [
         [
@@ -98,6 +139,7 @@ def plot_results(
         for method in methods_order
     ]
     total_costs = [sum(results[method]["costs"]) for method in methods_order]
+    llm_calls = np.asarray([results[method]["llm_calls"] for method in methods_order])
 
     # Create figure and axis
     fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))
@@ -105,11 +147,12 @@ def plot_results(
     # Create boxplots
     positions = range(1, len(methods_order) + 1)
     ax.boxplot(scores_ordered, positions=positions)
+    breakpoint()
 
     fig_fontsize = 12
 
     # Set the ticks and labels
-    method_labels = ["IO", "CoT", "ToT", "ToT2", "GoT"]
+    method_labels = ["GoT-Plain", "GoT-Memo"]
     plt.yticks(fontsize=fig_fontsize)
     ax.set_xticks(range(1, len(methods_order) + 1))
     ax.set_xticks(range(1, len(methods_order) + 1))
@@ -137,20 +180,36 @@ def plot_results(
     ax.set_title(f"{length} elements")
 
     ax2 = ax.twinx()
-    ax2.bar(positions, total_costs, alpha=0.5, color="blue", label="Total Cost ($)")
-    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
-    if cost_upper > 0:
-        ax2.set_ylim(0, cost_upper)
-        number_of_ticks = len(ax.get_yticks())
-        tick_interval = cost_upper / (number_of_ticks)
-        ax2_ticks = [tick_interval * i for i in range(number_of_ticks)]
 
-        # Set custom tick positions for ax2
-        ax2.set_yticks(ax2_ticks)
+    means = llm_calls.mean(axis=1)      # shape (2,)
+    stds  = llm_calls.std(axis=1)       # shape (2,)
+    # ax2.bar(positions, total_costs, alpha=0.5, color="blue", label="Total Cost ($)")
+    
+    # Bar plot with mean + std
+    ax2.bar(
+        positions,
+        means,
+        alpha=0.5,
+        color="#1919ff",
+        label="Avg LLM Calls",
+        yerr=stds,
+        capsize=4,
+    )
+
+    # Right axis styling
+    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
+
+    # Set upper limit based on raw llm_calls
+    cost_upper = int(1.2 * np.max(llm_calls))
+    ax2.set_ylim(0, cost_upper)
+
+    # Let matplotlib auto-select reasonable ticks, then recolor them
+    for tick in ax2.get_yticklabels():
+        tick.set_color("#1919ff")
 
     if display_right_ylabel:
         ax2.set_ylabel(
-            "Total Cost ($); the lower the better",
+            "Average LLM Calls",
             color="#1919ff",
             fontsize=fig_fontsize,
         )
@@ -177,10 +236,9 @@ def plot_results(
 
 
 plot_results(
-    get_plotting_data("results/"),
-    length=32,
+    get_plotting_data([sys.argv[1], sys.argv[2]]),
+    length=sys.argv[3],
     display_solved=True,
-    model="GPT-3.5",
     display_left_ylabel=True,
     display_right_ylabel=True,
 )

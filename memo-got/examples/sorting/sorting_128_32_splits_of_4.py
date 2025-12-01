@@ -32,6 +32,9 @@ class SortingPrompter(prompter.Prompter):
     sort_prompt = """<Instruction> Sort the following list of numbers in ascending order. Output only the sorted list of numbers, no additional text. </Instruction>
 
 <Examples>
+Input: [6, 2, 9, 0]
+Output: [0, 2, 6, 9]
+
 Input: [5, 1, 0, 1, 2, 0, 4, 8, 1, 9, 5, 1, 3, 3, 9, 7]
 Output: [0, 0, 1, 1, 1, 1, 2, 3, 3, 4, 5, 5, 7, 8, 9, 9]
 
@@ -118,31 +121,79 @@ Input: {input}
 Incorrectly Sorted: {incorrectly_sorted}
 """
 
-    got_split_prompt = """<Instruction> Split the following list of 128 numbers into 8 lists of 16 numbers each, the first list should contain the first 16 numbers, the second list the second 16 numbers, the third list the third 16 numbers, the fourth list the fourth 16 numbers, the fifth list the fifth 16 numbers and so on.
-Only output the final 8 lists in the following format without any additional text or thoughts!:
+    got_split_prompt = """<Instruction> Split the following list of 128 numbers into 32 lists of 4 numbers each, the first list should contain the first 4 numbers, the second list the second 4 numbers, the third list the third 4 numbers, the fourth list the fourth 4 numbers, the fifth list the fifth 4 numbers and so on.
+Only output the final 32 lists in the following format without any additional text or thoughts!:
 {{
-    "List 1": [3, 4, 3, 5, 7, 8, 1, ...],
-    "List 2": [2, 9, 2, 4, 7, 1, 5, ...],
-    "List 3": [6, 9, 8, 1, 9, 2, 4, ...],
-    "List 4": [9, 0, 7, 6, 5, 6, 6, ...],
-    "List 5": [7, 9, 4, 1, 1, 8, 1, ...],
-    "List 6": [1, 9, 0, 4, 3, 3, 5, ...],
-    "List 7": [2, 4, 3, 5, 8, 2, 2, ...],
-    "List 8": [4, 2, 1, 2, 7, 6, 8, ...]
+  "List 1": [1, 7, 5, 2],
+  "List 2": [9, 3, 0, 4],
+  "List 3": [6, 8, 1, 9],
+  "List 4": [0, 5, 7, 3],
+  "List 5": [4, 1, 6, 8],
+  "List 6": [2, 9, 3, 5],
+  "List 7": [7, 0, 4, 1],
+  "List 8": [8, 6, 2, 7],
+  "List 9": [5, 2, 9, 0],
+  "List 10": [3, 4, 8, 6],
+  "List 11": [1, 5, 2, 4],
+  "List 12": [6, 9, 7, 0],
+  "List 13": [3, 1, 8, 5],
+  "List 14": [4, 6, 0, 2],
+  "List 15": [7, 3, 9, 1],
+  "List 16": [2, 8, 5, 6],
+  "List 17": [9, 4, 1, 7],
+  "List 18": [0, 6, 3, 8],
+  "List 19": [5, 7, 2, 9],
+  "List 20": [8, 1, 4, 3],
+  "List 21": [6, 2, 0, 5],
+  "List 22": [1, 9, 3, 4],
+  "List 23": [7, 5, 8, 2],
+  "List 24": [4, 0, 6, 9],
+  "List 25": [3, 7, 1, 0],
+  "List 26": [5, 8, 4, 6],
+  "List 27": [2, 1, 9, 3],
+  "List 28": [0, 5, 7, 8],
+  "List 29": [9, 6, 4, 1],
+  "List 30": [8, 3, 2, 7],
+  "List 31": [1, 0, 5, 9],
+  "List 32": [4, 7, 3, 6]
 }} </Instruction>
 
 <Example>
 Input: [6, 0, 2, 3, 8, 3, 0, 2, 4, 5, 4, 1, 3, 6, 9, 8, 3, 1, 2, 6, 5, 3, 9, 8, 9, 1, 6, 1, 0, 2, 8, 9, 5, 3, 1, 2, 7, 9, 4, 8, 8, 9, 3, 2, 8, 4, 7, 4, 3, 8, 7, 3, 6, 4, 0, 0, 6, 8, 1, 5, 8, 7, 5, 1, 4, 0, 8, 6, 1, 3, 6, 1, 7, 6, 8, 7, 3, 7, 8, 2, 0, 8, 2, 6, 0, 0, 9, 9, 8, 6, 9, 4, 8, 5, 5, 0, 0, 9, 3, 9, 4, 0, 5, 6, 2, 4, 6, 7, 7, 7, 8, 0, 4, 9, 1, 4, 8, 5, 1, 4, 4, 7, 4, 9, 3, 9, 6, 7]
-Output: 
+Output:
 {{
-    "List 1": [6, 0, 2, 3, 8, 3, 0, 2, 4, 5, 4, 1, 3, 6, 9, 8],
-    "List 2": [3, 1, 2, 6, 5, 3, 9, 8, 9, 1, 6, 1, 0, 2, 8, 9],
-    "List 3": [5, 3, 1, 2, 7, 9, 4, 8, 8, 9, 3, 2, 8, 4, 7, 4],
-    "List 4": [3, 8, 7, 3, 6, 4, 0, 0, 6, 8, 1, 5, 8, 7, 5, 1],
-    "List 5": [4, 0, 8, 6, 1, 3, 6, 1, 7, 6, 8, 7, 3, 7, 8, 2],
-    "List 6": [0, 8, 2, 6, 0, 0, 9, 9, 8, 6, 9, 4, 8, 5, 5, 0],
-    "List 7": [0, 9, 3, 9, 4, 0, 5, 6, 2, 4, 6, 7, 7, 7, 8, 0],
-    "List 8": [4, 9, 1, 4, 8, 5, 1, 4, 4, 7, 4, 9, 3, 9, 6, 7]
+    "List 1": [6, 0, 2, 3],
+    "List 2": [8, 3, 0, 2],
+    "List 3": [4, 5, 4, 1],
+    "List 4": [3, 6, 9, 8],
+    "List 5": [3, 1, 2, 6],
+    "List 6": [5, 3, 9, 8],
+    "List 7": [9, 1, 6, 1],
+    "List 8": [0, 2, 8, 9],
+    "List 9": [5, 3, 1, 2],
+    "List 10": [7, 9, 4, 8],
+    "List 11": [8, 9, 3, 2],
+    "List 12": [8, 4, 7, 4],
+    "List 13": [3, 8, 7, 3],
+    "List 14": [6, 4, 0, 0],
+    "List 15": [6, 8, 1, 5],
+    "List 16": [8, 7, 5, 1],
+    "List 17": [4, 0, 8, 6],
+    "List 18": [1, 3, 6, 1],
+    "List 19": [7, 6, 8, 7],
+    "List 20": [3, 7, 8, 2],
+    "List 21": [0, 8, 2, 6],
+    "List 22": [0, 0, 9, 9],
+    "List 23": [8, 6, 9, 4],
+    "List 24": [8, 5, 5, 0],
+    "List 25": [0, 9, 3, 9],
+    "List 26": [4, 0, 5, 6],
+    "List 27": [2, 4, 6, 7],
+    "List 28": [7, 7, 8, 0],
+    "List 29": [4, 9, 1, 4],
+    "List 30": [8, 5, 1, 4],
+    "List 31": [4, 7, 4, 9],
+    "List 32": [3, 9, 6, 7]
 }}
 </Example>
 
@@ -157,6 +208,8 @@ To merge the two lists in a merge-sort style approach, follow these steps:
 2. Append the smaller element to the merged list and move to the next element in the list from which the smaller element came.
 3. Repeat steps 1 and 2 until one of the lists is empty.
 4. Append the remaining elements of the non-empty list to the merged list.
+
+* Make sure the elements and their counts in both lists match.
 </Approach>
 
 Merge the following two lists into one sorted list:
@@ -177,17 +230,28 @@ Merged list:
         :rtype: str
         :raise AssertionError: If not exactly two thought states are provided.
         """
+        if len(state_dicts)!=2:
+            print("breaking bad.")
+            breakpoint()
         assert len(state_dicts) == 2, "Expected two states for aggregation prompt."
+        # breakpoint()
+
         len_input1 = len(utils.string_to_list(state_dicts[0]["current"]))
         len_input2 = len(utils.string_to_list(state_dicts[1]["current"]))
         if len_input1 == len_input2:
             length = len_input1
+        elif len_input1 + len_input2 - 8 <= 4:
+            length = 4
+        elif len_input1 + len_input2 - 16 <= 8:
+            length = 8
         elif len_input1 + len_input2 - 32 <= 16:
             length = 16
         elif len_input1 + len_input2 - 64 <= 32:
             length = 32
-        else:
+        elif len_input1 + len_input2 - 128 <= 64:
             length = 64
+        else:
+            length = 128
 
         return self.got_merge_prompt.format(
             input1=state_dicts[0]["current"],
@@ -569,7 +633,6 @@ def tot2() -> operations.GraphOfOperations:
 
     return operations_graph
 
-
 def got() -> operations.GraphOfOperations:
     """
     Generates the Graph of Operations for the GoT method.
@@ -582,7 +645,7 @@ def got() -> operations.GraphOfOperations:
     plans = operations.Generate(1, 1)
     operations_graph.append_operation(plans)  # generate the sublists
     sorted_sublists = []
-    for i in range(1, 9):
+    for i in range(1, 33):
         list_id = f"List {i}"
         sub_list = operations.Selector(
             lambda thoughts, list_id=list_id: [
@@ -603,137 +666,144 @@ def got() -> operations.GraphOfOperations:
 
         sorted_sublists.append(keep_best_sub_list)
 
-    aggregate_1 = operations.Aggregate(10)
-    aggregate_1.add_predecessor(sorted_sublists[0])
-    aggregate_1.add_predecessor(sorted_sublists[1])
-    operations_graph.add_operation(aggregate_1)
-    score_aggregate_1 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_1.add_predecessor(aggregate_1)
-    operations_graph.add_operation(score_aggregate_1)
-    keep_best_aggregate_1 = operations.KeepBestN(1, False)
-    keep_best_aggregate_1.add_predecessor(score_aggregate_1)
-    operations_graph.add_operation(keep_best_aggregate_1)
+    aggregate_dict = dict()
+    score_aggregate_dict = dict()
+    keep_best_aggregate_dict = dict()
+    improve_aggregate_dict = dict()
+    improve_score_aggregate_dict = dict()
+    improve_keep_best_aggregate_dict = dict()
 
-    improve_aggregate_1 = operations.Generate(1, 5)
-    improve_aggregate_1.add_predecessor(keep_best_aggregate_1)
-    operations_graph.add_operation(improve_aggregate_1)
-    improve_score_aggregate_1 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_1.add_predecessor(improve_aggregate_1)
-    improve_score_aggregate_1.add_predecessor(keep_best_aggregate_1)
-    operations_graph.add_operation(improve_score_aggregate_1)
-    improve_keep_best_aggregate_1 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_1.add_predecessor(improve_score_aggregate_1)
-    operations_graph.add_operation(improve_keep_best_aggregate_1)
+    for i in range(16):
+        aggregate = operations.Aggregate(10)
+        aggregate.add_predecessor(sorted_sublists[i*2])
+        aggregate.add_predecessor(sorted_sublists[i*2 + 1])
+        operations_graph.add_operation(aggregate)
+        aggregate_dict[f"{i*2}_{i*2 + 1}"] = aggregate
+        
+        score_aggregate = operations.Score(1, False, utils.num_errors)
+        score_aggregate.add_predecessor(aggregate)
+        operations_graph.add_operation(score_aggregate)
+        score_aggregate_dict[f"{i*2}_{i*2 + 1}"] = score_aggregate
+        
+        keep_best_aggregate = operations.KeepBestN(1, False)
+        keep_best_aggregate.add_predecessor(score_aggregate)
+        operations_graph.add_operation(keep_best_aggregate)
+        keep_best_aggregate_dict[f"{i*2}_{i*2 + 1}"] = keep_best_aggregate
 
-    aggregate_2 = operations.Aggregate(10)
-    aggregate_2.add_predecessor(sorted_sublists[2])
-    aggregate_2.add_predecessor(sorted_sublists[3])
-    operations_graph.add_operation(aggregate_2)
-    score_aggregate_2 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_2.add_predecessor(aggregate_2)
-    operations_graph.add_operation(score_aggregate_2)
-    keep_best_aggregate_2 = operations.KeepBestN(1, False)
-    keep_best_aggregate_2.add_predecessor(score_aggregate_2)
-    operations_graph.add_operation(keep_best_aggregate_2)
+        improve_aggregate = operations.Generate(1, 5)
+        improve_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_aggregate)
+        improve_aggregate_dict[f"{i*2}_{i*2 + 1}"] = improve_aggregate
 
-    improve_aggregate_2 = operations.Generate(1, 5)
-    improve_aggregate_2.add_predecessor(keep_best_aggregate_2)
-    operations_graph.add_operation(improve_aggregate_2)
-    improve_score_aggregate_2 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_2.add_predecessor(improve_aggregate_2)
-    improve_score_aggregate_2.add_predecessor(keep_best_aggregate_2)
-    operations_graph.add_operation(improve_score_aggregate_2)
-    improve_keep_best_aggregate_2 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_2.add_predecessor(improve_score_aggregate_2)
-    operations_graph.add_operation(improve_keep_best_aggregate_2)
+        improve_score_aggregate = operations.Score(1, False, utils.num_errors)
+        improve_score_aggregate.add_predecessor(improve_aggregate)
+        improve_score_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_score_aggregate)
+        improve_score_aggregate_dict[f"{i*2}_{i*2 + 1}"] = improve_score_aggregate
 
-    aggregate_3 = operations.Aggregate(10)
-    aggregate_3.add_predecessor(sorted_sublists[4])
-    aggregate_3.add_predecessor(sorted_sublists[5])
-    operations_graph.add_operation(aggregate_3)
-    score_aggregate_3 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_3.add_predecessor(aggregate_3)
-    operations_graph.add_operation(score_aggregate_3)
-    keep_best_aggregate_3 = operations.KeepBestN(1, False)
-    keep_best_aggregate_3.add_predecessor(score_aggregate_3)
-    operations_graph.add_operation(keep_best_aggregate_3)
+        improve_keep_best_aggregate = operations.KeepBestN(1, False)
+        improve_keep_best_aggregate.add_predecessor(improve_score_aggregate)
+        operations_graph.add_operation(improve_keep_best_aggregate)
+        improve_keep_best_aggregate_dict[f"{i*2}_{i*2 + 1}"] = improve_keep_best_aggregate
 
-    improve_aggregate_3 = operations.Generate(1, 5)
-    improve_aggregate_3.add_predecessor(keep_best_aggregate_3)
-    operations_graph.add_operation(improve_aggregate_3)
-    improve_score_aggregate_3 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_3.add_predecessor(improve_aggregate_3)
-    improve_score_aggregate_3.add_predecessor(keep_best_aggregate_3)
-    operations_graph.add_operation(improve_score_aggregate_3)
-    improve_keep_best_aggregate_3 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_3.add_predecessor(improve_score_aggregate_3)
-    operations_graph.add_operation(improve_keep_best_aggregate_3)
+    for i in range(8):
+        aggregate = operations.Aggregate(10)
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{4*i}_{4*i + 1}"])
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{4*i + 2}_{4*i + 3}"])
+        operations_graph.add_operation(aggregate)
+        aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = aggregate
 
-    aggregate_4 = operations.Aggregate(10)
-    aggregate_4.add_predecessor(sorted_sublists[6])
-    aggregate_4.add_predecessor(sorted_sublists[7])
-    operations_graph.add_operation(aggregate_4)
-    score_aggregate_4 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_4.add_predecessor(aggregate_4)
-    operations_graph.add_operation(score_aggregate_4)
-    keep_best_aggregate_4 = operations.KeepBestN(1, False)
-    keep_best_aggregate_4.add_predecessor(score_aggregate_4)
-    operations_graph.add_operation(keep_best_aggregate_4)
+        score_aggregate = operations.Score(1, False, utils.num_errors)
+        score_aggregate.add_predecessor(aggregate)
+        operations_graph.add_operation(score_aggregate)
+        score_aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = score_aggregate
 
-    improve_aggregate_4 = operations.Generate(1, 5)
-    improve_aggregate_4.add_predecessor(keep_best_aggregate_4)
-    operations_graph.add_operation(improve_aggregate_4)
-    improve_score_aggregate_4 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_4.add_predecessor(improve_aggregate_4)
-    improve_score_aggregate_4.add_predecessor(keep_best_aggregate_4)
-    operations_graph.add_operation(improve_score_aggregate_4)
-    improve_keep_best_aggregate_4 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_4.add_predecessor(improve_score_aggregate_4)
-    operations_graph.add_operation(improve_keep_best_aggregate_4)
+        keep_best_aggregate = operations.KeepBestN(1, False)
+        keep_best_aggregate.add_predecessor(score_aggregate)
+        operations_graph.add_operation(keep_best_aggregate)
+        keep_best_aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = keep_best_aggregate
 
-    aggregate_1_2 = operations.Aggregate(10)
-    aggregate_1_2.add_predecessor(improve_keep_best_aggregate_1)
-    aggregate_1_2.add_predecessor(improve_keep_best_aggregate_2)
-    operations_graph.add_operation(aggregate_1_2)
-    score_aggregate_1_2 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_1_2.add_predecessor(aggregate_1_2)
-    operations_graph.add_operation(score_aggregate_1_2)
-    keep_best_aggregate_1_2 = operations.KeepBestN(1, False)
-    keep_best_aggregate_1_2.add_predecessor(score_aggregate_1_2)
-    operations_graph.add_operation(keep_best_aggregate_1_2)
+        improve_aggregate = operations.Generate(1, 5)
+        improve_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_aggregate)
+        improve_aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = improve_aggregate
 
-    improve_aggregate_1_2 = operations.Generate(1, 5)
-    improve_aggregate_1_2.add_predecessor(keep_best_aggregate_1_2)
-    operations_graph.add_operation(improve_aggregate_1_2)
-    improve_score_aggregate_1_2 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_1_2.add_predecessor(improve_aggregate_1_2)
-    improve_score_aggregate_1_2.add_predecessor(keep_best_aggregate_1_2)
-    operations_graph.add_operation(improve_score_aggregate_1_2)
-    improve_keep_best_aggregate_1_2 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_1_2.add_predecessor(improve_score_aggregate_1_2)
-    operations_graph.add_operation(improve_keep_best_aggregate_1_2)
+        improve_score_aggregate = operations.Score(1, False, utils.num_errors)
+        improve_score_aggregate.add_predecessor(improve_aggregate)
+        improve_score_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_score_aggregate)
+        improve_score_aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = improve_score_aggregate
 
-    aggregate_3_4 = operations.Aggregate(10)
-    aggregate_3_4.add_predecessor(improve_keep_best_aggregate_3)
-    aggregate_3_4.add_predecessor(improve_keep_best_aggregate_4)
-    operations_graph.add_operation(aggregate_3_4)
-    score_aggregate_3_4 = operations.Score(1, False, utils.num_errors)
-    score_aggregate_3_4.add_predecessor(aggregate_3_4)
-    operations_graph.add_operation(score_aggregate_3_4)
-    keep_best_aggregate_3_4 = operations.KeepBestN(1, False)
-    keep_best_aggregate_3_4.add_predecessor(score_aggregate_3_4)
-    operations_graph.add_operation(keep_best_aggregate_3_4)
+        improve_keep_best_aggregate = operations.KeepBestN(1, False)
+        improve_keep_best_aggregate.add_predecessor(improve_score_aggregate)
+        operations_graph.add_operation(improve_keep_best_aggregate)
+        improve_keep_best_aggregate_dict[f"{4*i}_{4*i + 1}_{4*i + 2}_{4*i + 3}"] = improve_keep_best_aggregate
 
-    improve_aggregate_3_4 = operations.Generate(1, 5)
-    improve_aggregate_3_4.add_predecessor(keep_best_aggregate_3_4)
-    operations_graph.add_operation(improve_aggregate_3_4)
-    improve_score_aggregate_3_4 = operations.Score(1, False, utils.num_errors)
-    improve_score_aggregate_3_4.add_predecessor(improve_aggregate_3_4)
-    improve_score_aggregate_3_4.add_predecessor(keep_best_aggregate_3_4)
-    operations_graph.add_operation(improve_score_aggregate_3_4)
-    improve_keep_best_aggregate_3_4 = operations.KeepBestN(1, False)
-    improve_keep_best_aggregate_3_4.add_predecessor(improve_score_aggregate_3_4)
-    operations_graph.add_operation(improve_keep_best_aggregate_3_4)
+    for i in range(4):
+        aggregate = operations.Aggregate(10)
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}"])
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"])
+        operations_graph.add_operation(aggregate)
+        aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"] = aggregate
+
+        score_aggregate = operations.Score(1, False, utils.num_errors)
+        score_aggregate.add_predecessor(aggregate)
+        operations_graph.add_operation(score_aggregate)
+        score_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"]  = score_aggregate
+
+        keep_best_aggregate = operations.KeepBestN(1, False)
+        keep_best_aggregate.add_predecessor(score_aggregate)
+        operations_graph.add_operation(keep_best_aggregate)
+        keep_best_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"]  = keep_best_aggregate
+
+        improve_aggregate = operations.Generate(1, 5)
+        improve_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_aggregate)
+        improve_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"]  = improve_aggregate
+
+        improve_score_aggregate = operations.Score(1, False, utils.num_errors)
+        improve_score_aggregate.add_predecessor(improve_aggregate)
+        improve_score_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_score_aggregate)
+        improve_score_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"]  = improve_score_aggregate
+
+        improve_keep_best_aggregate = operations.KeepBestN(1, False)
+        improve_keep_best_aggregate.add_predecessor(improve_score_aggregate)
+        operations_graph.add_operation(improve_keep_best_aggregate)
+        improve_keep_best_aggregate_dict[f"{8*i}_{8*i + 1}_{8*i + 2}_{8*i + 3}_{8*i + 4}_{8*i + 5}_{8*i + 6}_{8*i + 7}"]  = improve_keep_best_aggregate
+
+    for i in range(2):
+        aggregate = operations.Aggregate(10)
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}"])
+        aggregate.add_predecessor(improve_keep_best_aggregate_dict[f"{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"])
+        operations_graph.add_operation(aggregate)
+        aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = aggregate
+
+        score_aggregate = operations.Score(1, False, utils.num_errors)
+        score_aggregate.add_predecessor(aggregate)
+        operations_graph.add_operation(score_aggregate)
+        score_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = score_aggregate
+
+        keep_best_aggregate = operations.KeepBestN(1, False)
+        keep_best_aggregate.add_predecessor(score_aggregate)
+        operations_graph.add_operation(keep_best_aggregate)
+        keep_best_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = keep_best_aggregate
+
+        improve_aggregate = operations.Generate(1, 5)
+        improve_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_aggregate)
+        improve_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = improve_aggregate
+
+        improve_score_aggregate = operations.Score(1, False, utils.num_errors)
+        improve_score_aggregate.add_predecessor(improve_aggregate)
+        improve_score_aggregate.add_predecessor(keep_best_aggregate)
+        operations_graph.add_operation(improve_score_aggregate)
+        improve_score_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = improve_score_aggregate
+
+        improve_keep_best_aggregate = operations.KeepBestN(1, False)
+        improve_keep_best_aggregate.add_predecessor(improve_score_aggregate)
+        operations_graph.add_operation(improve_keep_best_aggregate)
+        improve_keep_best_aggregate_dict[f"{16*i}_{16*i + 1}_{16*i + 2}_{16*i + 3}_{16*i + 4}_{16*i + 5}_{16*i + 6}_{16*i + 7}_{16*i + 8}_{16*i + 9}_{16*i + 10}_{16*i + 11}_{16*i + 12}_{16*i + 13}_{16*i + 14}_{16*i + 15}"] = improve_keep_best_aggregate
 
     final_aggregate = operations.Aggregate(10)
     operations_graph.append_operation(final_aggregate)
@@ -745,20 +815,18 @@ def got() -> operations.GraphOfOperations:
     score_aggr_3 = operations.Score(1, False, utils.num_errors)
     score_aggr_3.add_predecessor(keep_best_aggregate_final)
     operations_graph.append_operation(score_aggr_3)
-    keep_final_best = operations.KeepBestN(1, False)
-    keep_final_best.add_predecessor(keep_best_aggregate_final)
-    operations_graph.append_operation(keep_final_best)
+    operations_graph.append_operation(operations.KeepBestN(1, False))
 
     operations_graph.append_operation(operations.GroundTruth(utils.test_sorting))
 
     return operations_graph
-
 
 def run(
     data_ids: List[int],
     methods: List[Callable[[], operations.GraphOfOperations]],
     budget: float,
     lm_name: str,
+    task: str,
 ) -> float:
     """
     Controller function that executes each specified method for each specified
@@ -789,7 +857,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results/default/sorting_128")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/memoized/sorting_128")
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -862,6 +930,7 @@ def run(
                     "phase": 0,
                     "method": method.__name__,
                 },
+                task = task,
             )
             try:
                 executor.run()
@@ -893,6 +962,6 @@ if __name__ == "__main__":
     samples = [0]
     approaches = [got]
 
-    spent = run(samples, approaches, budget, "gpt-4.1-mini")
+    spent = run(samples, approaches, budget, "gpt-4.1-mini", "sorting")
 
     logging.info(f"Spent {spent} out of {budget} budget.")

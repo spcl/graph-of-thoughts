@@ -7,6 +7,7 @@
 # main author: Nils Blach
 
 import os
+import sys
 import logging
 import datetime
 import json
@@ -780,7 +781,7 @@ def run(
     """
 
     orig_budget = budget
-    data_path = os.path.join(os.path.dirname(__file__), "sorting_032_4_digit.csv")
+    data_path = os.path.join(os.path.dirname(__file__), sys.argv[1])
     data = []
     with open(data_path, "r") as f:
         reader = csv.reader(f)
@@ -792,7 +793,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results/default/sorting_032")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/default/" + sys.argv[2])
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -891,9 +892,9 @@ if __name__ == "__main__":
     Output Example:
         [0, 0, 0, 0, 1, 1, 1, 1, 2...]
     """
-    budget = 30
-    # samples = [item for item in range(0, 100)]
-    samples = [0]
+    budget = 3000
+    samples = [item for item in range(0, 20)]
+    #  samples = [0]
     # approaches = [io, cot, tot, tot2, got]
     approaches = [got]
 

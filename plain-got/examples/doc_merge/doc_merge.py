@@ -7,8 +7,12 @@
 # main author: Nils Blach
 
 import os
+import sys
+
+sys.path.insert(0, "../../")
 import re
 import logging
+logging.disable(sys.maxsize)
 import datetime
 import json
 import csv
@@ -131,6 +135,7 @@ NDA <S{num}>:
         :return: The aggregation prompt.
         :rtype: str
         """
+        # breakpoint()
 
         if len(state_dicts[0]["parts"]) > 0 and len(state_dicts[0]["parts"]) < len(
             state_dicts[0]["documents"]
@@ -228,6 +233,7 @@ NDA <S{num}>:
                     prompt += self.merge_doc_prompt_block.format(
                         document=documents[part], num=i + 1
                     )
+                # breakpoint()
                 return prompt
             else:
                 prompt += self.improve_summary_prompt_start.format(
@@ -238,6 +244,7 @@ NDA <S{num}>:
                         document=documents[part], num=i + 1
                     )
                 prompt += self.improve_summary_prompt_end.format(summary=current)
+                # breakpoint()
                 return prompt
         else:
             assert False, "Not implemented yet."
@@ -578,7 +585,7 @@ def got2() -> operations.GraphOfOperations:
     operations_graph = operations.GraphOfOperations()
 
     sub_parts = []
-    for i in range(0, 4, 2):  # should be at most 16 parts
+    for i in range(0, 16, 2):  # should be at most 16 parts
         sub_text = operations.Selector(
             lambda thoughts, list_id=i: [
                 operations.Thought(
@@ -656,7 +663,7 @@ def run(
     """
 
     orig_budget = budget
-    data_path = os.path.join(os.path.dirname(__file__), "documents.csv")
+    data_path = os.path.join(os.path.dirname(__file__), sys.argv[1])
     data = []
     with open(data_path, "r", encoding="utf8") as f:
         reader = csv.reader(f)
@@ -669,7 +676,7 @@ def run(
         data_ids = list(range(len(data)))
     selected_data = [data[i] for i in data_ids]
 
-    results_dir = os.path.join(os.path.dirname(__file__), "results")
+    results_dir = os.path.join(os.path.dirname(__file__), "results/default")
 
     if not os.path.exists(results_dir):
         os.makedirs(results_dir)
@@ -716,7 +723,7 @@ def run(
             lm = language_models.ChatGPT(
                 os.path.join(
                     os.path.dirname(__file__),
-                    "../../graph_of_thoughts/language_models/config.json",
+                    "../../graph_of_thoughts/language_models/config_template.json",
                 ),
                 model_name=lm_name,
                 cache=True,
@@ -728,7 +735,10 @@ def run(
                 DocMergePrompter(),
                 DocMergeParser(),
                 {
-                    "documents": [data[2], data[3], data[4], data[5]],
+                    "documents": [data[2], data[3], data[4], data[5], 
+                                  data[6], data[7], data[8], data[9], 
+                                  data[10], data[11], data[12], data[13], 
+                                  data[14], data[15], data[16], data[17]],
                     "parts": set(),
                     "current": "",
                     "method": method.__name__,
@@ -758,10 +768,12 @@ if __name__ == "__main__":
     Output (y): A new combined NDA
     Evaluation: According to information coverage without repetition (scored by the LLM)
     """
-    budget = 30
-    samples = [item for item in range(0, 50)]
-    approaches = [io, cot, tot, got, got2]
+    budget = 3000
+    samples = [item for item in range(0, 10)]
+    #  samples = [0]
+    # approaches = [io, cot, tot, got, got2]
+    approaches = [got2]
 
-    spent = run(samples, approaches, budget, "chatgpt")
+    spent = run(samples, approaches, budget, "gpt-4.1-mini")
 
     logging.info(f"Spent {spent} out of {budget} budget.")
