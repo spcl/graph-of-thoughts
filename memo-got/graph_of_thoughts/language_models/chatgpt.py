@@ -13,6 +13,7 @@ import time
 from typing import List, Dict, Union
 from openai import OpenAI, OpenAIError
 from openai.types.chat.chat_completion import ChatCompletion
+import numpy as np
 
 from .abstract_language_model import AbstractLanguageModel
 
@@ -155,3 +156,16 @@ class ChatGPT(AbstractLanguageModel):
             for response in query_response
             for choice in response.choices
         ]
+
+    def get_embedding(self, text: str, model: str = "text-embedding-3-small"):
+        response = self.client.embeddings.create(
+            model=model,
+            input=text
+        )
+        return response.data[0].embedding
+        
+    def cosine_sim(self, a, b):
+        a = np.array(list(a), dtype=float)
+        b = np.array(list(b), dtype=float)
+
+        return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))

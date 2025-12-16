@@ -1457,7 +1457,7 @@ if __name__ == "__main__":
         {Spain: 2, ...}
     """
     budget = 3000
-    samples = [item for item in range(0, 10)]
+    samples = [item for item in range(0, 20)]
     #  samples = [0]
     approaches = [gotx]
 

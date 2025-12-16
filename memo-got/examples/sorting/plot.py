@@ -113,7 +113,9 @@ def get_plotting_data(base_directory):
 
 def plot_results(
     results,
-    methods_order=["plain-got", "memo-got"],
+    methods_order=["default/sorting_64_2", "memoized/sorting_64_2",
+                   "default/sorting_64_4", "memoized/sorting_64_4",
+                   "default/sorting_64_10", "memoized/sorting_64_10"],
     model="GPT-4.1-mini",
     length=32,
     y_lower=0,
@@ -123,43 +125,40 @@ def plot_results(
     display_left_ylabel=False,
     display_right_ylabel=False,
 ):
+    # --------------------------------------------------
+    # Match methods
+    # --------------------------------------------------
     methods = []
     for key in results:
         for tag in methods_order:
             if tag in key:
                 methods.append(key)
     methods_order = methods
-    # Extract scores based on the order
+
+    # Scores
     scores_ordered = [
         [
             min(score, length)
             for score in results[method]["scores"]
-            if score != 100 and score != 300
+            if score not in (100, 300)
         ]
         for method in methods_order
     ]
-    total_costs = [sum(results[method]["costs"]) for method in methods_order]
+
     llm_calls = np.asarray([results[method]["llm_calls"] for method in methods_order])
-
-    # Create figure and axis
-    fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))
-
-    # Create boxplots
     positions = range(1, len(methods_order) + 1)
-    ax.boxplot(scores_ordered, positions=positions)
-    breakpoint()
 
     fig_fontsize = 12
+    method_labels = [
+        "GoT-Plain\n(2 unique\ndigits)", "GoT-Memo\n(2 unique\ndigits)",
+        "GoT-Plain\n(4 unique\ndigits)", "GoT-Memo\n(4 unique\ndigits)",
+        "GoT-Plain\n(10 unique\ndigits)", "GoT-Memo\n(10 unique\ndigits)",
+    ]
 
-    # Set the ticks and labels
-    method_labels = ["GoT-Plain", "GoT-Memo"]
-    plt.yticks(fontsize=fig_fontsize)
-    ax.set_xticks(range(1, len(methods_order) + 1))
-    ax.set_xticks(range(1, len(methods_order) + 1))
-    ax.set_xticklabels(method_labels, fontsize=fig_fontsize)
-
+    # --------------------------------------------------
+    # Compute y-axis scaling (unchanged logic)
+    # --------------------------------------------------
     y_upper = length
-
     range_increase = 1
     if display_solved:
         if length < 48:
@@ -169,76 +168,93 @@ def plot_results(
         else:
             range_increase = 8
 
-    ax.set_ylim(y_lower, y_upper + range_increase)
     ax1_yticks = range(
-        y_lower, y_upper + 1, 2 if length < 48 else (4 if length < 96 else 8)
+        y_lower,
+        y_upper + 1,
+        2 if length < 48 else (4 if length < 96 else 8),
     )
-    ax.set_yticks(ax1_yticks)
+
+    # ==================================================
+    # FIGURE 1: BOX PLOTS
+    # ==================================================
+    fig1, ax1 = plt.subplots(dpi=150, figsize=(9, 5))
+
+    ax1.boxplot(scores_ordered, positions=positions)
+
+    ax1.set_xticks(positions)
+    ax1.set_xticklabels(method_labels, fontsize=fig_fontsize)
+    ax1.set_ylim(y_lower, y_upper + range_increase)
+    ax1.set_yticks(ax1_yticks)
+    plt.yticks(fontsize=fig_fontsize)
+
     if display_left_ylabel:
-        ax.set_ylabel(f"#incorrectly sorted elements; the lower the better")
+        ax1.set_ylabel("Incorrectly sorted elements (lower is better)")
 
-    ax.set_title(f"{length} elements")
+    ax1.set_title(f"Sorting {length}-length lists with different unique elements")
 
-    ax2 = ax.twinx()
+    # Solved annotations
+    if display_solved:
+        annotation_height = y_upper + annotation_offset
+        for i, method in enumerate(methods_order, start=1):
+            if method in results:
+                solved = results[method]["solved"]
+                ax1.text(
+                    i,
+                    annotation_height,
+                    f"{solved}",
+                    ha="center",
+                    va="bottom",
+                    fontsize=fig_fontsize,
+                )
 
-    means = llm_calls.mean(axis=1)      # shape (2,)
-    stds  = llm_calls.std(axis=1)       # shape (2,)
-    # ax2.bar(positions, total_costs, alpha=0.5, color="blue", label="Total Cost ($)")
-    
-    # Bar plot with mean + std
+    model_tag = model.replace(".", "").replace("-", "").lower()
+    fig1.savefig(f"sorting_box_{model_tag}_{length}.pdf", bbox_inches="tight")
+
+    # ==================================================
+    # FIGURE 2: BAR PLOTS (LLM calls)
+    # ==================================================
+    fig2, ax2 = plt.subplots(dpi=150, figsize=(9, 5))
+
+    means = llm_calls.mean(axis=1)
+    stds = llm_calls.std(axis=1)
+
+    print(means)
+
     ax2.bar(
         positions,
         means,
         alpha=0.5,
-        color="#1919ff",
-        label="Avg LLM Calls",
+        color=["#4ddbff", "#ffae00", "#4ddbff", "#ffae00"],
         yerr=stds,
         capsize=4,
     )
 
-    # Right axis styling
-    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
+    ax2.set_xticks(positions)
+    ax2.set_xticklabels(method_labels, fontsize=fig_fontsize)
 
-    # Set upper limit based on raw llm_calls
     cost_upper = int(1.2 * np.max(llm_calls))
     ax2.set_ylim(0, cost_upper)
 
-    # Let matplotlib auto-select reasonable ticks, then recolor them
+    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
     for tick in ax2.get_yticklabels():
         tick.set_color("#1919ff")
 
     if display_right_ylabel:
         ax2.set_ylabel(
-            "Average LLM Calls",
+            "Average LLM Calls (lower is better)",
             color="#1919ff",
             fontsize=fig_fontsize,
         )
 
-    if display_solved:
-        annotation_height = y_upper + annotation_offset
-        count = 1
-        for method in methods_order:
-            if method not in results:
-                continue
-            solved = results[method]["solved"]
-            ax.text(
-                count,
-                annotation_height,
-                f"{solved}",
-                ha="center",
-                va="bottom",
-                fontsize=fig_fontsize,
-            )
-            count += 1
+    ax2.set_title(f"Sorting {length}-length lists with different unique elements")
 
-    model = model.replace(".", "").replace("-", "").lower()
-    fig.savefig(f"sorting_{model}_{length}.pdf", bbox_inches="tight")
+    fig2.savefig(f"sorting_bar_{model_tag}_{length}.pdf", bbox_inches="tight")
 
 
 plot_results(
-    get_plotting_data([sys.argv[1], sys.argv[2]]),
-    length=sys.argv[3],
-    display_solved=True,
+    get_plotting_data([sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4], sys.argv[5], sys.argv[6]]),
+    length=int(sys.argv[7]),
+    display_solved=False,
     display_left_ylabel=True,
     display_right_ylabel=True,
 )

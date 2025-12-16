@@ -89,95 +89,171 @@ def get_plotting_data(base_directory):
     return results_plotting
 
 
+# def plot_results(
+#     results,
+#     display_solved,
+#     methods_order=["plain-got", "alpha_0.9", "alpha_0.5"],
+#     model="GPT-4.1-mini",
+#     num_ndas=16,
+#     y_lower=0,
+#     y_upper=10,
+#     cost_upper=1.8,
+#     annotation_offset=1,
+#     display_left_ylabel=False,
+#     display_right_ylabel=False,
+# ):
+#     methods = []
+#     for key in results:
+#         for tag in methods_order:
+#             if tag in key:
+#                 methods.append(key)
+#     methods_order = methods
+#     # Extract scores based on the order
+#     scores_ordered = [
+#         [score for score in results[method]["scores"]] for method in methods_order
+#     ]
+
+#     total_costs = [sum(results[method]["costs"]) for method in methods_order]
+#     llm_calls = np.asarray([results[method]["llm_calls"] for method in methods_order])
+
+#     # Create figure and axis
+#     fig, ax = plt.subplots(dpi=150, figsize=(5, 5))
+
+#     # Create boxplots
+#     positions = range(1, len(methods_order) + 1)
+#     ax.boxplot(scores_ordered, positions=positions)
+
+#     fig_fontsize = 12
+
+#     # Set the ticks and labels
+#     method_labels = ["GoT-Plain\n(Alpha=1.0)", "GoT-Memo\n(Alpha=0.9)", "GoT-Memo\n(Alpha=0.5)"]
+#     plt.yticks(fontsize=fig_fontsize)
+#     ax.set_xticks(range(1, len(methods_order) + 1))
+#     ax.set_xticks(range(1, len(methods_order) + 1))
+#     ax.set_xticklabels(method_labels, fontsize=fig_fontsize)
+
+#     ax.set_ylim(y_lower, 12)
+#     plt.yticks(fontsize=fig_fontsize)
+
+#     if display_left_ylabel:
+#         ax.set_ylabel(
+#             f"Box Plots: Score (out of 10, higher is better)", fontsize=fig_fontsize
+#         )
+
+#     ax.set_title(f"Document Merging under different Thresholds")
+
+#     ax2 = ax.twinx()
+
+#     means = llm_calls.mean(axis=1)      # shape (2,)
+#     stds  = llm_calls.std(axis=1)       # shape (2,)
+#     # ax2.bar(positions, total_costs, alpha=0.5, color="blue", label="Total Cost ($)")
+    
+#     # Bar plot with mean + std
+#     ax2.bar(
+#         positions,
+#         means,
+#         alpha=0.5,
+#         color=["#4ddbff", "#ffae00","#ffae00"],
+#         label="Avg LLM Calls",
+#         yerr=stds,
+#         capsize=4,
+#     )
+
+#     # Right axis styling
+#     ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
+
+#     # Set upper limit based on raw llm_calls
+#     cost_upper = int(1.2 * np.max(llm_calls))
+#     ax2.set_ylim(0, cost_upper)
+
+#     # Let matplotlib auto-select reasonable ticks, then recolor them
+#     for tick in ax2.get_yticklabels():
+#         tick.set_color("#1919ff")
+
+#     if display_right_ylabel:
+#         ax2.set_ylabel(
+#             "Bar Plots: Average LLM Calls (lower is better)",
+#             color="#1919ff",
+#             fontsize=fig_fontsize,
+#         )
+
+#     if display_solved:
+#         annotation_height = y_upper + annotation_offset
+#         count = 1
+#         for method in methods_order:
+#             if method not in results:
+#                 continue
+#             solved = results[method]["solved"]
+#             ax.text(
+#                 count,
+#                 annotation_height,
+#                 f"Solved: {solved}",
+#                 ha="center",
+#                 va="bottom",
+#                 fontsize=fig_fontsize,
+#             )
+#             count += 1
+
+#     model = model.replace(".", "").replace("-", "").lower()
+#     fig.savefig(f"doc_merge_{model}_{num_ndas}.pdf", bbox_inches="tight")
+
+
 def plot_results(
     results,
-    methods_order=["memo-got", "memo-got"],
+    display_solved,
+    methods_order=["plain-got", "alpha_0.9", "alpha_0.5"],
     model="GPT-4.1-mini",
     num_ndas=16,
     y_lower=0,
     y_upper=10,
     cost_upper=1.8,
-    display_solved=True,
     annotation_offset=1,
     display_left_ylabel=False,
     display_right_ylabel=False,
 ):
+    # -----------------------------
+    # Extract methods and data
+    # -----------------------------
     methods = []
     for key in results:
         for tag in methods_order:
             if tag in key:
                 methods.append(key)
     methods_order = methods
-    # Extract scores based on the order
+
     scores_ordered = [
-        [score for score in results[method]["scores"]] for method in methods_order
+        [score for score in results[method]["scores"]] 
+        for method in methods_order
     ]
 
     total_costs = [sum(results[method]["costs"]) for method in methods_order]
     llm_calls = np.asarray([results[method]["llm_calls"] for method in methods_order])
 
-    # Create figure and axis
-    fig, ax = plt.subplots(dpi=150, figsize=(2.5, 5))
-
-    # Create boxplots
     positions = range(1, len(methods_order) + 1)
-    ax.boxplot(scores_ordered, positions=positions)
-    breakpoint()
-
+    method_labels = ["GoT-Plain\n(Alpha=1.0)", "GoT-Memo\n(Alpha=0.9)", "GoT-Memo\n(Alpha=0.5)"]
     fig_fontsize = 12
 
-    # Set the ticks and labels
-    method_labels = ["GoT-Plain", "GoT-Memo"]
-    plt.yticks(fontsize=fig_fontsize)
-    ax.set_xticks(range(1, len(methods_order) + 1))
-    ax.set_xticks(range(1, len(methods_order) + 1))
-    ax.set_xticklabels(method_labels, fontsize=fig_fontsize)
+    # =====================================================================
+    #  FIGURE 1: BOX PLOT (Scores)
+    # =====================================================================
+    fig1, ax1 = plt.subplots(dpi=150, figsize=(5, 5))
 
-    ax.set_ylim(y_lower, 12 if display_solved else 9.75)
+    ax1.boxplot(scores_ordered, positions=positions)
+
+    ax1.set_xticks(range(1, len(methods_order) + 1))
+    ax1.set_xticklabels(method_labels, fontsize=fig_fontsize)
+    ax1.set_ylim(y_lower, 12)
     plt.yticks(fontsize=fig_fontsize)
 
     if display_left_ylabel:
-        ax.set_ylabel(
-            f"Score (out of 10); the higher the better", fontsize=fig_fontsize
+        ax1.set_ylabel(
+            "Score (out of 10, higher is better)",
+            fontsize=fig_fontsize
         )
 
-    ax.set_title(f"Document Merging")
+    ax1.set_title("Document Merging under different Thresholds")
 
-    ax2 = ax.twinx()
-
-    means = llm_calls.mean(axis=1)      # shape (2,)
-    stds  = llm_calls.std(axis=1)       # shape (2,)
-    # ax2.bar(positions, total_costs, alpha=0.5, color="blue", label="Total Cost ($)")
-    
-    # Bar plot with mean + std
-    ax2.bar(
-        positions,
-        means,
-        alpha=0.5,
-        color="#1919ff",
-        label="Avg LLM Calls",
-        yerr=stds,
-        capsize=4,
-    )
-
-    # Right axis styling
-    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
-
-    # Set upper limit based on raw llm_calls
-    cost_upper = int(1.2 * np.max(llm_calls))
-    ax2.set_ylim(0, cost_upper)
-
-    # Let matplotlib auto-select reasonable ticks, then recolor them
-    for tick in ax2.get_yticklabels():
-        tick.set_color("#1919ff")
-
-    if display_right_ylabel:
-        ax2.set_ylabel(
-            "Average LLM Calls",
-            color="#1919ff",
-            fontsize=fig_fontsize,
-        )
-
+    # Annotate “solved”
     if display_solved:
         annotation_height = y_upper + annotation_offset
         count = 1
@@ -185,23 +261,61 @@ def plot_results(
             if method not in results:
                 continue
             solved = results[method]["solved"]
-            ax.text(
-                count,
-                annotation_height,
+            ax1.text(
+                count, annotation_height,
                 f"Solved: {solved}",
-                ha="center",
-                va="bottom",
+                ha="center", va="bottom",
                 fontsize=fig_fontsize,
             )
             count += 1
 
-    model = model.replace(".", "").replace("-", "").lower()
-    fig.savefig(f"doc_merge_{model}_{num_ndas}.pdf", bbox_inches="tight")
+    # Save box plot
+    model_tag = model.replace(".", "").replace("-", "").lower()
+    fig1.savefig(f"doc_merge_box_{model_tag}_{num_ndas}.pdf", bbox_inches="tight")
+
+    # =====================================================================
+    #  FIGURE 2: BAR PLOT (LLM Calls)
+    # =====================================================================
+    fig2, ax2 = plt.subplots(dpi=150, figsize=(5, 5))
+
+    means = llm_calls.mean(axis=1)
+    stds = llm_calls.std(axis=1)
+
+    ax2.bar(
+        positions,
+        means,
+        alpha=0.5,
+        color=["#4ddbff", "#ffae00", "#ffae00"],
+        label="Avg LLM Calls",
+        yerr=stds,
+        capsize=4,
+    )
+
+    cost_upper = int(1.2 * np.max(llm_calls))
+    ax2.set_ylim(0, cost_upper)
+
+    ax2.set_xticks(range(1, len(methods_order) + 1))
+    ax2.set_xticklabels(method_labels, fontsize=fig_fontsize)
+
+    # Right-axis text color styling
+    ax2.yaxis.set_tick_params(colors="#1919ff", labelsize=fig_fontsize)
+    for tick in ax2.get_yticklabels():
+        tick.set_color("#1919ff")
+
+    if display_right_ylabel:
+        ax2.set_ylabel(
+            "Average LLM Calls (lower is better)",
+            color="#1919ff",
+            fontsize=fig_fontsize,
+        )
+
+    ax2.set_title("Document Merging under different Thresholds")
+    fig2.savefig(f"doc_merge_bar_{model_tag}_{num_ndas}.pdf", bbox_inches="tight")
 
 
 plot_results(
-    get_plotting_data([sys.argv[1], sys.argv[2]]),
-    display_solved=True,
+    get_plotting_data([sys.argv[1], sys.argv[2], sys.argv[3]]),
+    display_solved=False,
     display_left_ylabel=True,
     display_right_ylabel=True,
 )

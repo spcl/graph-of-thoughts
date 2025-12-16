@@ -90,3 +90,9 @@ class AbstractLanguageModel(ABC):
         :rtype: List[str]
         """
         pass
+
+    def get_embedding(self, text: str, model: str = "text-embedding-3-small") -> List[float]:
+        pass
+        
+    def cosine_sim(self, a, b) -> float:
+        pass

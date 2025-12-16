@@ -44,8 +44,8 @@ def main():
                 rows_processed = 0
                 
                 for row in reader:
-                    # Stop after 10 rows
-                    if rows_processed >= 10:
+                    # Stop after 20 rows
+                    if rows_processed >= 20:
                         break
 
                     original_text = row.get('Text', '')
