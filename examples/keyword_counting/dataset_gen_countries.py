@@ -13,7 +13,7 @@ from graph_of_thoughts import controller
 
 def find_country_indices(text: str, country: str) -> List[Tuple[int, str]]:
     """
-    Finds the indices of the occurences of a given country in the input text.
+    Finds the indices of the occurrences of a given country in the input text.
 
     :param text: Input text.
     :type text: str
