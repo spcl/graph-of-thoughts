@@ -4,6 +4,7 @@ The Language Models module is responsible for managing the large language models
 
 Currently, the framework supports the following LLMs:
 - GPT-4 / GPT-3.5 (Remote - OpenAI API)
+- MiniMax M2.7 / M2.7-highspeed (Remote - [MiniMax API](https://www.minimaxi.com))
 - LLaMA-2 (Local - HuggingFace Transformers)
 
 The following sections describe how to instantiate individual LLMs and how to add new LLMs to the framework.
@@ -30,6 +31,28 @@ The following sections describe how to instantiate individual LLMs and how to ad
 ```python
 lm = controller.ChatGPT(
     "path/to/config.json", 
+    model_name=<configuration key>
+)
+```
+
+### MiniMax M2.7 / M2.7-highspeed
+- Adjust the predefined `minimax` or `minimax-highspeed` configurations or create a new configuration with an unique key.
+
+| Key                 | Value                                                                                                                                                                                                                                                                                   |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| model_id            | Model name, e.g. `MiniMax-M2.7` or `MiniMax-M2.7-highspeed`. See [MiniMax documentation](https://www.minimaxi.com/document/guides/chat-model/V2) for available models.                                                                                                                |
+| prompt_token_cost   | Price per 1000 prompt tokens, used for calculating cumulative price per LLM instance.                                                                                                                                                                                                   |
+| response_token_cost | Price per 1000 response tokens, used for calculating cumulative price per LLM instance.                                                                                                                                                                                                 |
+| temperature         | Parameter that controls the randomness and creativity of the responses (higher temperature = more diverse and unexpected responses). Value between 0.0 and 1.0, default is 0.7.                                                                                                        |
+| max_tokens          | The maximum number of tokens to generate in the chat completion. MiniMax-M2.7 supports up to 1M context.                                                                                                                                                                               |
+| stop                | String or array of strings specifying sequences of characters which if detected, stops further generation of tokens.                                                                                                                                                                    |
+| base_url            | The API base URL. Defaults to `https://api.minimax.io/v1`.                                                                                                                                                                                                                              |
+| api_key             | Personal API key for the MiniMax API. Can also be set via the `MINIMAX_API_KEY` environment variable.                                                                                                                                                                                   |
+
+- Instantiate the language model based on the selected configuration key (predefined / custom).
+```python
+lm = language_models.MiniMax(
+    "path/to/config.json",
     model_name=<configuration key>
 )
 ```

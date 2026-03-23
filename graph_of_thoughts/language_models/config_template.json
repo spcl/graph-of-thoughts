@@ -45,5 +45,25 @@
         "temperature": 0.6,
         "top_k": 10,
         "max_tokens": 4096
+    },
+    "minimax" : {
+        "model_id": "MiniMax-M2.7",
+        "prompt_token_cost": 0.001,
+        "response_token_cost": 0.005,
+        "temperature": 0.7,
+        "max_tokens": 4096,
+        "stop": null,
+        "base_url": "https://api.minimax.io/v1",
+        "api_key": ""
+    },
+    "minimax-highspeed" : {
+        "model_id": "MiniMax-M2.7-highspeed",
+        "prompt_token_cost": 0.001,
+        "response_token_cost": 0.005,
+        "temperature": 0.7,
+        "max_tokens": 4096,
+        "stop": null,
+        "base_url": "https://api.minimax.io/v1",
+        "api_key": ""
     }
 }
