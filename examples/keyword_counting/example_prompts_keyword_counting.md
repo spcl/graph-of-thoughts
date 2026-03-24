@@ -178,7 +178,7 @@ Replace `{dictionary_1}` and `{dictionary_2}` with dictionaries of countries
 to be merged and `{dictionary_incorrect}` with incorrectly merged dictionary
 to be improved.
 ```
-<Instruction> The following 2 dictionaries were combined into the third dictionary below. However, some mistakes occured and the third dictionary is incorrect. Please fix the third dictionary so that it contains the correct frequencies for each country. The correct frequencies are the sum of the frequencies from the first 2 dictionaries. If a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
+<Instruction> The following 2 dictionaries were combined into the third dictionary below. However, some mistakes occurred and the third dictionary is incorrect. Please fix the third dictionary so that it contains the correct frequencies for each country. The correct frequencies are the sum of the frequencies from the first 2 dictionaries. If a country is not present in one of the dictionaries, add it to the final dictionary with the frequency from the other dictionary.
 </Instruction>
 
 <Example>
