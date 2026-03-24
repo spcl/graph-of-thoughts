@@ -52,12 +52,14 @@ gop.append_operation(operations.GroundTruth(utils.test_sorting))
 
 # Configure the Language Model (Assumes config.json is in the current directory with OpenAI API key)
 lm = language_models.ChatGPT("config.json", model_name="chatgpt")
+# Or use MiniMax (set MINIMAX_API_KEY env var or fill api_key in config.json):
+# lm = language_models.MiniMax("config.json", model_name="minimax")
 
 # Create the Controller
 ctrl = controller.Controller(
-  lm, 
-  gop, 
-  SortingPrompter(), 
+  lm,
+  gop,
+  SortingPrompter(),
   SortingParser(),
   # The following dictionary is used to configure the initial thought state
   {
@@ -87,6 +89,8 @@ gop = got()
 
 # Configure the Language Model (Assumes config.json is in the current directory with OpenAI API key)
 lm = language_models.ChatGPT("config.json", model_name="chatgpt")
+# Or use MiniMax (set MINIMAX_API_KEY env var or fill api_key in config.json):
+# lm = language_models.MiniMax("config.json", model_name="minimax")
 
 # Create the Controller
 ctrl = controller.Controller(
