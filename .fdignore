@@ -1,0 +1,4 @@
+.*
+*.{bz2,svg,csv}
+docs
+LICENSE

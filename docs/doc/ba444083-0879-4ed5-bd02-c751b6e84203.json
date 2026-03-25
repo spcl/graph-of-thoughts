@@ -1,0 +1,20 @@
+{
+    "summary": "The code defines a function that converts string-encoded lists to Python integer lists and tests if the solution matches ground truth. A helper function checks sorted lists by comparing adjacent elements, returning error count as score; defaults to 300 in case of exception.",
+    "details": [
+        {
+            "comment": "This code defines a function to convert a list encoded inside a string into a Python list object of integer elements. It also contains a helper function that tests whether the final solution matches the ground truth, taking a thought state as input and returning a boolean result.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/sorting/utils.py\":0-34",
+            "content": "# Copyright (c) 2023 ETH Zurich.\n#                    All rights reserved.\n#\n# Use of this source code is governed by a BSD-style license that can be\n# found in the LICENSE file.\n#\n# main author: Nils Blach\nfrom typing import Dict, List\ndef string_to_list(string: str) -> List[int]:\n    \"\"\"\n    Helper function to convert a list encoded inside a string into a Python\n    list object of string elements.\n    :param string: Input string containing a list.\n    :type string: str\n    :return: List of string elements.\n    :rtype: List[str]\n    :raise AssertionError: If input string does not contain a list.\n    \"\"\"\n    assert string[0] == \"[\" and string[-1] == \"]\", \"String is not a list.\"\n    return [int(num) for num in string[1:-1].split(\",\")]\ndef test_sorting(state: Dict) -> bool:\n    \"\"\"\n    Function to test whether the final solution matches ground truth.\n    :param state: Thought state that represents the final solution.\n    :type state: Dict\n    :return: Returns whether the solution matches the ground truth.\n    :rtype: bool"
+        },
+        {
+            "comment": "Function to check if a given list is correctly sorted. If not, returns the number of errors as score.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/sorting/utils.py\":35-69",
+            "content": "    \"\"\"\n    try:\n        correct_list = sorted(string_to_list(state[\"original\"]))\n        sorted_list = string_to_list(state[\"current\"])\n        return sorted_list == correct_list\n    except:\n        return False\ndef num_errors(state: Dict) -> float:\n    \"\"\"\n    Function to locally count the number of errors that serves as a score.\n    :param state: Thought state to be scored.\n    :type state: Dict\n    :return: Number of errors.\n    :rtype: float\n    \"\"\"\n    try:\n        unsorted_list = state[\"original\"]\n        if (\n            \"unsorted_sublist\" in state\n            and state[\"unsorted_sublist\"] != \"\"\n            and state[\"unsorted_sublist\"] is not None\n            and len(state[\"unsorted_sublist\"]) < len(unsorted_list) - 5\n        ):\n            unsorted_list = state[\"unsorted_sublist\"]\n        correct_list = sorted(string_to_list(unsorted_list))\n        current_list = string_to_list(state[\"current\"])\n        num_errors = 0\n        for i in range(10):\n            num_errors += abs(\n                sum([1 for num in current_list if num == i])"
+        },
+        {
+            "comment": "This code calculates the number of errors in a sorted list by comparing adjacent elements. It uses list comprehensions and built-in Python functions like zip() and sum(). If an exception occurs, it returns 300 as a default value for num_errors.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/examples/sorting/utils.py\":70-77",
+            "content": "                - sum([1 for num in correct_list if num == i])\n            )\n        num_errors += sum(\n            [1 for num1, num2 in zip(current_list, current_list[1:]) if num1 > num2]\n        )\n        return num_errors\n    except:\n        return 300"
+        }
+    ]
+}

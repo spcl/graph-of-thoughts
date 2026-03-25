@@ -1,0 +1,10 @@
+{
+    "summary": "The code provides instructions to access and visualize arXiv preprint data, which is stored in the `final_results_gpt35.tar.bz2` archive. The `plots.py` file needs to be executed after unpacking the archive for visualization purposes.",
+    "details": [
+        {
+            "comment": "The code provides instructions to access and visualize arXiv preprint data, which is stored in the `final_results_gpt35.tar.bz2` archive. The `plots.py` file needs to be executed after unpacking the archive for visualization purposes.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/paper/README.md\":0-4",
+            "content": "## Plot Data\nThe data used to create the figure of the arXiv preprint article can be\nfound in the `final_results_gpt35.tar.bz2` archive.  Unpack the archive\nand run the file `plots.py`."
+        }
+    ]
+}

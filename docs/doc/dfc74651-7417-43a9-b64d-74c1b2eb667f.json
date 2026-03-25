@@ -1,0 +1,15 @@
+{
+    "summary": "The code uses Hatchling to define project settings for the Python package \"graph_of_thoughts,\" including package details, dependencies, and URLs. It also includes a TOML configuration file setting up an entry point for executable scripts under the project's namespace within the \"scripts\" section of the \"project\" block.",
+    "details": [
+        {
+            "comment": "This code defines the project settings for a Python package called \"graph_of_thoughts\" using Hatchling as the build system. It specifies the package name, version, authors, description, dependencies, and URLs for further information.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/pyproject.toml\":0-36",
+            "content": "[build-system]\nrequires = [\"hatchling\"]\nbuild-backend = \"hatchling.build\"\n[project]\nname = \"graph_of_thoughts\"\nversion = \"0.0.3\"\nauthors = [\n  { name=\"Maciej Besta\", email=\"maciej.besta@inf.ethz.ch\" },\n  { name=\"Nils Blach\", email=\"nils.blach@inf.ethz.ch\" },\n  { name=\"Ales Kubicek\", email=\"akubicek@student.ethz.ch\" },\n  { name=\"Robert Gerstenberger\", email=\"gerstenberger.robert@gmail.com\" },\n]\ndescription = \"Python package for Graph of Thoughts that enables solving elaborate problems with Large Language Models\"\nreadme = \"README.md\"\nlicense = {file = \"LICENSE\"}\nrequires-python = \">=3.8\"\nclassifiers = [\n  \"Programming Language :: Python :: 3\",\n  \"Operating System :: OS Independent\",\n]\ndependencies = [\n  \"backoff>=2.2.1,<3.0.0\",\n  \"openai>=1.0.0,<2.0.0\",\n  \"matplotlib>=3.7.1,<4.0.0\",\n  \"numpy>=1.24.3,<2.0.0\",\n  \"pandas>=2.0.3,<3.0.0\",\n  \"sympy>=1.12,<2.0\",\n  \"torch>=2.0.1,<3.0.0\",\n  \"transformers>=4.31.0,<5.0.0\",\n  \"accelerate>=0.21.0,<1.0.0\",\n  \"bitsandbytes>=0.41.0,<1.0.0\",\n  \"scipy>=1.10.1,<2.0.0\",\n]\n[project.urls]\nHomepage = \"https://github.com/spcl/graph-of-thoughts\""
+        },
+        {
+            "comment": "The code snippet is a part of a TOML configuration file, specifically defining the \"scripts\" section within the \"project\" block. It sets up an entry point for executable scripts under the project's namespace.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/pyproject.toml\":38-38",
+            "content": "[project.scripts]"
+        }
+    ]
+}

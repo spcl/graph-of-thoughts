@@ -1,0 +1,10 @@
+{
+    "summary": "This code imports classes from different modules within the \"graph-of-thoughts\" package to be used in operations. It includes classes for Thought, GraphOfOperations, Operation, Score, ValidateAndImprove, Generate, Aggregate, KeepBestN, KeepValid, Selector, GroundTruth, and Improve.",
+    "details": [
+        {
+            "comment": "This code imports classes from different modules within the \"graph-of-thoughts\" package to be used in operations. It includes classes for Thought, GraphOfOperations, Operation, Score, ValidateAndImprove, Generate, Aggregate, KeepBestN, KeepValid, Selector, GroundTruth, and Improve.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/operations/__init__.py\":0-13",
+            "content": "from .thought import Thought\nfrom .graph_of_operations import GraphOfOperations\nfrom .operations import (\n    Operation,\n    Score,\n    ValidateAndImprove,\n    Generate,\n    Aggregate,\n    KeepBestN,\n    KeepValid,\n    Selector,\n    GroundTruth,\n    Improve,\n)"
+        }
+    ]
+}

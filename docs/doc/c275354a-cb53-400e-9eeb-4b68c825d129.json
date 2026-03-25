@@ -1,0 +1,15 @@
+{
+    "summary": "The code provides a generic language model configuration template, including parameters for model ID, prompt and response token costs, temperature, max tokens, stop words, cache directory (\"/llama\"), and optional values (top-k=10). This is a user-specific config without API key or organization.",
+    "details": [
+        {
+            "comment": "This code appears to be a configuration template for language models, with each model (such as \"chatgpt\", \"chatgpt4\", \"llama7b-hf\", etc.) defined by its own set of parameters including the model ID, prompt and response token costs, temperature, max tokens, and optional stop words. The \"cache_dir\" parameter is specific to Llama models, suggesting these models require local caching. The absence of an API key and organization suggests that this is a generic template for user-specific configurations.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/language_models/config_template.json\":0-40",
+            "content": "{\n    \"chatgpt\" : {\n        \"model_id\": \"gpt-3.5-turbo\",\n        \"prompt_token_cost\": 0.0015,\n        \"response_token_cost\": 0.002,\n        \"temperature\": 1.0,\n        \"max_tokens\": 1536,\n        \"stop\": null,\n        \"organization\": \"\",\n        \"api_key\": \"\"\n    },\n    \"chatgpt4\" : {\n        \"model_id\": \"gpt-4\",\n        \"prompt_token_cost\": 0.03,\n        \"response_token_cost\": 0.06,\n        \"temperature\": 1.0,\n        \"max_tokens\": 4096,\n        \"stop\": null,\n        \"organization\": \"\",\n        \"api_key\": \"\"\n    },\n    \"llama7b-hf\" : {\n        \"model_id\": \"Llama-2-7b-chat-hf\",\n        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    },\n    \"llama13b-hf\" : {\n        \"model_id\": \"Llama-2-13b-chat-hf\",\n        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    },\n    \"llama70b-hf\" : {\n        \"model_id\": \"Llama-2-70b-chat-hf\","
+        },
+        {
+            "comment": "This code snippet contains a configuration template for a language model. It sets the cache directory path as \"/llama\", prompts and response tokens costs to 0, temperature at 0.6, top-k value as 10, and maximum generated token count as 4096.",
+            "location": "\"/media/root/Toshiba XG3/works/graph-of-thoughts/docs/src/graph_of_thoughts/language_models/config_template.json\":41-48",
+            "content": "        \"cache_dir\": \"/llama\",\n        \"prompt_token_cost\": 0.0,\n        \"response_token_cost\": 0.0,\n        \"temperature\": 0.6,\n        \"top_k\": 10,\n        \"max_tokens\": 4096\n    }\n}"
+        }
+    ]
+}
